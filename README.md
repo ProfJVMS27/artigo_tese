@@ -39,3 +39,9 @@ The numerical-sensitivity materials document a targeted diagnostic, not a genera
 ## Before a public release
 
 Complete every item in `PROVENANCE/RELEASE_CHECKLIST.md`, particularly authorship, licensing, archival DOI, and any institutional review of material that may be publicly released.
+
+## Como Citar
+
+Se você utilizar este material, por favor cite:
+
+> **MENDES DA SILVA, João Vitor**. *Uncertainty-aware surrogate-assisted multi-objective design of hybrid ballistic-radiological shields for RDD response*. Pacote de reprodutibilidade. Tese de Doutorado em Engenharia Nuclear, COPPE/UFRJ, Rio de Janeiro, 2026. DOI: [10.5281/zenodo.23387361](https://doi.org/10.5281/zenodo.23387361)
