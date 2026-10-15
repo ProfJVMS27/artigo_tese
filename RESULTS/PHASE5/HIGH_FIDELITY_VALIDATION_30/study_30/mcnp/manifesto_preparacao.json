@@ -1,0 +1,18 @@
+{
+  "created_utc": "2026-10-03T10:31:12.402317+00:00",
+  "purpose": "Fase 4 high-fidelity validation preparation only",
+  "candidate_source": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\candidatos_validacao_alta_fidelidade_30.csv",
+  "candidate_source_sha256": "831792c41f9aa917c6ceda48a39ec4c1c4c01738adbe6a36edee2db285e78bed",
+  "mcnp_reference": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 2\\mcnp63_canonical_validation.py",
+  "mcnp_reference_sha256": "f46870f14f7ef14db45d7ed716d2dd98b0bd075ab0d48d81da9b9488bf533754",
+  "dedf_response_builder": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 2\\MCNP\\CAMPANHA_DEDF_AP_MCNP63_20261001\\prepare_campaign_dedf_ap.py",
+  "dedf_response_builder_sha256": "d87cc543475fe9a8b5feeeb1cedffbab3d037ab70498eccc38f29c2bcdfc7278",
+  "mcnp_response_contract": "DE4/DF4 ICRP-116 AP, DF pSv cm2, FM4=7400 mSv/s",
+  "lsdyna_frozen_model": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 2\\LS-DYNA\\lsdyna_modelo_mecanico_congelado.py",
+  "lsdyna_frozen_model_sha256": "25e11f3951c2db8aa66acae7706e8e3f7eae11d344e65db44f5e23a9802edbfa",
+  "n_candidates": 30,
+  "mcnp_executed": false,
+  "lsdyna_executed": false,
+  "original_campaign_modified": false,
+  "original_keywords_modified": false
+}

@@ -1,0 +1,120 @@
+{
+  "baselines": [
+    {
+      "baseline": "Beer-Lambert log-linear fit",
+      "cv_rmse_mean": 0.17139295347606537,
+      "cv_rmse_sd": 0.008325701451526887,
+      "scope": "post-review training-only diagnostic, not a new operational model"
+    },
+    {
+      "baseline": "Affine transmission proxy",
+      "cv_rmse_mean": 0.17062053287048146,
+      "cv_rmse_sd": 0.008641338053124822,
+      "scope": "post-review training-only diagnostic, not a new operational model"
+    },
+    {
+      "baseline": "RAW log-dose Ridge alpha=0.01",
+      "cv_rmse_mean": 0.7157962301383423,
+      "cv_rmse_sd": 0.028887407104277122,
+      "scope": "post-review training-only diagnostic, not a new operational model"
+    },
+    {
+      "baseline": "RAW log-dose Ridge alpha=0.1",
+      "cv_rmse_mean": 0.7157842773049558,
+      "cv_rmse_sd": 0.02888609622391878,
+      "scope": "post-review training-only diagnostic, not a new operational model"
+    },
+    {
+      "baseline": "RAW log-dose Ridge alpha=1.0",
+      "cv_rmse_mean": 0.7156660451146986,
+      "cv_rmse_sd": 0.028873056366957434,
+      "scope": "post-review training-only diagnostic, not a new operational model"
+    },
+    {
+      "baseline": "RAW log-dose Ridge alpha=10.0",
+      "cv_rmse_mean": 0.7146029081279254,
+      "cv_rmse_sd": 0.028749229302542884,
+      "scope": "post-review training-only diagnostic, not a new operational model"
+    },
+    {
+      "baseline": "RAW log-dose Ridge alpha=100.0",
+      "cv_rmse_mean": 0.7101442707359624,
+      "cv_rmse_sd": 0.02795290471346783,
+      "scope": "post-review training-only diagnostic, not a new operational model"
+    }
+  ],
+  "checks_outputs": 2000,
+  "unparsed": 0,
+  "failure_counts": {
+    "check_1": 11,
+    "check_2": 0,
+    "check_3": 0,
+    "check_4": 0,
+    "check_5": 0,
+    "check_6": 0,
+    "check_7": 0,
+    "check_8": 0,
+    "check_9": 36,
+    "check_10": 0
+  },
+  "filter_sensitivity": {
+    "all_failures_unique": 43,
+    "removed_from_training": 32,
+    "training_kept": 1368,
+    "test_n_unchanged": 300,
+    "test_rmse_after_filter": 0.05753415673242747,
+    "test_mae_after_filter": 0.04636747552665887,
+    "test_r2_after_filter": 0.9938576499348677,
+    "scope": "post-review sensitivity, fixed hyperparameters, unchanged test, not used for model selection"
+  },
+  "fold_differences": [
+    0.008339857946816132,
+    0.011350800385019344,
+    -0.037380457669201395,
+    -0.08181973910971196,
+    0.012378994430824797
+  ],
+  "mean_fold_difference": -0.017426108803250618,
+  "excluded": [
+    {
+      "sim_id": 733,
+      "energy_ratio_final": 0.693562,
+      "energy_ratio_max_abs_deviation": 0.306466,
+      "material_camada_7": "Al",
+      "espessura_camada_7_cm": 0.289,
+      "id_simulacao": 733,
+      "max_penetration_pred_mm": 13.20808219909668,
+      "massa_total_kg": 210.60477031149244
+    },
+    {
+      "sim_id": 832,
+      "energy_ratio_final": 0.866201,
+      "energy_ratio_max_abs_deviation": 0.133876,
+      "material_camada_7": "Al",
+      "espessura_camada_7_cm": 0.267,
+      "id_simulacao": 832,
+      "max_penetration_pred_mm": 16.44416618347168,
+      "massa_total_kg": 179.33326265095383
+    },
+    {
+      "sim_id": 1277,
+      "energy_ratio_final": 0.867467,
+      "energy_ratio_max_abs_deviation": 0.1326469999999999,
+      "material_camada_7": "Al",
+      "espessura_camada_7_cm": 0.266,
+      "id_simulacao": 1277,
+      "max_penetration_pred_mm": 12.910006523132324,
+      "massa_total_kg": 210.46685901365996
+    },
+    {
+      "sim_id": 1567,
+      "energy_ratio_final": 0.93058,
+      "energy_ratio_max_abs_deviation": 0.0697959999999999,
+      "material_camada_7": "Al",
+      "espessura_camada_7_cm": 0.261,
+      "id_simulacao": 1567,
+      "max_penetration_pred_mm": 3.93429970741272,
+      "massa_total_kg": 189.51599205132587
+    }
+  ]
+}

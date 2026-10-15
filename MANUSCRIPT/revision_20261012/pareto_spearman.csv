@@ -1,0 +1,4 @@
+index,dose_pred_5min_mSv,massa_total_kg,custo_total_unidade
+dose_pred_5min_mSv,1.0,-0.9952942563569658,-0.6762533187664478
+massa_total_kg,-0.9952942563569658,1.0,0.6229020744326239
+custo_total_unidade,-0.6762533187664478,0.6229020744326239,1.0

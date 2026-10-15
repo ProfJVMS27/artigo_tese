@@ -1,0 +1,2 @@
+command,elapsed_s,keyword,keyword_sha256,normal_termination,return_code,sim_id,status
+C:\Program Files\LS-DYNA Suite R16.1 Student\lsdyna\ls-dyna_smp_d_R16.1_180-gd50332dbe5_winx64_ifort190_sse2_studentversion.exe i=sim_9001.k ncpu=3 memory=100m,247.532,C:\Users\Admin\Desktop\Scripts Tese 1\Fase 5\VALIDACAO_ALTA_FIDELIDADE\fase4_20261003_043316_MCNP63_DEDF_AP_30\study_30\lsdyna\sim_9001\sim_9001.k,b3d7a0b33e5e302b69b0827e923ada689f7ba64708a9ea13ba0ea2ca8835691f,True,0,9001,COMPLETED

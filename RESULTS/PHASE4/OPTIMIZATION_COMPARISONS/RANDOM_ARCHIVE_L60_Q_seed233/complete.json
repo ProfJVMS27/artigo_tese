@@ -1,0 +1,17 @@
+{
+  "signature": "53baa6d6f298aaa14821c6315bff755b886f41f029ff6f269922296aaf9d9e14",
+  "method": "RANDOM_ARCHIVE",
+  "limit_mm": 60,
+  "margin": true,
+  "seed": 233,
+  "job": "RANDOM_ARCHIVE_L60_Q_seed233",
+  "generation": 200,
+  "n_evaluations": 60300,
+  "hv": 0.720216110623448,
+  "feasible_fraction": 1.0,
+  "front_size": 300,
+  "sampled_feasible_fraction": 1.0,
+  "near_limit_1mm": 0,
+  "elapsed_seconds": 600.5907377999974,
+  "completed_utc": "2026-10-14T16:21:44+00:00"
+}

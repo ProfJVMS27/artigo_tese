@@ -1,0 +1,7 @@
+{
+  "table_1": "Algorithm classes and RandomizedSearchCV search spaces.",
+  "table_2": "Feature groups, formulas, and physical rationale.",
+  "table_3": "Training-only feature-representation comparison.",
+  "table_4": "Selected-surrogate results on the untouched test partition.",
+  "supplementary": "Full matrix of optimized candidate combinations."
+}

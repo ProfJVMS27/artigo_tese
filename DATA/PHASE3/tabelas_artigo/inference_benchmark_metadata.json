@@ -1,0 +1,9 @@
+{
+  "created_utc": "2026-10-03T06:59:57+00:00",
+  "python": "3.10.8 | packaged by conda-forge | (main, Nov 22 2022, 08:16:53) [MSC v.1929 64 bit (AMD64)]",
+  "platform": "Windows-10-10.0.19045-SP0",
+  "processor": "Intel64 Family 6 Model 42 Stepping 7, GenuineIntel",
+  "repeats": 30,
+  "batch_size_requested": 300,
+  "calibration_or_test_responses_used": false
+}

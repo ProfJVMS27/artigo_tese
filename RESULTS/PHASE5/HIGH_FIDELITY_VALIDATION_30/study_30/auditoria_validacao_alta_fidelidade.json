@@ -1,0 +1,10 @@
+{
+  "n_cases": 30,
+  "dose_conformal_q95_mSv": 0.10913823753808138,
+  "penetration_conformal_q95_mm": 3.9334413299560556,
+  "dose_mae_mSv": 0.08831548764559113,
+  "penetration_mae_mm": 0.809350304651262,
+  "dose_within_conformal_95": 21,
+  "penetration_within_conformal_95": 29,
+  "result_csv": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\validacao_alta_fidelidade_consolidada.csv"
+}

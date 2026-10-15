@@ -1,0 +1,42 @@
+{
+  "signature": "111be9a6fcbee2c73b4bbd5a65254f63951ad68ccc86ae1c37fed42b6fff765f",
+  "signature_payload": {
+    "script_version": "FASE4-THESIS-CONSTRAINED-MIXED-NSGA2-v1.5-MCNP63-DEDF-AP-PARETO-METRICS",
+    "seed": 349,
+    "population_size": 300,
+    "num_generations": 200,
+    "checkpoint_interval": 50,
+    "crossover_prob": 0.9,
+    "perm_swap_mutation_prob": 0.2,
+    "thickness_gene_mutation_prob": 0.14285714285714285,
+    "sbx_eta": 15.0,
+    "poly_mut_eta": 20.0,
+    "bounds_cm": [
+      0.2,
+      2.0
+    ],
+    "total_thickness_cm": 6.0,
+    "resolution_cm": 0.001,
+    "ballistic_limit_mm": 60.0,
+    "model_hashes": {
+      "surrogate_dose": "97fca63aa61bca69ed2d82753b256be01c34e0bc16ae258ade0fa74de2239e73",
+      "surrogate_penetration": "db1c7f697b205cea7fabb55c91cd53ebd050dffa818ce07d4324e07056d7a11f",
+      "feature_engineering": "fc02669c66e087b1c4736b0a8a884fd03045f57e147a6963410653e04a1b66cd"
+    }
+  },
+  "completed_utc": "2026-10-03T08:40:37+00:00",
+  "summary": {
+    "run_id": 4,
+    "seed": 349,
+    "runtime_s": 1135.5242018699646,
+    "population_size": 300,
+    "num_generations": 200,
+    "final_feasible_count": 300,
+    "final_feasible_fraction": 1.0,
+    "final_pareto_size": 300,
+    "final_hv_raw": 7691660.62197194,
+    "final_hv_normalized": 0.7186249679775045,
+    "final_spacing_metric": 0.01850814678552004,
+    "min_constraint_violation_mm": 0.0
+  }
+}

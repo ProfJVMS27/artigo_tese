@@ -1,0 +1,8 @@
+baseline,cv_rmse_mean,cv_rmse_sd,scope
+Beer-Lambert log-linear fit,0.17139295347606537,0.008325701451526887,"post-review training-only diagnostic, not a new operational model"
+Affine transmission proxy,0.17062053287048146,0.008641338053124822,"post-review training-only diagnostic, not a new operational model"
+RAW log-dose Ridge alpha=0.01,0.7157962301383423,0.028887407104277122,"post-review training-only diagnostic, not a new operational model"
+RAW log-dose Ridge alpha=0.1,0.7157842773049558,0.02888609622391878,"post-review training-only diagnostic, not a new operational model"
+RAW log-dose Ridge alpha=1.0,0.7156660451146986,0.028873056366957434,"post-review training-only diagnostic, not a new operational model"
+RAW log-dose Ridge alpha=10.0,0.7146029081279254,0.028749229302542884,"post-review training-only diagnostic, not a new operational model"
+RAW log-dose Ridge alpha=100.0,0.7101442707359624,0.02795290471346783,"post-review training-only diagnostic, not a new operational model"

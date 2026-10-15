@@ -1,0 +1,1742 @@
+[
+  {
+    "case": "sim_9001",
+    "peaks": {
+      "all_nodes": {
+        "node": 19846,
+        "time_ms": 0.01942935,
+        "x_mm": 408.595,
+        "penetration_mm": 1.4049999999999727,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19846,
+        "time_ms": 0.01942935,
+        "x_mm": 408.595,
+        "penetration_mm": 1.4049999999999727,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.0021,
+    "max_energy_deviation": 0.0021599999999999397,
+    "sliding_energy_final_J": 13.1491,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   1.4819E+02     kinen=   5.2863E+01     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   3.4098E-01     y-mom=  -2.5670E-06     z-mom=  -1.5392E-06\n x-rbv=   3.0998E+02     y-rbv=  -2.3336E-03     z-rbv=  -1.3993E-03\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9001\\messag",
+        "sha256": "b324b8d32c209d3bae36803af462728ddea4a240f4272c8b56ecb0e8a516f7b6"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9001\\nodout",
+        "sha256": "43d5b47a1286575afb588224a0820650edd668272149b80a5717ebbbbf76f0d4"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9001\\glstat",
+        "sha256": "6ba8a3a92a5c50f77a130a6573802a0468d2676dea46ad1d1aa303ee839b3312"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9001\\matsum",
+        "sha256": "e976281ce154be1c1b226c01ada81641fc3799a645f23e5ecdd36b4c2678f883"
+      }
+    }
+  },
+  {
+    "case": "sim_9002",
+    "peaks": {
+      "all_nodes": {
+        "node": 19846,
+        "time_ms": 0.019393239,
+        "x_mm": 408.633,
+        "penetration_mm": 1.3670000000000186,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19846,
+        "time_ms": 0.019393239,
+        "x_mm": 408.633,
+        "penetration_mm": 1.3670000000000186,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.00179,
+    "max_energy_deviation": 0.0018299999999999983,
+    "sliding_energy_final_J": 16.6999,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   1.4717E+02     kinen=   4.8248E+01     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   3.2579E-01     y-mom=  -2.4974E-06     z-mom=  -1.4875E-06\n x-rbv=   2.9617E+02     y-rbv=  -2.2704E-03     z-rbv=  -1.3522E-03\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9002\\messag",
+        "sha256": "90d3da01537a71f49b6c59b4f928bc4220790d7fd0b856237d3536f3cef9acc0"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9002\\nodout",
+        "sha256": "ce2ed852089f7db7d6a27956889f9de3f010bbd341a3c24df767f3ad87d3d826"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9002\\glstat",
+        "sha256": "203e8c841dd63f0b1f1b8b026fba002790eafc2b9f88a520ffe6cf92072be77f"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9002\\matsum",
+        "sha256": "69449d3db8cd13f8243a477f10a01f0cb57e680b839ee9dbe006a371e7b766e0"
+      }
+    }
+  },
+  {
+    "case": "sim_9003",
+    "peaks": {
+      "all_nodes": {
+        "node": 19846,
+        "time_ms": 0.018452641,
+        "x_mm": 408.798,
+        "penetration_mm": 1.2019999999999982,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19846,
+        "time_ms": 0.018452641,
+        "x_mm": 408.798,
+        "penetration_mm": 1.2019999999999982,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.00176,
+    "max_energy_deviation": 0.0017899999999999583,
+    "sliding_energy_final_J": 2.94967,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   1.4500E+02     kinen=   2.2010E+01     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   2.2003E-01     y-mom=   7.8860E-07     z-mom=   1.3891E-06\n x-rbv=   2.0002E+02     y-rbv=   7.1691E-04     z-rbv=   1.2628E-03\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9003\\messag",
+        "sha256": "8ebcff2c03bc8b15b1c8d4a3e72f2ffdc264e311aff4f439010f91d6080334ba"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9003\\nodout",
+        "sha256": "833d3ec62a3eff2aa2ccd5e17a5692fed28661b2abf00b87facc10259ea2dc37"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9003\\glstat",
+        "sha256": "28c168744ec138a89f7554de43c54458cbd0fe6672b81e84b213c051e330c912"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9003\\matsum",
+        "sha256": "22528b032bdca75fc56073f960822090aee77fad6056e086464aee79c56edaab"
+      }
+    }
+  },
+  {
+    "case": "sim_9004",
+    "peaks": {
+      "all_nodes": {
+        "node": 19846,
+        "time_ms": 0.018906078,
+        "x_mm": 408.701,
+        "penetration_mm": 1.2989999999999782,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19846,
+        "time_ms": 0.018906078,
+        "x_mm": 408.701,
+        "penetration_mm": 1.2989999999999782,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.00225,
+    "max_energy_deviation": 0.0023100000000000342,
+    "sliding_energy_final_J": 8.23274,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   1.4894E+02     kinen=   3.5383E+01     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   2.7896E-01     y-mom=  -1.8969E-06     z-mom=  -9.1751E-07\n x-rbv=   2.5360E+02     y-rbv=  -1.7245E-03     z-rbv=  -8.3410E-04\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9004\\messag",
+        "sha256": "abf52c4eb6b95758d8bb9ce0df562ca3dbd737c0c3f164f907a8b43cf1b0f7ff"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9004\\nodout",
+        "sha256": "5ea0c827e4f230d9b0dd73e1e8cd6fad815c7c20634898bf37af5b5cd56ce6ae"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9004\\glstat",
+        "sha256": "04ccddb7560257365e46ad1853710456b39041e6aa8d5c71516e44e27c1559fb"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9004\\matsum",
+        "sha256": "0acdca772ee5fed43d423e66e97dbf6f26e602e65219209cdb8e1eaf69b2fc74"
+      }
+    }
+  },
+  {
+    "case": "sim_9005",
+    "peaks": {
+      "all_nodes": {
+        "node": 19846,
+        "time_ms": 0.017995547,
+        "x_mm": 408.868,
+        "penetration_mm": 1.132000000000005,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19846,
+        "time_ms": 0.017995547,
+        "x_mm": 408.868,
+        "penetration_mm": 1.132000000000005,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.00199,
+    "max_energy_deviation": 0.0020299999999999763,
+    "sliding_energy_final_J": 2.94016,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   1.4709E+02     kinen=   2.0504E+01     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   2.1232E-01     y-mom=   1.2702E-06     z-mom=   2.4740E-06\n x-rbv=   1.9302E+02     y-rbv=   1.1548E-03     z-rbv=   2.2491E-03\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9005\\messag",
+        "sha256": "d9142394312bd68c43e99d0acffdaffdd0f4ec95af851a34c5d296977ac5f72e"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9005\\nodout",
+        "sha256": "77e0e9c8d9dd59a5f856e536e65c2b92f087bdaa86386ffd21c880bb9e942295"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9005\\glstat",
+        "sha256": "aaa324ef1a59aacd2206905a2cd4ea53c65ffd93b23707fcb351940b9711789e"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9005\\matsum",
+        "sha256": "304412464256af76c3ef0c472fd0067383f7ddc8237a5862b0ad58aba929d5a5"
+      }
+    }
+  },
+  {
+    "case": "sim_9006",
+    "peaks": {
+      "all_nodes": {
+        "node": 19846,
+        "time_ms": 0.018851485,
+        "x_mm": 408.651,
+        "penetration_mm": 1.3489999999999895,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19846,
+        "time_ms": 0.018851485,
+        "x_mm": 408.651,
+        "penetration_mm": 1.3489999999999895,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.00302,
+    "max_energy_deviation": 0.003149999999999986,
+    "sliding_energy_final_J": 16.8022,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   1.4667E+02     kinen=   4.4807E+01     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   3.1392E-01     y-mom=  -2.5879E-06     z-mom=  -1.7221E-06\n x-rbv=   2.8538E+02     y-rbv=  -2.3526E-03     z-rbv=  -1.5655E-03\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9006\\messag",
+        "sha256": "b348c7495c0fe414dde824767e83c274d7f714444a4dda0118b56120b5977b87"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9006\\nodout",
+        "sha256": "a173a11deac05487e4f13082461dccceda2b880b16d363c8b62e31f574f4b06a"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9006\\glstat",
+        "sha256": "6f2ee2878950e4c835ca94d84122e1e7c1561b43aed8bbc11aeaef48174ee7e8"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9006\\matsum",
+        "sha256": "63feb7b2362845cc74cd6d6336fe900d061a526c32f5c45c61013887e17a54d1"
+      }
+    }
+  },
+  {
+    "case": "sim_9007",
+    "peaks": {
+      "all_nodes": {
+        "node": 19853,
+        "time_ms": 0.047386189,
+        "x_mm": 401.091,
+        "penetration_mm": 8.908999999999992,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19853,
+        "time_ms": 0.047386189,
+        "x_mm": 401.091,
+        "penetration_mm": 8.908999999999992,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.0014,
+    "max_energy_deviation": 0.0026800000000000157,
+    "sliding_energy_final_J": 27.7947,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   3.2661E+01     kinen=   2.1980E+01     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   2.1906E-01     y-mom=   4.8517E-04     z-mom=   3.2879E-04\n x-rbv=   1.9914E+02     y-rbv=   4.4107E-01     z-rbv=   2.9890E-01\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9007\\messag",
+        "sha256": "0f370f72612eecc660da36a3400f668c3635b01995b9ab087c4b23ee9081158c"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9007\\nodout",
+        "sha256": "693a8d1dc9d2362ce1ba76e08bf2c9a07097156208db20c783460d608875ed5b"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9007\\glstat",
+        "sha256": "5f1ac826acc1f7ec9afd42d1a2c3bc7de0f9397a584642aed8f7e82767a8fba8"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9007\\matsum",
+        "sha256": "201064b72f2e17534ec80b5ec452e89b73f1d78b4a55172dbcdd9aa810a91394"
+      }
+    }
+  },
+  {
+    "case": "sim_9008",
+    "peaks": {
+      "all_nodes": {
+        "node": 19846,
+        "time_ms": 0.017988236,
+        "x_mm": 408.881,
+        "penetration_mm": 1.1190000000000282,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19846,
+        "time_ms": 0.017988236,
+        "x_mm": 408.881,
+        "penetration_mm": 1.1190000000000282,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.00178,
+    "max_energy_deviation": 0.0018100000000000893,
+    "sliding_energy_final_J": 3.04251,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   1.4749E+02     kinen=   2.0185E+01     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   2.1068E-01     y-mom=   1.2728E-06     z-mom=   2.6751E-06\n x-rbv=   1.9153E+02     y-rbv=   1.1571E-03     z-rbv=   2.4319E-03\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9008\\messag",
+        "sha256": "0e73f1ddc02c4c8270acbc564e5d221a186fd3538b0dc046e48a33e7be0306ed"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9008\\nodout",
+        "sha256": "18e254d02733ea14a444d05e731c6f09d0e92ea5de190430916185678482a59e"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9008\\glstat",
+        "sha256": "98468a3beb153e945eae7fe0e4233100105011a1cdad1b229e021f497aaf860f"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9008\\matsum",
+        "sha256": "51e8e0b6599f9f354977983739c16cb6ba65319ca136e3a8b0c6067f78ffa30e"
+      }
+    }
+  },
+  {
+    "case": "sim_9009",
+    "peaks": {
+      "all_nodes": {
+        "node": 19846,
+        "time_ms": 0.017861497,
+        "x_mm": 408.91,
+        "penetration_mm": 1.089999999999975,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19846,
+        "time_ms": 0.017861497,
+        "x_mm": 408.91,
+        "penetration_mm": 1.089999999999975,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.00243,
+    "max_energy_deviation": 0.0024800000000000377,
+    "sliding_energy_final_J": 3.06888,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   1.4841E+02     kinen=   1.9494E+01     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   2.0707E-01     y-mom=   1.5635E-06     z-mom=   3.2473E-06\n x-rbv=   1.8825E+02     y-rbv=   1.4214E-03     z-rbv=   2.9521E-03\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9009\\messag",
+        "sha256": "6b7db875dc78b7ba554e2e20372098545ecc6e092cad9eea50d2a92ff72dfd0d"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9009\\nodout",
+        "sha256": "a8c54de4f40c2d2a6c7eec4f8e9ecdfc87fbb8e52f8b89ef5262fdc5734ae0fc"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9009\\glstat",
+        "sha256": "3cd7f1d5db756d0588607d30f2beab349ab351727d18d360389edf327a304ff5"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9009\\matsum",
+        "sha256": "b25afe54653f1d31eab97f15e8873dc1f2dd1d85bb31efadf368e057dd90cb95"
+      }
+    }
+  },
+  {
+    "case": "sim_9010",
+    "peaks": {
+      "all_nodes": {
+        "node": 19846,
+        "time_ms": 0.027820213,
+        "x_mm": 407.647,
+        "penetration_mm": 2.3530000000000086,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19846,
+        "time_ms": 0.027820213,
+        "x_mm": 407.647,
+        "penetration_mm": 2.3530000000000086,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.00052,
+    "max_energy_deviation": 0.0014899999999999913,
+    "sliding_energy_final_J": 23.8898,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   4.8842E+01     kinen=   6.2368E+01     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   3.7027E-01     y-mom=  -3.7605E-04     z-mom=  -3.0952E-04\n x-rbv=   3.3661E+02     y-rbv=  -3.4187E-01     z-rbv=  -2.8138E-01\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9010\\messag",
+        "sha256": "397c23ad65845b4365d9f5d0191f0c90755a36dc801d3522a8ea61a57e5bfd4f"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9010\\nodout",
+        "sha256": "eb8ee66600589f176bdcd15619555bd3b17c930ffe44990eb21b06f9f9b5073d"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9010\\glstat",
+        "sha256": "98f49a2de527170e01d6fe1cdc13079f6bf4996a833dfa712f276e8b7d03f49c"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9010\\matsum",
+        "sha256": "5f2086291ff3bef6613f0512d7d1ac5dc36e0e9864c5e73a22004cab0a63ee26"
+      }
+    }
+  },
+  {
+    "case": "sim_9011",
+    "peaks": {
+      "all_nodes": {
+        "node": 19846,
+        "time_ms": 0.017936601,
+        "x_mm": 408.886,
+        "penetration_mm": 1.113999999999976,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19846,
+        "time_ms": 0.017936601,
+        "x_mm": 408.886,
+        "penetration_mm": 1.113999999999976,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.00176,
+    "max_energy_deviation": 0.0018000000000000238,
+    "sliding_energy_final_J": 2.96521,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   1.4763E+02     kinen=   2.0183E+01     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   2.1068E-01     y-mom=   1.3178E-06     z-mom=   2.7275E-06\n x-rbv=   1.9152E+02     y-rbv=   1.1980E-03     z-rbv=   2.4796E-03\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9011\\messag",
+        "sha256": "e3806aca78eb960d057df65d3e9754bf9b4f56e796bbf0b23eafee8303ced7b8"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9011\\nodout",
+        "sha256": "fa30529298905e4c34b388c314c6a7cd1cc7ddfa81a7b399e55ec56f7baff980"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9011\\glstat",
+        "sha256": "a32044d728c97c5b5f61c0f1424b6d7fee8dcaf1c3fa93de62a479638975d46e"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9011\\matsum",
+        "sha256": "141bb863d22d7011a25a66a3a309e7c78600164e29f4cf30bcc147b558426bd0"
+      }
+    }
+  },
+  {
+    "case": "sim_9012",
+    "peaks": {
+      "all_nodes": {
+        "node": 19846,
+        "time_ms": 0.017437642,
+        "x_mm": 409.121,
+        "penetration_mm": 0.8790000000000191,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19846,
+        "time_ms": 0.017437642,
+        "x_mm": 409.121,
+        "penetration_mm": 0.8790000000000191,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.00537,
+    "max_energy_deviation": 0.005640000000000089,
+    "sliding_energy_final_J": 0.52503,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   1.8719E+02     kinen=   2.4420E+01     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   2.3165E-01     y-mom=  -3.8265E-06     z-mom=  -2.9705E-06\n x-rbv=   2.1059E+02     y-rbv=  -3.4786E-03     z-rbv=  -2.7004E-03\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9012\\messag",
+        "sha256": "19dcb5d895f402df1156e28f0808c6317ad8230be57bbc43f09fcbac1137d6ae"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9012\\nodout",
+        "sha256": "6c596666292fc108e5090ee1c55f1b7e595a97427a36e878cd0ad50db1efc2f2"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9012\\glstat",
+        "sha256": "73c1d1d6937fcd7cf492e2fe26b5b459c268fe553c996e635ca09a72917a34d9"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9012\\matsum",
+        "sha256": "c44780893ee67b1be3bf107d1e30507f4a4e343a265f2f5c4aefe602a4b0cae3"
+      }
+    }
+  },
+  {
+    "case": "sim_9013",
+    "peaks": {
+      "all_nodes": {
+        "node": 19846,
+        "time_ms": 0.018409374,
+        "x_mm": 408.798,
+        "penetration_mm": 1.2019999999999982,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19846,
+        "time_ms": 0.018409374,
+        "x_mm": 408.798,
+        "penetration_mm": 1.2019999999999982,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.00169,
+    "max_energy_deviation": 0.0017199999999999438,
+    "sliding_energy_final_J": 3.03725,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   1.4486E+02     kinen=   2.1926E+01     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   2.1961E-01     y-mom=   7.5465E-07     z-mom=   1.3457E-06\n x-rbv=   1.9965E+02     y-rbv=   6.8605E-04     z-rbv=   1.2234E-03\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9013\\messag",
+        "sha256": "0bc417517222446cddecef27adf0f9640f13587e6c49038d36201de1e6b68c8a"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9013\\nodout",
+        "sha256": "fd01650b2c0581f8ad4c7c41e516264d67ad126783453676f6c57a38f7bcbbea"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9013\\glstat",
+        "sha256": "d9c557f1ba06abe424699dca28eed1a21d3673890b4cc8630a758c14c83a6319"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9013\\matsum",
+        "sha256": "65e06fcbb35464aa57a893301b877c3dc202d09f3fa267a1c88df9395601e38d"
+      }
+    }
+  },
+  {
+    "case": "sim_9014",
+    "peaks": {
+      "all_nodes": {
+        "node": 19846,
+        "time_ms": 0.017982831,
+        "x_mm": 409.048,
+        "penetration_mm": 0.9519999999999982,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19846,
+        "time_ms": 0.017982831,
+        "x_mm": 409.048,
+        "penetration_mm": 0.9519999999999982,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.00262,
+    "max_energy_deviation": 0.0026999999999999247,
+    "sliding_energy_final_J": 2.71415,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   1.5328E+02     kinen=   1.5351E+01     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   1.8368E-01     y-mom=   5.9505E-07     z-mom=   4.9231E-06\n x-rbv=   1.6698E+02     y-rbv=   5.4096E-04     z-rbv=   4.4755E-03\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9014\\messag",
+        "sha256": "3d7932b665a71b345425e53a078ef14c075e88ce5f1f927bcec0f27cb67b744a"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9014\\nodout",
+        "sha256": "50a0d19596f7951cd53fe6cea5f5c7b80fa31818acee415300a13fa00118861b"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9014\\glstat",
+        "sha256": "913abae919ce3acc8f599cf1cbce4dbd50f6555688e937502dbdd0aade84f6a5"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9014\\matsum",
+        "sha256": "db1f1e339a314b6ea8265a92d32b97bf51fae5aed73cdfa5e427bd4869f46988"
+      }
+    }
+  },
+  {
+    "case": "sim_9015",
+    "peaks": {
+      "all_nodes": {
+        "node": 19846,
+        "time_ms": 0.026495111,
+        "x_mm": 408.268,
+        "penetration_mm": 1.7320000000000277,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19846,
+        "time_ms": 0.026495111,
+        "x_mm": 408.268,
+        "penetration_mm": 1.7320000000000277,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.0009,
+    "max_energy_deviation": 0.0035000000000000586,
+    "sliding_energy_final_J": 12.6621,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   6.1899E+01     kinen=   8.5141E+01     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   4.3278E-01     y-mom=  -5.9101E-05     z-mom=  -6.5682E-05\n x-rbv=   3.9344E+02     y-rbv=  -5.3728E-02     z-rbv=  -5.9711E-02\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9015\\messag",
+        "sha256": "be3d9d7909e7ab8a44ac4b94d34eecc1463327e188cb06f2a4d001ea77a0db64"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9015\\nodout",
+        "sha256": "542d693296d05214ed15b2082d2404a40c8456173eb59470080e6a36513d7773"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9015\\glstat",
+        "sha256": "15eb2716441916c4774f0bc44593cd0ddd2cf65275ad987eb76bc4048179da8d"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9015\\matsum",
+        "sha256": "dbfcbab29ce03a68eaf98756425de7e150ab2bd5cdd747119de4ba7eea3f5a63"
+      }
+    }
+  },
+  {
+    "case": "sim_9016",
+    "peaks": {
+      "all_nodes": {
+        "node": 19853,
+        "time_ms": 0.027880254,
+        "x_mm": 406.039,
+        "penetration_mm": 3.9610000000000127,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19853,
+        "time_ms": 0.027880254,
+        "x_mm": 406.039,
+        "penetration_mm": 3.9610000000000127,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.00101,
+    "max_energy_deviation": 0.0022899999999999032,
+    "sliding_energy_final_J": 5.94174,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   5.0401E+01     kinen=   7.2106E-02     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   1.2385E-02     y-mom=  -3.3923E-05     z-mom=   5.1483E-05\n x-rbv=   1.1260E+01     y-rbv=  -3.0839E-02     z-rbv=   4.6803E-02\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9016\\messag",
+        "sha256": "f1bbd89843b176c6ae1162c93c4079dcadada3e6a218a73d0ece7b87c301e772"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9016\\nodout",
+        "sha256": "fd0948b67ba9f673f7fc7cd52f4c49dc50b34440df916ed3aac9a29abeb63b79"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9016\\glstat",
+        "sha256": "2ab0586597d23286c161dc6c211e8870c59c1686083773e30f468162ff26eef4"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9016\\matsum",
+        "sha256": "e4520a28fb2be939f7eb785beedc4e3478d95f4b0c5384d442464b1394614dce"
+      }
+    }
+  },
+  {
+    "case": "sim_9017",
+    "peaks": {
+      "all_nodes": {
+        "node": 19846,
+        "time_ms": 0.078994361,
+        "x_mm": 401.094,
+        "penetration_mm": 8.906000000000006,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19846,
+        "time_ms": 0.078994361,
+        "x_mm": 401.094,
+        "penetration_mm": 8.906000000000006,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.00396,
+    "max_energy_deviation": 0.003989999999999938,
+    "sliding_energy_final_J": 33.6638,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   9.1588E+00     kinen=   2.5512E+00     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   7.3993E-02     y-mom=  -1.9894E-06     z-mom=   1.3640E-06\n x-rbv=   6.7267E+01     y-rbv=  -1.8086E-03     z-rbv=   1.2400E-03\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9017\\messag",
+        "sha256": "4ab163ca1458b7d64806804b81d69474be94935d7f25320ce66a20c014081e28"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9017\\nodout",
+        "sha256": "6595a769ade698627e48b8523803e9e4376f488e499ab84d270b90ef1279484c"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9017\\glstat",
+        "sha256": "807a7b2db89a0fad569dc531c45d97f17d745353e3a77f9db73be1f9ad93af5a"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9017\\matsum",
+        "sha256": "46c9c4657e38e3266aaa29af09fd0b57294d1ba38ff87495ac2626536e982b32"
+      }
+    }
+  },
+  {
+    "case": "sim_9018",
+    "peaks": {
+      "all_nodes": {
+        "node": 19849,
+        "time_ms": 0.044481599,
+        "x_mm": 402.82,
+        "penetration_mm": 7.180000000000007,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19849,
+        "time_ms": 0.044481599,
+        "x_mm": 402.82,
+        "penetration_mm": 7.180000000000007,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.02015,
+    "max_energy_deviation": 0.02130999999999994,
+    "sliding_energy_final_J": 38.3598,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   1.1879E+01     kinen=   7.6268E-01     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   3.1014E-02     y-mom=  -2.9320E-06     z-mom=  -2.0162E-03\n x-rbv=   2.8195E+01     y-rbv=  -2.6654E-03     z-rbv=  -1.8329E+00\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9018\\messag",
+        "sha256": "8e164b0bce11118094f8f143b402cf5c50ecb7b5127a5a4e10491374a44e667c"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9018\\nodout",
+        "sha256": "fdf38f8b27e3916952fe2bef435b2797183e680bc05d7755ab4756badf9b5e9b"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9018\\glstat",
+        "sha256": "f82fbcfb3fcf6f20e8f1a61d4ce192c3891f307a4cafd1b79d962760230a22c6"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9018\\matsum",
+        "sha256": "7d006f6d95690109a02a9e54a0ff24e7b5065c0835e8261e8f5d412c3ac75e58"
+      }
+    }
+  },
+  {
+    "case": "sim_9019",
+    "peaks": {
+      "all_nodes": {
+        "node": 19846,
+        "time_ms": 0.017814224,
+        "x_mm": 408.934,
+        "penetration_mm": 1.065999999999974,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19846,
+        "time_ms": 0.017814224,
+        "x_mm": 408.934,
+        "penetration_mm": 1.065999999999974,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.00546,
+    "max_energy_deviation": 0.005640000000000089,
+    "sliding_energy_final_J": 0.765434,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   1.8790E+02     kinen=   3.6261E+01     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   2.8242E-01     y-mom=  -5.9003E-06     z-mom=  -5.3357E-06\n x-rbv=   2.5674E+02     y-rbv=  -5.3639E-03     z-rbv=  -4.8506E-03\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9019\\messag",
+        "sha256": "0d387cb9b9fa996640ea71bf17c028e6bd347fd1925873f044e9490674c2b3f2"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9019\\nodout",
+        "sha256": "f8578155b88b1fa72157b42ca4b426d70c33a6b5e5dc8a8236c3d8be9dd2906d"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9019\\glstat",
+        "sha256": "ad098356934a4c6f6cd05ecd926cfcbf6ef78e3bb3e26e7fff8a19cd8f3f720d"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9019\\matsum",
+        "sha256": "cab182b8cc5dbea09bdc3f52ebe0d75b8cbc238a12e8b327256c861fc5e2e179"
+      }
+    }
+  },
+  {
+    "case": "sim_9020",
+    "peaks": {
+      "all_nodes": {
+        "node": 19846,
+        "time_ms": 0.029981377,
+        "x_mm": 405.049,
+        "penetration_mm": 4.951000000000022,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19846,
+        "time_ms": 0.029981377,
+        "x_mm": 405.049,
+        "penetration_mm": 4.951000000000022,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 0.99964,
+    "max_energy_deviation": 0.0003630000000000022,
+    "sliding_energy_final_J": 0.90614,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   9.5697E+00     kinen=   1.1695E+02     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   5.0714E-01     y-mom=  -4.4963E-06     z-mom=  -2.2642E-06\n x-rbv=   4.6104E+02     y-rbv=  -4.0876E-03     z-rbv=  -2.0584E-03\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9020\\messag",
+        "sha256": "47e9fd51e7cb29ea484dc5cd572b0f4bd05672f2056e2b86ffbdd883e97d4b23"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9020\\nodout",
+        "sha256": "c7610d998d0cc012dd8288eaca5d4cf8d45cf4b04804e9beb6eb6243697ffc50"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9020\\glstat",
+        "sha256": "1aa0ab815b8a1f69b3a9918c48657f64f3c005b39bfc19412427119cfb7155ab"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9020\\matsum",
+        "sha256": "54bbf087234f9c2b192eb24634bd720764d9ec2a91bdcc0d8900ffd2a57eaa83"
+      }
+    }
+  },
+  {
+    "case": "sim_9021",
+    "peaks": {
+      "all_nodes": {
+        "node": 19846,
+        "time_ms": 0.058987793,
+        "x_mm": 391.515,
+        "penetration_mm": 18.485000000000014,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19846,
+        "time_ms": 0.058987793,
+        "x_mm": 391.515,
+        "penetration_mm": 18.485000000000014,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.0011,
+    "max_energy_deviation": 0.0011200000000000099,
+    "sliding_energy_final_J": 2.20529,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   4.6095E+01     kinen=   3.1625E+00     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   8.3207E-02     y-mom=  -9.8074E-07     z-mom=   2.0295E-06\n x-rbv=   7.5643E+01     y-rbv=  -8.9159E-04     z-rbv=   1.8450E-03\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9021\\messag",
+        "sha256": "78accdde6cc5dcf7fcb597c85a3b164f8caa58dd0161d18def6936ef405e7adb"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9021\\nodout",
+        "sha256": "8fd6106c346fda2bd4a4c7da5d1c6c42a78f85002027a7db5f61796d8c89d910"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9021\\glstat",
+        "sha256": "6b9d26a6a6378154fb9bf82163b1de482c074c6196bdc7757ff8a7fd02d8afef"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9021\\matsum",
+        "sha256": "c41e9f31b274e2f2a35f751a0cf6b9aaeabdcde087103a560c62e046ea5b74d4"
+      }
+    }
+  },
+  {
+    "case": "sim_9022",
+    "peaks": {
+      "all_nodes": {
+        "node": 19849,
+        "time_ms": 0.083859942,
+        "x_mm": 403.481,
+        "penetration_mm": 6.5190000000000055,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19849,
+        "time_ms": 0.083859942,
+        "x_mm": 403.481,
+        "penetration_mm": 6.5190000000000055,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.01152,
+    "max_energy_deviation": 0.01475000000000004,
+    "sliding_energy_final_J": 115.599,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   5.8921E+01     kinen=   1.3572E+00     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   5.3760E-02     y-mom=  -9.2683E-05     z-mom=  -1.4676E-04\n x-rbv=   4.8872E+01     y-rbv=  -8.4258E-02     z-rbv=  -1.3342E-01\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9022\\messag",
+        "sha256": "f20ada4ad97004539a1a5ef4987c278acee6b557e529a7277b55cd5f0497285a"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9022\\nodout",
+        "sha256": "1e05e7f6fd795d06198547ed509f6fc8f394b98c6532dbd1694ebd8a81524aa1"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9022\\glstat",
+        "sha256": "d1b7e574859616c8d92b07ffde8ccfbeb5165fadd9fd2dced6043cefeb8d5003"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9022\\matsum",
+        "sha256": "187762775539953bcbefc8f02bc2b197716a9ecaf1cfe916d9da5995078e8a4b"
+      }
+    }
+  },
+  {
+    "case": "sim_9023",
+    "peaks": {
+      "all_nodes": {
+        "node": 19850,
+        "time_ms": 0.17794058,
+        "x_mm": 401.307,
+        "penetration_mm": 8.692999999999984,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19850,
+        "time_ms": 0.17794058,
+        "x_mm": 401.307,
+        "penetration_mm": 8.692999999999984,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.00165,
+    "max_energy_deviation": 0.0016899999999999693,
+    "sliding_energy_final_J": 34.264,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   1.2459E+01     kinen=   5.2336E-01     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   2.6290E-02     y-mom=  -2.4860E-06     z-mom=   2.4261E-06\n x-rbv=   2.3900E+01     y-rbv=  -2.2600E-03     z-rbv=   2.2055E-03\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9023\\messag",
+        "sha256": "4106c39db7f09eb1538673365c14e499f084560ec02a09e19765545db74bcea2"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9023\\nodout",
+        "sha256": "9d7540c04546879b7f30ec6f81cfb44b41833635bc6cabea373deb563dacd32c"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9023\\glstat",
+        "sha256": "dd25312ca07f8a36ab579a50e954eb750a8e0248ec4ac3b68fb0eb92a735292e"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9023\\matsum",
+        "sha256": "cdfdcefc4ef4405b104d0d9af60842f6e4cd0fbdad88e77342bb77dcd89da440"
+      }
+    }
+  },
+  {
+    "case": "sim_9024",
+    "peaks": {
+      "all_nodes": {
+        "node": 19846,
+        "time_ms": 0.017788874,
+        "x_mm": 408.921,
+        "penetration_mm": 1.0790000000000077,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19846,
+        "time_ms": 0.017788874,
+        "x_mm": 408.921,
+        "penetration_mm": 1.0790000000000077,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.0054,
+    "max_energy_deviation": 0.005570000000000075,
+    "sliding_energy_final_J": 0.67628,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   1.8712E+02     kinen=   3.6861E+01     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   2.8475E-01     y-mom=  -6.1158E-06     z-mom=  -5.5342E-06\n x-rbv=   2.5887E+02     y-rbv=  -5.5598E-03     z-rbv=  -5.0311E-03\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9024\\messag",
+        "sha256": "78d53c281757e6ce4860c0f3b42b9ea42e3ab360373f10a1926ed641370d9cc2"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9024\\nodout",
+        "sha256": "692841aecf1aea5b811af87ef814720783649fd3b37c85413b041aa8ee38ce91"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9024\\glstat",
+        "sha256": "2f6b1ef2b13f1ee48a4d965df03649c588fbcd4c9d196840a4b5cb4a51196f91"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9024\\matsum",
+        "sha256": "faac546aca356c24277366cf5744a9a934db0206da22231d6a2523c1641940ec"
+      }
+    }
+  },
+  {
+    "case": "sim_9025",
+    "peaks": {
+      "all_nodes": {
+        "node": 19846,
+        "time_ms": 0.058482169,
+        "x_mm": 392.28,
+        "penetration_mm": 17.720000000000027,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19846,
+        "time_ms": 0.058482169,
+        "x_mm": 392.28,
+        "penetration_mm": 17.720000000000027,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.00181,
+    "max_energy_deviation": 0.0019700000000000273,
+    "sliding_energy_final_J": 4.20508,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   3.2636E+01     kinen=   1.6733E+00     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   6.0349E-02     y-mom=   4.5943E-06     z-mom=   1.2570E-05\n x-rbv=   5.4863E+01     y-rbv=   4.1767E-03     z-rbv=   1.1428E-02\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9025\\messag",
+        "sha256": "5639c942377a0c12fdaae8af9e4b32f9a31addc537435cbe98d32b39a30bbb30"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9025\\nodout",
+        "sha256": "5c7422a906b718a72851ab836d6522fc9989f93a639215d143032657d1ab5391"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9025\\glstat",
+        "sha256": "209048b9e7463629f2284fe0f38093489f621646809bd5dfd8bc763f237efa20"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9025\\matsum",
+        "sha256": "c486eb079399f17ccbbf34017a95d6b9f953eb01f8340e36bca9621ae8195ffa"
+      }
+    }
+  },
+  {
+    "case": "sim_9026",
+    "peaks": {
+      "all_nodes": {
+        "node": 19846,
+        "time_ms": 0.028972992,
+        "x_mm": 405.958,
+        "penetration_mm": 4.041999999999973,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19846,
+        "time_ms": 0.028972992,
+        "x_mm": 405.958,
+        "penetration_mm": 4.041999999999973,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.00041,
+    "max_energy_deviation": 0.0012000000000000899,
+    "sliding_energy_final_J": 3.88323,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   4.7245E+01     kinen=   7.1306E-02     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=  -1.2334E-02     y-mom=  -1.8257E-04     z-mom=  -4.6405E-04\n x-rbv=  -1.1213E+01     y-rbv=  -1.6597E-01     z-rbv=  -4.2186E-01\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9026\\messag",
+        "sha256": "ae53e3f0d723acca7b8e237ddb68e1af9442d25c7db55b9126ecaa3ccece8644"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9026\\nodout",
+        "sha256": "7f97790d0f18eb5ab63dec79a1131219acda4f874dc521c50ee7ea2ed8bc6d11"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9026\\glstat",
+        "sha256": "3ffd38985e60e91e1c91b77d4280714eac39c6005bc23b33e746a8d8ee611630"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9026\\matsum",
+        "sha256": "b3ee8f37dc5b1ad75d2b152fccc331874670431b68c76505ff02b0437a9418b5"
+      }
+    }
+  },
+  {
+    "case": "sim_9027",
+    "peaks": {
+      "all_nodes": {
+        "node": 19846,
+        "time_ms": 0.029984426,
+        "x_mm": 405.048,
+        "penetration_mm": 4.951999999999998,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19846,
+        "time_ms": 0.029984426,
+        "x_mm": 405.048,
+        "penetration_mm": 4.951999999999998,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 0.999543,
+    "max_energy_deviation": 0.00046000000000001595,
+    "sliding_energy_final_J": 1.57972,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   9.7507E+00     kinen=   1.1212E+02     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   4.9655E-01     y-mom=  -4.8956E-06     z-mom=  -2.8602E-06\n x-rbv=   4.5141E+02     y-rbv=  -4.4505E-03     z-rbv=  -2.6002E-03\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9027\\messag",
+        "sha256": "e9043eb37a39aebd6cddcc7080a92226a50a9d7af689c4bef34e691f8a02174e"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9027\\nodout",
+        "sha256": "3d5560dc8c2fea23ae2aed9f5a44d160da5b47db9fa5a8859a46f59edb486d6c"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9027\\glstat",
+        "sha256": "073f4e43d682e7ad4f62ef0395605003131ac95638af530eff5e91a2e520b46a"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9027\\matsum",
+        "sha256": "5eafd01ee4847953d36e0fbf4657a131a3e0d83ee00ebbca8aa30f494f31e0c4"
+      }
+    }
+  },
+  {
+    "case": "sim_9028",
+    "peaks": {
+      "all_nodes": {
+        "node": 19846,
+        "time_ms": 0.028445779,
+        "x_mm": 405.224,
+        "penetration_mm": 4.7760000000000105,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19846,
+        "time_ms": 0.028445779,
+        "x_mm": 405.224,
+        "penetration_mm": 4.7760000000000105,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 0.999784,
+    "max_energy_deviation": 0.00021599999999999397,
+    "sliding_energy_final_J": 1.39541,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   1.4178E+01     kinen=   1.1671E+02     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   5.0670E-01     y-mom=  -8.3647E-06     z-mom=  -6.6747E-06\n x-rbv=   4.6064E+02     y-rbv=  -7.6043E-03     z-rbv=  -6.0679E-03\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9028\\messag",
+        "sha256": "e72ff8f0363426b8200e043459c1cde2bf470f9abca2813741f7e4588e4256a0"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9028\\nodout",
+        "sha256": "5dcba01d35c179ebd455215ca2c10fb7be1bdc572b0e6e8d77fb5ce322badfc2"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9028\\glstat",
+        "sha256": "f3a9e062e7b1759e588eecb287514d45a4b3626a471212f03587c54362b215ef"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9028\\matsum",
+        "sha256": "4e3eed27520fa6286957d63896d64c54f2dd0f74f6c63dd8a1083093117b570a"
+      }
+    }
+  },
+  {
+    "case": "sim_9029",
+    "peaks": {
+      "all_nodes": {
+        "node": 19846,
+        "time_ms": 0.031948916,
+        "x_mm": 403.816,
+        "penetration_mm": 6.184000000000026,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19846,
+        "time_ms": 0.031948916,
+        "x_mm": 403.816,
+        "penetration_mm": 6.184000000000026,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 1.00003,
+    "max_energy_deviation": 0.0006200000000000649,
+    "sliding_energy_final_J": 5.81529,
+    "sliding_energy_min_J": -2.14848,
+    "final_fsp_matsum_excerpt": "             inten=   1.3717E+01     kinen=   5.7139E+01     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   3.5406E-01     y-mom=   7.1194E-06     z-mom=   1.9873E-05\n x-rbv=   3.2187E+02     y-rbv=   6.4722E-03     z-rbv=   1.8066E-02\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9029\\messag",
+        "sha256": "c33ec0099e70f9fd186f68097d4e1ed0609992463743df2ae8c0ff88fe7e2ab3"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9029\\nodout",
+        "sha256": "7e72a7ea0dd790b7d2b5a3a1b640364edabcce35a2f692332cdcec98e92f242e"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9029\\glstat",
+        "sha256": "7387cb0da61ce6d59c588293ea2a66d62a71405599fbe874c70440ad28416079"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9029\\matsum",
+        "sha256": "674436820cda967f8d6937ebb6b8adc378f27bef2426674800ca7ce51c814fdf"
+      }
+    }
+  },
+  {
+    "case": "sim_9030",
+    "peaks": {
+      "all_nodes": {
+        "node": 19846,
+        "time_ms": 0.029491628,
+        "x_mm": 405.117,
+        "penetration_mm": 4.882999999999981,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      },
+      "active_by_log": {
+        "node": 19846,
+        "time_ms": 0.029491628,
+        "x_mm": 405.117,
+        "penetration_mm": 4.882999999999981,
+        "node_deletion_time": null,
+        "adjacent_elements": [
+          17473
+        ],
+        "adjacent_failure_times": {
+          "17473": null
+        }
+      }
+    },
+    "fsp_elements": 1,
+    "fsp_failed": {},
+    "fsp_negative_volume": {},
+    "fsp_deleted_nodes": {},
+    "energy_ratio_final": 0.999814,
+    "max_energy_deviation": 0.00018600000000001948,
+    "sliding_energy_final_J": 0.88698,
+    "sliding_energy_min_J": 0.0,
+    "final_fsp_matsum_excerpt": "             inten=   1.0370E+01     kinen=   1.1085E+02     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   4.9371E-01     y-mom=  -4.7217E-06     z-mom=   5.5934E-08\n x-rbv=   4.4882E+02     y-rbv=  -4.2925E-03     z-rbv=   5.0849E-05\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+    "files": {
+      "messag": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9030\\messag",
+        "sha256": "4754982b2728c8770111c88d7f2dd1b820eb6dc6521a89bdc46a3a426161b957"
+      },
+      "nodout": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9030\\nodout",
+        "sha256": "65471a783365beb76deb78ca0477463de22c3a7143fc98a35ae39779016473fc"
+      },
+      "glstat": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9030\\glstat",
+        "sha256": "204cccce19cbe11021b16f0d4685f884fea68511d9508e629abe1a880c1de1d7"
+      },
+      "matsum": {
+        "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9030\\matsum",
+        "sha256": "9c1fc64811c6d4c03bbbf2852a3495ba9cfab94df6f7f5d1a843e3e7dc9e6f0c"
+      }
+    }
+  }
+]

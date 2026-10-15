@@ -1,0 +1,26 @@
+[
+  {
+    "time_ms": 0.0,
+    "active_elements_by_log": 27
+  },
+  {
+    "time_ms": 0.025963209,
+    "active_elements_by_log": 27
+  },
+  {
+    "time_ms": 0.029990144,
+    "active_elements_by_log": 22
+  },
+  {
+    "time_ms": 0.035991154,
+    "active_elements_by_log": 17
+  },
+  {
+    "time_ms": 0.045953964,
+    "active_elements_by_log": 17
+  },
+  {
+    "time_ms": 0.29996069,
+    "active_elements_by_log": 17
+  }
+]

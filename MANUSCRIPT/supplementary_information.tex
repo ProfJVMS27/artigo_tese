@@ -1,0 +1,163 @@
+\documentclass[11pt]{article}
+\usepackage[margin=2.1cm]{geometry}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{pdflscape}
+\usepackage{hyperref}
+\newcommand{\SI}[2]{#1~#2}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\emergencystretch=2em
+\renewcommand{\thetable}{S\arabic{table}}
+\begin{document}
+\begin{center}
+{\Large Supplementary Information}\\[0.4em]
+\textit{Uncertainty-aware surrogate-assisted multi-objective design of hybrid ballistic-radiological shields for RDD response}
+\end{center}
+\noindent This supplement reports the complete numerical evidence summarized in the main manuscript. It is generated directly from the frozen Phase 3--5 artifacts. The 2,000 MCNP6.3 and 1,996 usable LS-DYNA training records remain part of the archived reproducibility package rather than being reproduced as manuscript tables.
+
+\section*{S1. Complete tuned-surrogate benchmark}
+Every candidate was tuned by \texttt{RandomizedSearchCV} inside five-fold cross-validation on the training partition only. The table reports all 35 candidates, not only the leading models shown in the main text. PHYS-ST23 denotes the compact PHYSICS\_STRENGTH23 penetration representation.
+\begin{landscape}
+\scriptsize
+\begin{longtable}{p{0.11\textwidth}p{0.13\textwidth}p{0.13\textwidth}rrrrrp{0.25\textwidth}}
+\caption{All optimized surrogate candidates. CV quantities are means across five training folds. Inference time is the median post-fit prediction time per case on a 300-case batch.}\\
+\toprule Target & Feature set & Model & $R^2$ & RMSE & RMSE SD & MAE & Infer. ms & Optimized hyperparameters \\ \midrule
+\endfirsthead
+\toprule Target & Feature set & Model & $R^2$ & RMSE & RMSE SD & MAE & Infer. ms & Optimized hyperparameters \\ \midrule
+\endhead
+Dose & PHYSICS & Ridge & 0.9932 & 0.0588 & 0.0017 & 0.0466 & 0.409 & \footnotesize\ttfamily alpha=0.01 \\
+Dose & PHYSICS & Gradient Boosting & 0.9908 & 0.0681 & 0.0018 & 0.0539 & 0.397 & \footnotesize\ttfamily learning\_rate=0.05, max\_depth=3, min\_samples\_leaf=2, n\_estimators=700, subsample=0.85 \\
+Dose & PHYSICS & XGBoost & 0.9899 & 0.0714 & 0.0021 & 0.0561 & 0.506 & \footnotesize\ttfamily colsample\_bytree=1.0, learning\_rate=0.1, max\_depth=3, min\_child\_weight=1, n\_estimators=500, reg\_lambda=10.0, subsample=1.0 \\
+Dose & PHYSICS & HistGB & 0.9894 & 0.0734 & 0.0032 & 0.0581 & 0.538 & \footnotesize\ttfamily l2\_regularization=0.01, learning\_rate=0.06, max\_iter=700, max\_leaf\_nodes=15, min\_samples\_leaf=10 \\
+Dose & PHYSICS & Extra Trees & 0.9797 & 0.1015 & 0.0043 & 0.0814 & 1.257 & \footnotesize\ttfamily max\_depth=24, max\_features=0.7, min\_samples\_leaf=1, n\_estimators=700 \\
+Dose & PHYSICS & Random Forest & 0.9736 & 0.1155 & 0.0062 & 0.0935 & 1.334 & \footnotesize\ttfamily max\_depth=24, max\_features=0.7, min\_samples\_leaf=1, n\_estimators=700 \\
+Dose & PHYSICS & MLP & 0.9084 & 0.2132 & 0.0203 & 0.1683 & 0.470 & \footnotesize\ttfamily alpha=1e-05, hidden\_layer\_sizes=[128, 64, 32], learning\_rate\_init=0.003 \\
+Dose & RAW & XGBoost & 0.7909 & 0.3254 & 0.0174 & 0.2587 & 0.226 & \footnotesize\ttfamily colsample\_bytree=0.85, learning\_rate=0.1, max\_depth=5, min\_child\_weight=10, n\_estimators=500, reg\_lambda=10.0, subsample=0.85 \\
+Dose & RAW & Gradient Boosting & 0.7704 & 0.3411 & 0.0280 & 0.2724 & 0.102 & \footnotesize\ttfamily learning\_rate=0.08, max\_depth=4, min\_samples\_leaf=2, n\_estimators=500, subsample=0.7 \\
+Dose & RAW & MLP & 0.7421 & 0.3570 & 0.0408 & 0.2808 & 0.106 & \footnotesize\ttfamily alpha=0.01, hidden\_layer\_sizes=[128, 64], learning\_rate\_init=0.0003 \\
+Dose & RAW & HistGB & 0.7428 & 0.3613 & 0.0221 & 0.2859 & 0.237 & \footnotesize\ttfamily l2\_regularization=0.01, learning\_rate=0.06, max\_iter=700, max\_leaf\_nodes=15, min\_samples\_leaf=10 \\
+Dose & RAW & Random Forest & 0.3149 & 0.5896 & 0.0283 & 0.4774 & 1.058 & \footnotesize\ttfamily max\_depth=24, max\_features=1.0, min\_samples\_leaf=1, n\_estimators=700 \\
+Dose & RAW & Extra Trees & 0.2826 & 0.6024 & 0.0116 & 0.4838 & 0.939 & \footnotesize\ttfamily max\_depth=24, max\_features=0.7, min\_samples\_leaf=1, n\_estimators=700 \\
+Dose & RAW & Ridge & 0.0086 & 0.7091 & 0.0272 & 0.5733 & 0.091 & \footnotesize\ttfamily alpha=100.0 \\
+Penetration & PHYS-ST23 & XGBoost & 0.8944 & 2.3153 & 0.2164 & 1.2601 & 0.776 & \footnotesize\ttfamily colsample\_bytree=0.7, learning\_rate=0.04, max\_depth=6, min\_child\_weight=10, n\_estimators=300, reg\_lambda=1.0, subsample=1.0 \\
+Penetration & PHYS-ST23 & HistGB & 0.8927 & 2.3328 & 0.2308 & 1.3065 & 0.702 & \footnotesize\ttfamily l2\_regularization=0.0, learning\_rate=0.1, max\_iter=200, max\_leaf\_nodes=31, min\_samples\_leaf=10 \\
+Penetration & PHYS-ST23 & Gradient Boosting & 0.8791 & 2.4774 & 0.2895 & 1.4588 & 0.585 & \footnotesize\ttfamily learning\_rate=0.015, max\_depth=4, min\_samples\_leaf=4, n\_estimators=700, subsample=0.85 \\
+Penetration & PHYS-ST23 & Extra Trees & 0.8788 & 2.4820 & 0.3479 & 1.2725 & 1.354 & \footnotesize\ttfamily max\_depth=24, max\_features=1.0, min\_samples\_leaf=1, n\_estimators=700 \\
+Penetration & PHYS-ST23 & Random Forest & 0.8697 & 2.5688 & 0.3443 & 1.3377 & 0.894 & \footnotesize\ttfamily max\_depth=None, max\_features=0.7, min\_samples\_leaf=2, n\_estimators=300 \\
+Penetration & PHYSICS & Extra Trees & 0.8303 & 2.9425 & 0.2951 & 1.5866 & 1.255 & \footnotesize\ttfamily max\_depth=24, max\_features=0.7, min\_samples\_leaf=1, n\_estimators=700 \\
+Penetration & RAW & HistGB & 0.8296 & 2.9474 & 0.2698 & 1.8004 & 0.206 & \footnotesize\ttfamily l2\_regularization=1.0, learning\_rate=0.02, max\_iter=500, max\_leaf\_nodes=31, min\_samples\_leaf=10 \\
+Penetration & PHYSICS & HistGB & 0.8288 & 2.9562 & 0.2015 & 1.7857 & 0.536 & \footnotesize\ttfamily l2\_regularization=1.0, learning\_rate=0.02, max\_iter=500, max\_leaf\_nodes=31, min\_samples\_leaf=10 \\
+Penetration & PHYSICS & XGBoost & 0.8289 & 2.9603 & 0.2442 & 1.7997 & 0.513 & \footnotesize\ttfamily colsample\_bytree=0.85, learning\_rate=0.04, max\_depth=8, min\_child\_weight=10, n\_estimators=500, reg\_lambda=10.0, subsample=0.85 \\
+Penetration & RAW & Extra Trees & 0.8176 & 3.0350 & 0.4260 & 1.6299 & 0.473 & \footnotesize\ttfamily max\_depth=None, max\_features=0.9, min\_samples\_leaf=1, n\_estimators=300 \\
+Penetration & RAW & Random Forest & 0.8073 & 3.1293 & 0.3520 & 1.7326 & 0.894 & \footnotesize\ttfamily max\_depth=24, max\_features=1.0, min\_samples\_leaf=1, n\_estimators=700 \\
+Penetration & PHYSICS & Gradient Boosting & 0.8039 & 3.1685 & 0.2626 & 2.0369 & 0.389 & \footnotesize\ttfamily learning\_rate=0.05, max\_depth=4, min\_samples\_leaf=4, n\_estimators=350, subsample=0.85 \\
+Penetration & RAW & XGBoost & 0.8034 & 3.1705 & 0.2445 & 2.0375 & 0.145 & \footnotesize\ttfamily colsample\_bytree=0.85, learning\_rate=0.04, max\_depth=8, min\_child\_weight=10, n\_estimators=500, reg\_lambda=10.0, subsample=0.85 \\
+Penetration & PHYSICS & Random Forest & 0.7843 & 3.3258 & 0.3257 & 1.9499 & 1.211 & \footnotesize\ttfamily max\_depth=24, max\_features=0.7, min\_samples\_leaf=1, n\_estimators=700 \\
+Penetration & RAW & MLP & 0.7731 & 3.4030 & 0.2887 & 2.3545 & 0.113 & \footnotesize\ttfamily alpha=0.0001, hidden\_layer\_sizes=[64, 32], learning\_rate\_init=0.001 \\
+Penetration & RAW & Gradient Boosting & 0.7644 & 3.4742 & 0.2694 & 2.2745 & 0.095 & \footnotesize\ttfamily learning\_rate=0.05, max\_depth=4, min\_samples\_leaf=4, n\_estimators=350, subsample=0.85 \\
+Penetration & PHYS-ST23 & MLP & 0.7126 & 3.8254 & 0.1764 & 2.6477 & 0.577 & \footnotesize\ttfamily alpha=0.0001, hidden\_layer\_sizes=[128, 64], learning\_rate\_init=0.003 \\
+Penetration & PHYSICS & MLP & 0.6979 & 3.9244 & 0.2715 & 2.7669 & 0.433 & \footnotesize\ttfamily alpha=1e-05, hidden\_layer\_sizes=[128, 64, 32], learning\_rate\_init=0.003 \\
+Penetration & PHYS-ST23 & Ridge & 0.6956 & 3.9496 & 0.3613 & 2.8722 & 0.590 & \footnotesize\ttfamily alpha=0.01 \\
+Penetration & PHYSICS & Ridge & 0.6166 & 4.4329 & 0.3409 & 3.2829 & 0.433 & \footnotesize\ttfamily alpha=0.01 \\
+Penetration & RAW & Ridge & 0.5033 & 5.0429 & 0.3052 & 3.8291 & 0.090 & \footnotesize\ttfamily alpha=10.0 \\
+\bottomrule
+\end{longtable}
+\normalsize
+\end{landscape}
+
+\section*{S2. NSGA-II run-level evidence}
+The global union is an empirical non-dominated reference set. It is not a known physical true Pareto front. IGD and generalized spread are therefore reported for transparency, not as proof of global optimality.
+\begin{longtable}{rrrrrrrrr}
+\caption{Terminal evidence for all independent NSGA-II runs.}\\
+\toprule Run & Seed & Runtime (s) & Feasible & Pareto & HV$_n$ & HV gain & IGD & G. spread \\ \midrule
+\endfirsthead
+\toprule Run & Seed & Runtime (s) & Feasible & Pareto & HV$_n$ & HV gain & IGD & G. spread \\ \midrule
+\endhead
+1 & 42 & 949.7 & 100\% & 300 & 0.7240 & 0.0383 & 0.0289 & 0.5854 \\
+2 & 137 & 919.5 & 100\% & 300 & 0.7266 & 0.0409 & 0.0260 & 0.5798 \\
+3 & 233 & 1025.3 & 100\% & 300 & 0.7248 & 0.0390 & 0.0259 & 0.5457 \\
+4 & 349 & 1135.5 & 100\% & 300 & 0.7186 & 0.0329 & 0.0302 & 0.5940 \\
+5 & 457 & 1002.6 & 100\% & 300 & 0.7239 & 0.0381 & 0.0274 & 0.5022 \\
+6 & 563 & 917.1 & 100\% & 300 & 0.7256 & 0.0398 & 0.0258 & 0.5762 \\
+7 & 677 & 920.7 & 100\% & 300 & 0.7259 & 0.0402 & 0.0275 & 0.5593 \\
+8 & 809 & 986.6 & 100\% & 300 & 0.7236 & 0.0379 & 0.0275 & 0.5991 \\
+9 & 929 & 972.5 & 100\% & 300 & 0.7266 & 0.0408 & 0.0257 & 0.5909 \\
+10 & 1049 & 984.6 & 100\% & 300 & 0.7273 & 0.0416 & 0.0264 & 0.5376 \\
+\bottomrule
+\end{longtable}
+
+\clearpage
+\begin{landscape}
+\section*{S3. Complete independent high-fidelity validation}
+Differences are high-fidelity result minus frozen surrogate prediction. The 30 cases were selected before solver execution by objective-role and maximin-coverage rules, and are not an exchangeable random coverage sample.
+\scriptsize
+\begin{longtable}{rrrrrrrrll}
+\caption{Predicted and regenerated MCNP6.3 and LS-DYNA responses for all validation candidates.}\\
+\toprule ID & Pred. dose & HF dose & $\Delta$ dose & Pred. pen. & HF pen. & $\Delta$ pen. & Upper 95\% pen. & Dose PI & Pen. PI \\ \midrule
+\endfirsthead
+\toprule ID & Pred. dose & HF dose & $\Delta$ dose & Pred. pen. & HF pen. & $\Delta$ pen. & Upper 95\% pen. & Dose PI & Pen. PI \\ \midrule
+\endhead
+9001 & 4.0728 & 4.2605 & +0.1877 & 1.8261 & 1.4050 & -0.4211 & 5.7596 & no & yes \\
+9002 & 4.3149 & 4.5232 & +0.2082 & 1.7890 & 1.3670 & -0.4220 & 5.7225 & no & yes \\
+9003 & 4.5583 & 4.7115 & +0.1532 & 1.0254 & 1.2020 & +0.1766 & 4.9588 & no & yes \\
+9004 & 4.5952 & 4.7458 & +0.1506 & 1.3757 & 1.2990 & -0.0767 & 5.3091 & no & yes \\
+9005 & 4.6428 & 4.7218 & +0.0790 & 1.0973 & 1.1320 & +0.0347 & 5.0308 & yes & yes \\
+9006 & 4.8537 & 5.0504 & +0.1967 & 1.7757 & 1.3490 & -0.4267 & 5.7091 & no & yes \\
+9007 & 4.8857 & 5.0059 & +0.1202 & 4.8567 & 8.9090 & +4.0523 & 8.7902 & no & no \\
+9008 & 4.9532 & 5.0959 & +0.1427 & 1.0931 & 1.1190 & +0.0259 & 5.0265 & no & yes \\
+9009 & 5.1289 & 5.1931 & +0.0642 & 0.9822 & 1.0900 & +0.1078 & 4.9157 & yes & yes \\
+9010 & 5.3069 & 5.3856 & +0.0786 & 2.0632 & 2.3530 & +0.2898 & 5.9967 & yes & yes \\
+9011 & 5.4118 & 5.5299 & +0.1181 & 1.2746 & 1.1140 & -0.1606 & 5.2080 & no & yes \\
+9012 & 5.4969 & 5.5736 & +0.0766 & 0.5666 & 0.8790 & +0.3124 & 4.5001 & yes & yes \\
+9013 & 5.5113 & 5.4532 & -0.0581 & 1.1181 & 1.2020 & +0.0839 & 5.0515 & yes & yes \\
+9014 & 5.7910 & 5.8690 & +0.0780 & 1.1530 & 0.9520 & -0.2010 & 5.0865 & yes & yes \\
+9015 & 5.8418 & 5.8562 & +0.0144 & 1.9791 & 1.7320 & -0.2471 & 5.9126 & yes & yes \\
+9016 & 5.8658 & 5.9706 & +0.1048 & 3.9592 & 3.9610 & +0.0018 & 7.8926 & yes & yes \\
+9017 & 5.9345 & 5.9558 & +0.0213 & 7.6291 & 8.9060 & +1.2769 & 11.5625 & yes & yes \\
+9018 & 6.1007 & 6.1732 & +0.0725 & 5.6488 & 7.1800 & +1.5312 & 9.5822 & yes & yes \\
+9019 & 6.3181 & 6.3320 & +0.0138 & 1.1080 & 1.0660 & -0.0420 & 5.0414 & yes & yes \\
+9020 & 6.3207 & 6.3931 & +0.0725 & 5.7569 & 4.9510 & -0.8059 & 9.6903 & yes & yes \\
+9021 & 6.6334 & 6.7280 & +0.0947 & 18.6207 & 18.4850 & -0.1357 & 22.5542 & yes & yes \\
+9022 & 6.6593 & 6.7438 & +0.0845 & 3.9192 & 6.5190 & +2.5998 & 7.8526 & yes & yes \\
+9023 & 6.6951 & 6.7073 & +0.0122 & 7.4831 & 8.6930 & +1.2099 & 11.4166 & yes & yes \\
+9024 & 6.8192 & 6.8905 & +0.0713 & 1.2143 & 1.0790 & -0.1353 & 5.1477 & yes & yes \\
+9025 & 7.3002 & 7.3786 & +0.0785 & 19.0774 & 17.7200 & -1.3574 & 23.0108 & yes & yes \\
+9026 & 7.4820 & 7.5245 & +0.0425 & 5.3084 & 4.0420 & -1.2664 & 9.2419 & yes & yes \\
+9027 & 7.7622 & 7.8751 & +0.1129 & 6.2962 & 4.9520 & -1.3442 & 10.2297 & no & yes \\
+9028 & 8.1524 & 8.2276 & +0.0752 & 7.6811 & 4.7760 & -2.9051 & 11.6146 & yes & yes \\
+9029 & 8.4693 & 8.4727 & +0.0034 & 6.2110 & 6.1840 & -0.0270 & 10.1444 & yes & yes \\
+9030 & 9.0093 & 8.9462 & -0.0631 & 7.4862 & 4.8830 & -2.6032 & 11.4197 & yes & yes \\
+\bottomrule
+\end{longtable}
+\normalsize
+\end{landscape}
+\clearpage
+\section*{S4. Targeted impact-discretization diagnostic}
+This post-campaign diagnostic isolates shield and FSP refinement for validation case 9012. It is reported for transparency and is not used to replace any campaign label, retrain a surrogate, or support a mesh-convergence claim. ``Active-by-log'' excludes a nodal peak recorded after the associated FSP node had been removed; it is a diagnostic quantity, not a validated response label.
+
+\begin{landscape}
+\begin{table}[H]
+\centering
+\small
+\caption{Case-9012 impact-discretization diagnostic. The original/original configuration is the frozen campaign model.}\label{tab:s4-mesh}
+\begin{tabular}{p{0.20\textwidth}rrrrp{0.25\textwidth}}
+\toprule
+Shield / FSP discretization & \shortstack{Raw penetration\\(mm)} & \shortstack{Active-by-log\\(mm)} & \shortstack{Final\\$E/E_0$} & \shortstack{Max.\\$|E/E_0-1|$} & FSP diagnostic \\
+\midrule
+Original / original & 0.879 & 0.879 & 1.00537 & 0.00537 & No recorded FSP erosion \\
+M1 / original & 3.657 & 3.657 & 1.07232 & 0.07375 & FSP intact; shield-element failures recorded \\
+Original / M1 & 128.096 & 0.879 & 0.523659 & 0.476357 & Four of eight FSP elements failed by negative volume before the raw peak \\
+M1 / M1 & 9.220 & 9.220 & 1.00087 & 0.00087 & FSP intact \\
+\bottomrule
+\end{tabular}
+\end{table}
+\end{landscape}
+
+The isolations do not form a stable, monotonic refinement sequence. Shield-only refinement exceeded the pre-specified 5\% energy-deviation screening gate. FSP-only refinement suffered rapid FSP erosion, making its late raw nodal peak nonphysical for the stated numerical interpretation. The coupled M1 configuration was energetically stable but materially different from the frozen campaign response. Therefore, the diagnostic identifies a model-development requirement for a future mesh study, rather than a basis for extrapolating a mesh-independent penetration value.
+
+\input{revision_20261012/supplement_revision.tex}
+\input{revision_20261014/supplement_optimizer.tex}
+\end{document}

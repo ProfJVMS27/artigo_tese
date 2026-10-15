@@ -1,0 +1,8 @@
+{
+  "status": "COMPLETE",
+  "jobs": 100,
+  "signature": "53baa6d6f298aaa14821c6315bff755b886f41f029ff6f269922296aaf9d9e14",
+  "smoke": false,
+  "timestamp": "2026-10-14T19:58:34+00:00",
+  "interpretation": "Surrogate-space comparisons only. No experimental or HF evidence added."
+}

@@ -1,0 +1,107 @@
+[
+  {
+    "case": 9012,
+    "level": "BLINDAGEM_M1_FSP_ORIGINAL",
+    "source": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9012\\sim_9012.k",
+    "source_sha256": "4f0fd4e54619342e01bde16bdd53aa37be91ba89b25c703440611fbe7618c918",
+    "keyword": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\CONVERGENCIA_9012_ISOLADO\\BLINDAGEM_M1_FSP_ORIGINAL\\sim_9012.k",
+    "keyword_sha256": "407666b425420d315efec9a8f68602e30451fa05cf1a9a9bfb51996a15f9b6c2",
+    "fsp_nodes": [
+      56167,
+      56168,
+      56169,
+      56170,
+      56171,
+      56172,
+      56173,
+      56174
+    ],
+    "fsp_original_corner_nodes": [
+      56167,
+      56168,
+      56169,
+      56170,
+      56171,
+      56172,
+      56173,
+      56174
+    ],
+    "nodes": 56174,
+    "elements": 51409,
+    "quality": {
+      "min_gauss_jacobian": 0.49091391168149917,
+      "volume_mm3_by_part": {
+        "2": 11740274.111400349,
+        "3": 14482001.790803548,
+        "4": 2460449.159428286,
+        "5": 2376903.3369096373,
+        "6": 6764213.742778588,
+        "7": 3687594.310207049,
+        "8": 8507384.287889952,
+        "99": 140.12717061363725
+      }
+    }
+  },
+  {
+    "case": 9012,
+    "level": "BLINDAGEM_ORIGINAL_FSP_M1",
+    "source": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\lsdyna\\sim_9012\\sim_9012.k",
+    "source_sha256": "4f0fd4e54619342e01bde16bdd53aa37be91ba89b25c703440611fbe7618c918",
+    "keyword": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\CONVERGENCIA_9012_ISOLADO\\BLINDAGEM_ORIGINAL_FSP_M1\\sim_9012.k",
+    "keyword_sha256": "e3c450b47e3c5c675af4fde8813977496ec23dd6e512acb005ff675f1e9748ce",
+    "fsp_nodes": [
+      19846,
+      19847,
+      19848,
+      19849,
+      19850,
+      19851,
+      19852,
+      19853,
+      19854,
+      19855,
+      19856,
+      19857,
+      19858,
+      19859,
+      19860,
+      19861,
+      19862,
+      19863,
+      19864,
+      19865,
+      19866,
+      19867,
+      19868,
+      19869,
+      19870,
+      19871,
+      19872
+    ],
+    "fsp_original_corner_nodes": [
+      19846,
+      19848,
+      19854,
+      19852,
+      19864,
+      19866,
+      19872,
+      19870
+    ],
+    "nodes": 19872,
+    "elements": 17480,
+    "quality": {
+      "min_gauss_jacobian": 2.1894866193019658,
+      "volume_mm3_by_part": {
+        "2": 11740267.881467724,
+        "3": 14481994.119575715,
+        "4": 2460447.853442176,
+        "5": 2376902.075889099,
+        "6": 6764210.160444555,
+        "7": 3687592.357251027,
+        "8": 8507379.869646026,
+        "99": 140.12717061363566
+      }
+    }
+  }
+]

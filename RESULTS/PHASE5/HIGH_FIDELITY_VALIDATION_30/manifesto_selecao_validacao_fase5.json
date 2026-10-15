@@ -1,0 +1,10 @@
+{
+  "created_utc": "2026-10-03T10:30:06.976483+00:00",
+  "selection_is_pre_specified": true,
+  "post_hoc_favorable_selection_prohibited": true,
+  "candidate_source": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 4\\resultados_otimizacao (Fase 4) - MCNP63_DEDF_AP\\fase4_20261003_043316\\pareto_union_multirun.csv",
+  "candidate_source_sha256": "610884374c37c9ddf636c6765f15f9b62d33023633b9747191c8e4d2ac2b1230",
+  "n_candidates": 30,
+  "selection_rule": "MIN_DOSE, MIN_MASS, MIN_COST and TOPSIS_IQR anchors, followed by deterministic maximin coverage in normalized three-objective space",
+  "all_selected_cases_must_be_reported": true
+}

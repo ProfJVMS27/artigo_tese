@@ -1,0 +1,17 @@
+{
+  "signature": "53baa6d6f298aaa14821c6315bff755b886f41f029ff6f269922296aaf9d9e14",
+  "method": "NSGA2",
+  "limit_mm": 15,
+  "margin": true,
+  "seed": 809,
+  "job": "NSGA2_L15_Q_seed809",
+  "generation": 200,
+  "n_evaluations": 60300,
+  "hv": 0.7561949726430923,
+  "feasible_fraction": 1.0,
+  "front_size": 300,
+  "sampled_feasible_fraction": 0.7485572139303482,
+  "near_limit_1mm": 0,
+  "elapsed_seconds": 870.9155953000009,
+  "completed_utc": "2026-10-12T17:06:25+00:00"
+}

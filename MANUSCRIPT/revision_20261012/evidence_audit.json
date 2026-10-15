@@ -1,0 +1,252 @@
+{
+  "validation": [
+    {
+      "response": "dose",
+      "n": 30,
+      "signed_mean_HF_minus_prediction": 0.08023341365265176,
+      "mae": 0.08831548764559116,
+      "rmse": 0.10297429371132348,
+      "positive_errors": 28,
+      "coverage": 0.7,
+      "max_hf": 8.946209999999999,
+      "coverage_wilson95": [
+        0.5212421254128504,
+        0.8333525173175619
+      ],
+      "signed_mean_bootstrap95": [
+        0.057299369550468014,
+        0.10316321122515174
+      ],
+      "mean_MC_sigma": 0.0831379287,
+      "mean_z_MC_only": 1.0223844657137464,
+      "error_over_MC_sigma_gt_1_96": 5,
+      "test_mean_MC_sigma": 0.08580401672,
+      "test_RMS_MC_sigma": 0.08594990400250074,
+      "mae_validation_over_test": 1.913411653878399
+    },
+    {
+      "response": "penetration",
+      "n": 30,
+      "signed_mean_HF_minus_prediction": -0.029149802096683757,
+      "mae": 0.809350304651262,
+      "rmse": 1.2997628422168324,
+      "positive_errors": 13,
+      "coverage": 0.9666666666666667,
+      "max_hf": 18.485000000000014,
+      "coverage_wilson95": [
+        0.8332960900859082,
+        0.9940914096183874
+      ],
+      "signed_mean_bootstrap95": [
+        -0.474586377298441,
+        0.44793782471418664
+      ]
+    }
+  ],
+  "best_models": [
+    {
+      "target": "dose_efetiva_5min_mSv",
+      "feature_set": "PHYSICS",
+      "model": "Ridge",
+      "cv_rmse_mean": 0.0587956999048807,
+      "cv_r2_mean": 0.9931601308557412
+    },
+    {
+      "target": "dose_efetiva_5min_mSv",
+      "feature_set": "RAW",
+      "model": "XGBoost",
+      "cv_rmse_mean": 0.3253606922183895,
+      "cv_r2_mean": 0.7908784615269802
+    },
+    {
+      "target": "max_penetration_mm",
+      "feature_set": "PHYSICS_STRENGTH23",
+      "model": "XGBoost",
+      "cv_rmse_mean": 2.315330081077488,
+      "cv_r2_mean": 0.8944266636891761
+    },
+    {
+      "target": "max_penetration_mm",
+      "feature_set": "PHYSICS",
+      "model": "ExtraTrees",
+      "cv_rmse_mean": 2.942544527653478,
+      "cv_r2_mean": 0.8302861283044578
+    },
+    {
+      "target": "max_penetration_mm",
+      "feature_set": "RAW",
+      "model": "HistGradientBoosting",
+      "cv_rmse_mean": 2.9474426608948137,
+      "cv_r2_mean": 0.8295565287140514
+    }
+  ],
+  "HV": {
+    "baseline": 0.6857691907426854,
+    "mean": 0.724699161770106,
+    "sd": 0.0024893147989795868,
+    "median": 0.725154714598675,
+    "iqr": 0.00251763797517357,
+    "mean_relative_gain": 0.056768328984362126,
+    "runtime_total_s": 9814.346388578415
+  },
+  "MC_relative_error": {
+    "doe_min": 0.0112,
+    "doe_max": 0.0153,
+    "validation_min": 0.0114,
+    "validation_max": 0.0162
+  },
+  "thresholds": [
+    {
+      "pool": "DoE",
+      "limit_mm": 15,
+      "n": 2000,
+      "point_feasible": 1576,
+      "margin_feasible": 1281,
+      "removed_by_margin": 295,
+      "max_prediction": 38.31503677368164
+    },
+    {
+      "pool": "DoE",
+      "limit_mm": 20,
+      "n": 2000,
+      "point_feasible": 1830,
+      "margin_feasible": 1635,
+      "removed_by_margin": 195,
+      "max_prediction": 38.31503677368164
+    },
+    {
+      "pool": "DoE",
+      "limit_mm": 30,
+      "n": 2000,
+      "point_feasible": 1980,
+      "margin_feasible": 1947,
+      "removed_by_margin": 33,
+      "max_prediction": 38.31503677368164
+    },
+    {
+      "pool": "DoE",
+      "limit_mm": 60,
+      "n": 2000,
+      "point_feasible": 2000,
+      "margin_feasible": 2000,
+      "removed_by_margin": 0,
+      "max_prediction": 38.31503677368164
+    },
+    {
+      "pool": "Pareto union",
+      "limit_mm": 15,
+      "n": 1530,
+      "point_feasible": 1478,
+      "margin_feasible": 1466,
+      "removed_by_margin": 12,
+      "max_prediction": 21.56751251220703
+    },
+    {
+      "pool": "Pareto union",
+      "limit_mm": 20,
+      "n": 1530,
+      "point_feasible": 1525,
+      "margin_feasible": 1478,
+      "removed_by_margin": 47,
+      "max_prediction": 21.56751251220703
+    },
+    {
+      "pool": "Pareto union",
+      "limit_mm": 30,
+      "n": 1530,
+      "point_feasible": 1530,
+      "margin_feasible": 1530,
+      "removed_by_margin": 0,
+      "max_prediction": 21.56751251220703
+    },
+    {
+      "pool": "Pareto union",
+      "limit_mm": 60,
+      "n": 1530,
+      "point_feasible": 1530,
+      "margin_feasible": 1530,
+      "removed_by_margin": 0,
+      "max_prediction": 21.56751251220703
+    }
+  ],
+  "spearman": {
+    "dose_pred_5min_mSv": {
+      "dose_pred_5min_mSv": 1.0,
+      "massa_total_kg": -0.9952942563569658,
+      "custo_total_unidade": -0.6762533187664478
+    },
+    "massa_total_kg": {
+      "dose_pred_5min_mSv": -0.9952942563569658,
+      "massa_total_kg": 1.0,
+      "custo_total_unidade": 0.6229020744326239
+    },
+    "custo_total_unidade": {
+      "dose_pred_5min_mSv": -0.6762533187664478,
+      "massa_total_kg": 0.6229020744326239,
+      "custo_total_unidade": 1.0
+    }
+  },
+  "excluded": [
+    {
+      "sim_id": 733,
+      "final_status": "FAILED_VALIDATION",
+      "joint_missing_target_reason": "LS-DYNA: etiqueta balística não validada; não usar como alvo ML",
+      "working_review_note": "Não aceito no dataset válido; manter ±5% até concluir a auditoria/sensibilidade energética.",
+      "final_validation_flags": ""
+    },
+    {
+      "sim_id": 832,
+      "final_status": "FAILED_VALIDATION",
+      "joint_missing_target_reason": "LS-DYNA: etiqueta balística não validada; não usar como alvo ML",
+      "working_review_note": "Não aceito no dataset válido; manter ±5% até concluir a auditoria/sensibilidade energética.",
+      "final_validation_flags": ""
+    },
+    {
+      "sim_id": 1277,
+      "final_status": "FAILED_VALIDATION",
+      "joint_missing_target_reason": "LS-DYNA: etiqueta balística não validada; não usar como alvo ML",
+      "working_review_note": "Não aceito no dataset válido; manter ±5% até concluir a auditoria/sensibilidade energética.",
+      "final_validation_flags": ""
+    },
+    {
+      "sim_id": 1567,
+      "final_status": "FAILED_VALIDATION",
+      "joint_missing_target_reason": "LS-DYNA: etiqueta balística não validada; não usar como alvo ML",
+      "working_review_note": "Não aceito no dataset válido; manter ±5% até concluir a auditoria/sensibilidade energética.",
+      "final_validation_flags": ""
+    }
+  ],
+  "HF_dominance": {
+    "eligible_doe": 1996,
+    "doe_pareto": 295,
+    "validation_nd_among_30": 29,
+    "validation_nd_in_combined": 29,
+    "validation_dominated_by_doe": 0,
+    "doe_front_dominated_by_validation": 73
+  },
+  "doe_boundary_fraction": 0.3535,
+  "pareto_boundary_fraction": 0.884313725490196,
+  "validation_boundary_fraction": 0.8333333333333334,
+  "validation_seen_permutations": 8,
+  "mass_range": [
+    95.1457278629664,
+    256.20867782908874
+  ],
+  "MCNP_outputs_audited": 2000,
+  "MCNP_failed_check_outputs": 43,
+  "MCNP_incomplete_check_parsing": 0,
+  "input_hashes": {
+    "Fase 2\\DATASET_CONJUNTO_MCNP63_DEDF_AP_LSDYNA_FINAL_20261002\\DATASET_MESTRE_CONJUNTO_MCNP63_DEDF_AP_LSDYNA_2000_FINAL.csv": "9fa5a2efad9d86594fbbf2568e5e644d1ab3bc9c12caf698baa4316cf079a50d",
+    "Fase 4\\resultados_otimizacao (Fase 4) - MCNP63_DEDF_AP\\fase4_20261003_043316\\doe_evaluado_pelos_surrogates.csv": "25008e3b276e163b5d5356511b35788bf1db7267184e65670cec2e5d93f58348",
+    "Fase 4\\resultados_otimizacao (Fase 4) - MCNP63_DEDF_AP\\fase4_20261003_043316\\pareto_union_multirun.csv": "610884374c37c9ddf636c6765f15f9b62d33023633b9747191c8e4d2ac2b1230",
+    "Fase 4\\resultados_otimizacao (Fase 4) - MCNP63_DEDF_AP\\fase4_20261003_043316\\resumo_runs.csv": "f99b8d326a96a7ed2ad97987117b4806ec746579c3067f1883f32fc0e40dc124",
+    "Fase 3\\analise_desempenho_modelos (Fase 3) - MCNP63_DEDF_AP\\benchmark_cv_summary.csv": "0495d580364ac2ba81da324f87aaa294bcd71d9f8ad70475fbb7d7011a150ea0",
+    "Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\study_30\\validacao_alta_fidelidade_consolidada.csv": "8daa63acbffa1420982f9567bb513344e918be671fb57257d3c690d5301b45a6",
+    "Fase 5\\VALIDACAO_ALTA_FIDELIDADE\\fase4_20261003_043316_MCNP63_DEDF_AP_30\\candidatos_validacao_alta_fidelidade_30.csv": "831792c41f9aa917c6ceda48a39ec4c1c4c01738adbe6a36edee2db285e78bed",
+    "Fase 4\\resultados_otimizacao (Fase 4) - MCNP63_DEDF_AP\\fase4_20261003_043316\\convergencia_todos_runs.csv": "5da971b46a812b42e535916cc2adf0402fd4c018a7b43f6aaaf19f3846070b50",
+    "Fase 3\\analise_desempenho_modelos (Fase 3) - MCNP63_DEDF_AP\\test_predictions_dose_efetiva_5min_mSv.csv": "d18d057d30d0b7b212b791fdee44c24139c1a24c41ca5e84012d25bd1df7562a",
+    "Fase 3\\analise_desempenho_modelos (Fase 3) - MCNP63_DEDF_AP\\calibration_predictions_dose_efetiva_5min_mSv.csv": "1da6d4658b5f11dcb0a38be078572c90de0d75cb35d19c1cc6f0d4f8252ebf8d",
+    "Fase 3\\analise_desempenho_modelos (Fase 3) - MCNP63_DEDF_AP\\test_predictions_max_penetration_mm.csv": "44a22e09660634ea07321ddb00a23476636173412dc1cb522435f3c6fd123d65",
+    "Fase 3\\analise_desempenho_modelos (Fase 3) - MCNP63_DEDF_AP\\calibration_predictions_max_penetration_mm.csv": "64f3cac149c36d08c0774aafee148bb1d7343fb9440e029aa65cddc9776fe3a3"
+  }
+}

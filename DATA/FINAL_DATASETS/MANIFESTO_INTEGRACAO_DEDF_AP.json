@@ -1,0 +1,31 @@
+{
+  "created_utc": "2026-10-02T20:20:51+00:00",
+  "integration_status": "PASS",
+  "response_contract": "DE4/DF4 ICRP-116 AP, DF pSv cm2, FM4=7400 mSv/s",
+  "mcnp_cases": 2000,
+  "lsdyna_ml_cases": 1996,
+  "source_dataset_dir": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 2\\DATASET_CONJUNTO_MCNP63_LSDYNA_FINAL_20260921",
+  "dedf_results": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 2\\MCNP\\CAMPANHA_DEDF_AP_MCNP63_20261001\\auditoria_dedf_ap_20261002\\MCNP63_DEDF_AP_RESULTADOS_2000.csv",
+  "dedf_audit_json": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 2\\MCNP\\CAMPANHA_DEDF_AP_MCNP63_20261001\\auditoria_dedf_ap_20261002\\AUDITORIA_CAMPANHA_DEDF_AP_2000.json",
+  "source_file_sha256": {
+    "mcnp": "CDACB889C484DBE5EE84DB4E222B9693DE67EDCBEC409E5FB3C42A1D16CE2CA2",
+    "dose": "5F0D2468560D96014757BC28F2540628B419C9E09E196B75FE03D61B7A284FFA",
+    "master": "0FA2277038F3F1A18AD31F47E53005784DC51B113C83F6C70B0159D88AF285F5",
+    "joint": "138626B4FB033790549D6A808C9A22E581FB1977D879F171800418D07D4B7D53",
+    "penetration": "138626B4FB033790549D6A808C9A22E581FB1977D879F171800418D07D4B7D53"
+  },
+  "output_file_sha256": {
+    "mcnp": "9635EB5CF70DBF38AD58E44212EAC560063C47F904242F035D85C17362B480F5",
+    "dose": "760F45B0047C0D38B8B20793EC718FA50FED1DE302C6F5F3867DEAD052EE0AA3",
+    "master": "9FA5A2EFAD9D86594FBBF2568E5E644D1AB3BC9C12CAF698BAA4316CF079A50D",
+    "joint": "D2A9DDD1D1177DACDE66188F18D79AF66D944333ADA00A22A5725B3315EC1427",
+    "penetration": "D2A9DDD1D1177DACDE66188F18D79AF66D944333ADA00A22A5725B3315EC1427"
+  },
+  "invariants": {
+    "mcnp_ids_exact_1_to_2000": true,
+    "mcnp_valid_cases": 2000,
+    "lsdyna_ml_rows_preserved": 1996,
+    "lsdyna_columns_unchanged_except_joined_mcnp_response": true,
+    "source_datasets_not_overwritten": true
+  }
+}

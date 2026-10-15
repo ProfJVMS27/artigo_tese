@@ -1,0 +1,165 @@
+{
+  "script_version": "FASE4-THESIS-CONSTRAINED-MIXED-NSGA2-v1.5-MCNP63-DEDF-AP-PARETO-METRICS",
+  "created_utc": "2026-10-03T07:33:18+00:00",
+  "run_mode": "FINAL",
+  "n_runs": 10,
+  "population_size": 300,
+  "num_generations": 200,
+  "run_seeds": [
+    42,
+    137,
+    233,
+    349,
+    457,
+    563,
+    677,
+    809,
+    929,
+    1049
+  ],
+  "operators": {
+    "permutation_crossover": "Order Crossover (OX)",
+    "continuous_crossover": "bounded SBX + box-simplex projection",
+    "permutation_mutation": "swap mutation",
+    "continuous_mutation": "polynomial mutation + box-simplex projection",
+    "crossover_probability": 0.9,
+    "perm_swap_mutation_probability": 0.2,
+    "thickness_gene_mutation_probability": 0.14285714285714285,
+    "sbx_eta": 15.0,
+    "polynomial_mutation_eta": 20.0,
+    "adaptive_mutation": false,
+    "adaptive_restart": false
+  },
+  "design_constraints": {
+    "materials": [
+      "SiC",
+      "UHMWPE",
+      "Al",
+      "Fe",
+      "B4C-HDPE",
+      "W-Epoxy",
+      "Bi2O3-HDPE"
+    ],
+    "each_material_exactly_once": true,
+    "min_thickness_cm": 0.2,
+    "max_thickness_cm": 2.0,
+    "total_thickness_cm": 6.0,
+    "resolution_cm": 0.001
+  },
+  "ballistic_constraint": {
+    "limit_mm": 60.0,
+    "definition": "prediction + split-conformal absolute quantile <= limit",
+    "q_conformal_mm": 3.9334413299560556
+  },
+  "objectives": [
+    "dose_pred_5min_mSv",
+    "massa_total_kg (deterministic)",
+    "custo_total_unidade (deterministic)"
+  ],
+  "models": {
+    "dose": {
+      "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 3\\modelos_treinados (Fase 3) - MCNP63_DEDF_AP\\surrogate_dose.joblib",
+      "sha256": "97fca63aa61bca69ed2d82753b256be01c34e0bc16ae258ade0fa74de2239e73",
+      "feature_set": "PHYSICS",
+      "model_name": "Ridge",
+      "test_metrics": {
+        "r2": 0.9939065649183725,
+        "mae": 0.04615603101746538,
+        "rmse": 0.057304610414924344,
+        "nrmse_std": 0.07806045786201594,
+        "nrmse_range": 0.01543870422709621,
+        "smape_pct": 0.714767877090293,
+        "conformal_alpha": 0.05,
+        "conformal_nominal_coverage": 0.95,
+        "conformal_q_abs": 0.10913823753808138,
+        "test_empirical_coverage": 0.9433333333333334,
+        "test_mean_interval_width": 0.21827647507616277,
+        "n_calibration": 300,
+        "n_test": 300,
+        "test_inference_seconds_total": 0.11894529999699444,
+        "test_inference_seconds_per_case": 0.0003964843333233148
+      },
+      "conformal_q_abs": 0.10913823753808138
+    },
+    "penetration": {
+      "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 3\\modelos_treinados (Fase 3) - MCNP63_DEDF_AP\\surrogate_penetration.joblib",
+      "sha256": "db1c7f697b205cea7fabb55c91cd53ebd050dffa818ce07d4324e07056d7a11f",
+      "feature_set": "PHYSICS_STRENGTH23",
+      "model_name": "XGBoost",
+      "test_metrics": {
+        "r2": 0.8860682365568906,
+        "mae": 1.1864597863769544,
+        "rmse": 2.306456324686423,
+        "nrmse_std": 0.33753779557719077,
+        "nrmse_range": 0.06452528534582243,
+        "smape_pct": 13.336245084614012,
+        "conformal_alpha": 0.05,
+        "conformal_nominal_coverage": 0.95,
+        "conformal_q_abs": 3.9334413299560556,
+        "test_empirical_coverage": 0.9333333333333333,
+        "test_mean_interval_width": 7.416581153869629,
+        "n_calibration": 300,
+        "n_test": 300,
+        "test_inference_seconds_total": 0.23044179999851622,
+        "test_inference_seconds_per_case": 0.0007681393333283874
+      },
+      "conformal_q_abs": 3.9334413299560556
+    }
+  },
+  "doe": {
+    "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 2\\DATASET_CONJUNTO_MCNP63_DEDF_AP_LSDYNA_FINAL_20261002\\DATASET_MESTRE_CONJUNTO_MCNP63_DEDF_AP_LSDYNA_2000_FINAL.csv",
+    "sha256": "9fa5a2efad9d86594fbbf2568e5e644d1ab3bc9c12caf698baa4316cf079a50d",
+    "n": 2000,
+    "hv_normalized_baseline": 0.6857691907426854
+  },
+  "hv_anchor": {
+    "ideal": [
+      4.877619727758491,
+      107.61696123945562,
+      1806.1589488382488
+    ],
+    "reference": [
+      9.360957751044769,
+      251.1726699439361,
+      17812.871711255542
+    ],
+    "reference_margin": 0.1
+  },
+  "material_properties": {
+    "SiC": {
+      "density": 3.21,
+      "cost_kg": 0.9
+    },
+    "UHMWPE": {
+      "density": 0.96,
+      "cost_kg": 1.33
+    },
+    "Al": {
+      "density": 2.7,
+      "cost_kg": 3.38
+    },
+    "Fe": {
+      "density": 7.87,
+      "cost_kg": 0.46
+    },
+    "B4C-HDPE": {
+      "density": 1.428,
+      "cost_kg": 6.133529411764705
+    },
+    "W-Epoxy": {
+      "density": 4.643305439330543,
+      "cost_kg": 196.588
+    },
+    "Bi2O3-HDPE": {
+      "density": 2.556552962298025,
+      "cost_kg": 15.589999999999996
+    }
+  },
+  "software": {
+    "python": "3.10.8 | packaged by conda-forge | (main, Nov 22 2022, 08:16:53) [MSC v.1929 64 bit (AMD64)]",
+    "platform": "Windows-10-10.0.19045-SP0",
+    "numpy": "1.24.3",
+    "pandas": "2.1.4",
+    "joblib": "1.3.2"
+  }
+}

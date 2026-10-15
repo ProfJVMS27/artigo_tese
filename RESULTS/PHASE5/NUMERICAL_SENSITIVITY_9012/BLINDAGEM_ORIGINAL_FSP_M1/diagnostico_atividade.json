@@ -1,0 +1,86 @@
+{
+  "case": "BLINDAGEM_ORIGINAL_FSP_M1",
+  "peaks": {
+    "all_nodes": {
+      "node": 19867,
+      "time_ms": 0.29992586,
+      "x_mm": 281.904,
+      "penetration_mm": 128.096,
+      "node_deletion_time": 0.022394,
+      "adjacent_elements": [
+        17477,
+        17479
+      ],
+      "adjacent_failure_times": {
+        "17477": 0.022394,
+        "17479": 0.022394
+      }
+    },
+    "active_by_log": {
+      "node": 19858,
+      "time_ms": 0.017838507,
+      "x_mm": 409.121,
+      "penetration_mm": 0.8790000000000191,
+      "node_deletion_time": 0.022476,
+      "adjacent_elements": [
+        17473,
+        17475,
+        17477,
+        17479
+      ],
+      "adjacent_failure_times": {
+        "17473": 0.022476,
+        "17475": 0.022476,
+        "17477": 0.022394,
+        "17479": 0.022394
+      }
+    }
+  },
+  "fsp_elements": 8,
+  "fsp_failed": {
+    "17473": 0.022476,
+    "17475": 0.022476,
+    "17477": 0.022394,
+    "17479": 0.022394
+  },
+  "fsp_negative_volume": {
+    "17473": 0.022476,
+    "17475": 0.022476,
+    "17477": 0.022394,
+    "17479": 0.022394
+  },
+  "fsp_deleted_nodes": {
+    "19864": 0.022394,
+    "19867": 0.022394,
+    "19870": 0.022394,
+    "19846": 0.022476,
+    "19855": 0.022476,
+    "19849": 0.022476,
+    "19852": 0.022476,
+    "19858": 0.022476,
+    "19861": 0.022476
+  },
+  "energy_ratio_final": 0.523659,
+  "max_energy_deviation": 0.47635700000000003,
+  "sliding_energy_final_J": 20.084,
+  "sliding_energy_min_J": 0.0,
+  "final_fsp_matsum_excerpt": "             inten=   6.2134E+01     kinen=   2.4489E-01     eroded_ie=   0.0000E+00     eroded_ke=   1.7403E+01\n x-mom=   1.3492E-02     y-mom=   7.3095E-03     z-mom=  -1.2952E-04\n x-rbv=   1.2265E+01     y-rbv=   6.6450E+00     z-rbv=  -1.1774E-01\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+  "files": {
+    "messag": {
+      "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\CONVERGENCIA_9012_ISOLADO\\BLINDAGEM_ORIGINAL_FSP_M1\\messag",
+      "sha256": "ba4131f349970e7b4c377731609d940043b3288a635826cbd2d555a61be62bd1"
+    },
+    "nodout": {
+      "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\CONVERGENCIA_9012_ISOLADO\\BLINDAGEM_ORIGINAL_FSP_M1\\nodout",
+      "sha256": "0e045fc4a31f9e4ca5b1ebfece0fea1f10af5a0ca78c3b8df44c1a1470313213"
+    },
+    "glstat": {
+      "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\CONVERGENCIA_9012_ISOLADO\\BLINDAGEM_ORIGINAL_FSP_M1\\glstat",
+      "sha256": "15387ed62be2d12541c32f55876d1e8ef236745a14ac98e0a9b90ce8b06c29eb"
+    },
+    "matsum": {
+      "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\CONVERGENCIA_9012_ISOLADO\\BLINDAGEM_ORIGINAL_FSP_M1\\matsum",
+      "sha256": "0a7327ec3689f65976a0ec6e7350ca6310d2801fe7b6b60cf9bf2c3211a2630a"
+    }
+  }
+}

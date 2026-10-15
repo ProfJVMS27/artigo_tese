@@ -1,0 +1,22 @@
+{
+  "all_fsp_nodes": {
+    "ballistic_status": "PERFURACAO",
+    "max_penetration_mm": 128.096,
+    "final_fsp_vx_m_s": -7.807892592592593,
+    "final_time_ms": 0.29992586,
+    "n_records": 601
+  },
+  "original_eight_corners": {
+    "ballistic_status": "INDETERMINADO_AINDA_AVANCANDO",
+    "max_penetration_mm": 34.298,
+    "final_fsp_vx_m_s": -42.800312500000004,
+    "final_time_ms": 0.29992586,
+    "n_records": 601
+  },
+  "energy_ratio_final": 0.523659,
+  "max_energy_deviation_abs": 0.47635700000000003,
+  "note": "Nodal mean velocity is not a mass-weighted COM velocity. Report both node definitions. Numerical convergence not certified by normal termination.",
+  "parser_sha256": "fe49d5c77f9633a83aa8059f9bb5afae43ede4a948a7a44a23340fb8838d7215",
+  "nodout_sha256": "0e045fc4a31f9e4ca5b1ebfece0fea1f10af5a0ca78c3b8df44c1a1470313213",
+  "warning": "Raw nodal extrema may include deleted nodes. Consult diagnostico_atividade.json. Active-by-log values are diagnostic, not validated labels."
+}

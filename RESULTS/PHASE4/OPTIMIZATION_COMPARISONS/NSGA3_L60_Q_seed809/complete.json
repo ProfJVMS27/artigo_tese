@@ -1,0 +1,17 @@
+{
+  "signature": "53baa6d6f298aaa14821c6315bff755b886f41f029ff6f269922296aaf9d9e14",
+  "method": "NSGA3",
+  "limit_mm": 60,
+  "margin": true,
+  "seed": 809,
+  "job": "NSGA3_L60_Q_seed809",
+  "generation": 200,
+  "n_evaluations": 60300,
+  "hv": 0.763810950079388,
+  "feasible_fraction": 1.0,
+  "front_size": 300,
+  "sampled_feasible_fraction": 1.0,
+  "near_limit_1mm": 0,
+  "elapsed_seconds": 915.7120452999952,
+  "completed_utc": "2026-10-14T19:28:01+00:00"
+}

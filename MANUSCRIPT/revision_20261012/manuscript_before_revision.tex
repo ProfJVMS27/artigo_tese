@@ -1,0 +1,598 @@
+% Canonical clean manuscript for continued author editing and submission.
+% Set before the source so internal production notes remain suppressed.
+\def\submissionbuild{1}
+\documentclass[12pt]{elsarticle}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[table]{xcolor}
+\hypersetup{colorlinks=true,allcolors=blue}
+\newcommand{\SI}[2]{#1~#2}
+% Keep these notes visible during graphical production. Set the switch to false
+% before generating the submission PDF.
+\newif\ifproductionnotes
+\ifdefined\submissionbuild
+\productionnotesfalse
+\else
+\productionnotestrue
+\fi
+\newcommand{\productionnote}[1]{%
+\ifproductionnotes
+\par\medskip\noindent\fcolorbox{black}{gray!12}{\begin{minipage}{0.94\linewidth}\footnotesize\textbf{Production note for the figure/table designer.} #1\end{minipage}}\par\medskip
+\fi}
+
+\journal{Engineering Applications of Artificial Intelligence}
+
+\begin{document}
+	
+	\begin{frontmatter}
+		
+		\title{Uncertainty-aware surrogate-assisted multi-objective design of hybrid ballistic-radiological shields for RDD response}
+		
+		\author[pen]{Jo\~ao Vitor Mendes da Silva\corref{cor1}}
+		\ead{jvsilva@nuclear.ufrj.br}
+		\author[ime]{Wallace Vallory Nunes}
+		\author[ime]{Marcos Paulo Cavaliere de Medeiros}
+		\author[pen]{Inay\'a Corr\^ea Barbosa Lima}
+			
+		\affiliation[ime]{organization={Military Institute of Engineering (IME)}, addressline={Pra\c{c}a General Tib\'urcio, 80, Urca}, city={Rio de Janeiro}, postcode={22290-270}, country={Brazil}}
+		\affiliation[pen]{organization={Nuclear Engineering Program (PEN/COPPE), Federal University of Rio de Janeiro (UFRJ)}, addressline={Av. Hor\'acio Macedo, 2030, Cidade Universit\'aria}, city={Rio de Janeiro}, postcode={21941-972}, country={Brazil}}
+		
+		\cortext[cor1]{Corresponding author}
+		
+		\begin{abstract}
+		Designing multifunctional shields for radiological dispersal device (RDD) response requires understanding how material selection and layer arrangement influence radiation attenuation, ballistic resistance, and system mass. Evaluating the radiological and ballistic responses through high-fidelity simulations, however, becomes computationally demanding when many candidate configurations must be explored. Integrating these responses into an efficient optimization process requires both computationally tractable predictions and explicit treatment of their uncertainty. This study presents a framework combining MCNP6 photon transport, LS-DYNA fragment-simulating projectile (FSP) impact analysis, physics-informed descriptors, target-specific surrogates, split conformal prediction, and constrained NSGA-II optimization. The framework was applied to a seven-layer shield through a constrained design of experiments, yielding 2,000 radiological and 1,996 accepted ballistic simulations. The optimization minimized five-minute effective dose, shield mass, and a material-cost index, subject to geometric constraints and a penetration limit incorporating a conformal uncertainty allowance. The main findings were as follows: (i) physics-informed representations reduced cross-validation RMSE relative to raw inputs by 91.7\% for dose with Ridge and 27.0\% for penetration with XGBoost; (ii) the selected surrogates achieved held-out test R² values of 0.994 and 0.886, respectively; (iii) nominal 95\% conformal intervals achieved test coverage of 94.3\% for dose and 93.3\% for penetration, with the penetration allowance incorporated into optimization feasibility; (iv) ten NSGA-II runs yielded an empirical union of 1,530 non-dominated designs, increasing normalized hypervolume from 0.6858 for the surrogate-evaluated initial design set to 0.7446; (v) independent high-fidelity re-evaluation of 30 preselected designs yielded mean absolute errors of 0.0883 mSv for dose and 0.8094 mm for penetration; and (vi) all re-evaluated penetrations remained below the 60 mm design limit, although one exceeded its predicted conformal upper bound, demonstrating the continued need for direct solver confirmation. These findings establish a reproducible framework for surrogate-assisted design of multifunctional shields within the evaluated RDD scenario, integrating radiation transport, ballistic impact analysis, predictive uncertainty, and multi-objective optimization. Its modular structure supports extension to other material systems and threat conditions through scenario-specific simulation, surrogate retraining, and independent validation, while guiding the selection of promising designs for experimental evaluation.
+		\end{abstract}
+		
+		\begin{keyword}
+			Radiological dispersal device \sep hybrid shielding \sep surrogate modeling \sep conformal prediction \sep NSGA-II \sep LS-DYNA \sep MCNP6.3
+		\end{keyword}
+		
+	\end{frontmatter}
+	
+	\section{Introduction}
+
+	\subsection{Background and rationale}
+
+	Recent radiological-shielding research has demonstrated that heavy fillers, polymeric matrices, ceramics, and layered architectures can improve photon attenuation when evaluated under a prescribed source spectrum and geometry \cite{MoreEtAl2021,PrabhuEtAl2023,GilysEtAl2022,AlDhuhaibatEtAl2021}. Parallel work on surrogate-assisted shielding has shown that learned models can reduce the cost of repeatedly emulating transport calculations \cite{Forrester2008Surrogate}. These advances are valuable, but a material-screening result or a dose-only optimizer does not settle the design problem of a protective system that must also accommodate fragment impact, carrying burden, and material cost. The unresolved need is not another isolated attenuation model. It is a traceable method that preserves the distinct physics and decision roles of competing responses while searching their shared design space.
+
+	The recent ballistic and multifunctional-protection literature reaches a complementary conclusion. Layer order, impedance mismatch, areal-density distribution, damage evolution, and energy absorption can control impact resistance even when nominal constituent properties are similar \cite{TasdemirciTunusoglu2017,JiangEtAl2022,BiswasDatta2022,WangEtAl2024}. Hybrid protection concepts have combined impact resistance with additional shielding functions, but they usually assess a prescribed architecture rather than perform a calibrated joint search over material order and thickness allocation \cite{MarxRabiei2017CMF,Derradji2020Hybrid,Mehelli2021BallisticRadiation}. For RDD-response equipment, that distinction matters. The engineering question is not whether a constituent is multifunctional in principle, but whether an entire layered system provides a conservative and reproducible compromise under the stated radiological and ballistic scenario.
+	
+	Radiological dispersal devices can combine a conventional explosive with radioactive material, creating a response environment in which radiation protection and impact protection must be considered simultaneously. An RDD should not be conflated with an improvised explosive device (IED), an improvised nuclear device (IND), or a radiological exposure device (RED). An IED is a conventional explosive device and can be the dispersal mechanism in an explosive RDD, but it does not by itself create a radiological hazard. An IND involves a nuclear detonation and belongs to a fundamentally different consequence domain. A RED exposes people from a concealed radioactive source without deliberate dispersal. These distinctions matter because the present model concerns a bounded, pre-deployment shielding-design problem for an RDD-response scenario. It is neither a blast-consequence model nor a nuclear-detonation model \cite{IAEA2006FirstResponders,DHS2025RDD,Shea2004RDD}. Technical analyses of RDD consequences further show that the operational problem is not limited to a single dose estimate: it involves source characterization, dispersion assumptions, time-dependent exposure, protective action, and the practical burden of carrying protection \cite{Harper2007RDD,MusolinoHarper2006,MusolinoEtAl2013,RungeBuddemeier2009,WolbarstEtAl2010,BrambillaEtAl2023}. Yet, multilayer shields intended for this context pose a computationally difficult design problem: the same layer arrangement and thickness distribution affect photon transport, impact response, mass, and cost, and the relevant trade-offs are not known \emph{a priori}.
+
+	The radiological-security record should be interpreted carefully. The IAEA Incident and Trafficking Database records reported events involving nuclear and other radioactive material, classified by apparent trafficking or malicious-use relevance. It is not a catalogue of confirmed RDD attacks \cite{IAEA2024ITDB}. Historical source-security events and accidents remain relevant to preparedness because they demonstrate how loss of control, transport, handling, and source accessibility can create severe radiological consequences. They must not, however, be relabelled as RDD detonations. This distinction anchors the present work in a plausible preparedness problem without overstating either the historical frequency of RDD use or the scope of the numerical scenario.
+
+	The initial response period gives this engineering problem an operational meaning. The 2017 U.S. interagency guidance organized early actions around a notional first 100 minutes after an outdoor explosive RDD detonation. Its 2025 revision retained that sequencing concept while replacing the rigid title with “RDD Immediate Response Guidance” and updating operational details \cite{DHS2017RDD,DHS2025RDD}. Together with the IAEA first-responder manual, whose available edition remains the 2006 publication, these sources establish the broader response context \cite{IAEA2006FirstResponders}. A shield therefore cannot be evaluated as an attenuation coefficient in isolation. Within the present scope, its design must be treated as a constrained system-level trade-off among radiological attenuation, fragment resistance, carrying burden, and material cost. This framing motivates the coupled design problem without equating a numerical shield configuration with a complete operational response protocol.
+
+	Respiratory and dermal protection can substantially reduce internal contamination from radioactive particulates when appropriately selected and used. They do not, however, shield responders from externally penetrating gamma radiation. The U.S. Radiation Emergency Medical Management guidance makes this boundary explicit: PPE can mitigate external and internal contamination, but it cannot protect against highly penetrating ionizing radiation. Gamma exposure must instead be managed through time, distance, monitoring, and shielding \cite{REMM2026PPE,OSHA2026Radiation,CDC2026RadiationSafety}. Designing a portable barrier that must also resist fragment impact therefore presents a distinct engineering problem beyond particulate control alone.
+
+	Recent RDD studies have begun to couple probabilistic consequence analysis with high-fidelity transport modeling. Al-Shami et al. linked stochastic HotSpot calculations to Geant4 simulations to quantify urban dose patterns and the attenuation afforded by a representative built environment \cite{AlShami2026}. That work addresses source-term variability and urban shielding after a dispersal event. The present study addresses the complementary design problem of selecting a constrained multilayer protective architecture before deployment, while simultaneously accounting for gamma dose, fragment penetration, mass, and cost.
+
+	The recent RDD literature has consequently developed along several necessary but distinct operational tracks: source-term and aerosol characterization, urban dispersion and deposition, consequence assessment, field monitoring, and protective-action planning \cite{DHS2025RDD,AlShami2026,BrambillaEtAl2023}. Illustrative recent contributions quantify urban RDD consequences with HotSpot and RESRAD-RDD \cite{ObooEtAl2024} or develop digital monitoring frameworks around consequence estimates \cite{AlrammahAlShareef2023}. These studies establish why early decisions must remain conservative when source, environment, and exposure pathway are uncertain. They do not, however, solve the pre-deployment materials-design problem considered here. A portable shield is neither a substitute for respiratory protection nor a model of plume evolution. Its narrow role is to reduce the stated external gamma and fragment threats within a weight-constrained equipment envelope.
+
+	The radiation-protection component requires more than selecting the material with the largest density. Photon attenuation depends on photon energy, elemental composition, thickness, geometry, scattered radiation, and the location of the protected detector or person \cite{Attix1986,Knoll2010,ShultisFaw2011,Turner2007}. High-$Z$ constituents can improve attenuation over relevant energy ranges, but material selection must be evaluated together with secondary effects, mass, mechanical response, availability, and the arrangement of heterogeneous interfaces. Hybrid and multilayer radiation shields have consequently been investigated with polymeric matrices, heavy fillers, ceramics, boron-containing materials, metals, and composite architectures \cite{MoreEtAl2021,PrabhuEtAl2023,GilysEtAl2022,AbualroosEtAl2019,ChangEtAl2015,AlDhuhaibatEtAl2021,AlmurayshidEtAl2021,AlavianTavakoli2019,UddinEtAl2020,AbdalsalamEtAl2020}. These studies motivate the use of mixed materials, but they also illustrate that a material ranking based on a single attenuation coefficient cannot define the best operational shield.
+	
+	The ballistic requirement introduces a second and qualitatively different physical response. During high-rate impact, the relevant mechanisms can include wave propagation, local deformation, damage accumulation, erosion, rebound, interface effects, and projectile or fragment deceleration. Their representation in protective materials has been studied for ceramics, metals, polymers, composites, and multilayer configurations \cite{Hazell2015,Zukas1990,Meyers1994,Crouch2016,JohnsonCook1983,JohnsonHolmquist1994,TasdemirciTunusoglu2017,JiangEtAl2022,NunesEtAl2019,BiswasDatta2022,WangEtAl2024}. A radiologically efficient layer can therefore be mechanically disadvantageous in a given sequence, while a ballistic layer can impose an unacceptable mass penalty. Prior hybrid ballistic--radiological concepts confirm the relevance of jointly considering both functions \cite{MarxRabiei2017CMF,Derradji2020Hybrid,Mehelli2021BallisticRadiation}, but a general procedure is still needed to navigate their large combinatorial and continuous design space.
+
+	The ballistic threat is represented by a fragment-simulating projectile (FSP), not by a claim to reproduce every effect of a particular grenade or improvised device. FSPs are used in armor assessment because their controlled mass, shape, and striking condition enable repeatable comparisons among protective systems \cite{CantEtAl2015FSP}. That experimental-control advantage is also the reason for their use in the present computational design space. Real fragments vary in geometry, mass, orientation, and flight history, and cannot be reduced to a single FSP without loss of realism. The resulting scope is deliberate: the model supports comparative screening against the declared fragment threat. It does not replace explosive-fragment experiments, blast analysis, or a full characterization of an individual munition.
+	
+	\subsection{AI-enabled shielding design}
+
+	The resulting task is a representative engineering AI problem: each high-fidelity evaluation is expensive, the decision variables are mixed discrete--continuous, multiple objectives compete, and a safety-critical response must not be optimized with unqualified point predictions. Surrogate-assisted optimization provides a principled route for this setting \cite{Forrester2008Surrogate}, and modern ensemble and gradient-boosting models are effective nonlinear regressors for structured engineering data \cite{Breiman2001RF,Geurts2006ExtraTrees,Friedman2001GBM,ChenGuestrin2016XGBoost}. However, an accurate average error alone is insufficient when an underestimate can admit an unsafe design. Conformal prediction offers a model-agnostic way to convert held-out residuals into finite-sample prediction intervals \cite{Vovk2005Conformal,Lei2018Conformal}. Evolutionary multi-objective search can then incorporate the interval directly into feasibility management \cite{Deb2002NSGAII,Deb2000Constraints,EmmerichDeutz2018}.
+	
+	High-fidelity Monte Carlo transport and explicit finite-element impact analysis are appropriate tools for evaluating these mechanisms, but their direct use inside a large multi-objective optimizer is prohibitive. Surrogate-assisted optimization is therefore attractive \cite{Forrester2008Surrogate}, provided that it does not conceal predictive uncertainty or blur distinct physical targets into a single generic model. In a protective-design setting, an underestimated penetration may be more consequential than a small loss of optimization efficiency.
+	
+	\subsection{Knowledge gap and study contribution}
+
+	The central research gap is therefore methodological rather than the absence of individual simulation tools or individual candidate materials. A credible computational design study must join radiation transport, transient impact mechanics, and decision optimization without allowing one model's convenience to dominate the physical question. A workflow that optimizes only attenuation may generate designs that are too heavy or mechanically unsuitable. Conversely, an impact-only workflow can prefer arrangements that do not adequately reduce the radiation endpoint. A single scalar objective can obscure these conflicts before a stakeholder has had the opportunity to specify priorities. The engineering need is a traceable process that keeps the objectives separate, exposes their trade-offs, and preserves a hard ballistic acceptance condition.
+	
+	This need changes how ML should be evaluated. In many engineering datasets, a favorable average $R^2$ is reported as if it were sufficient evidence for an optimization study. Here, that practice would be incomplete for three reasons. First, the two responses have different units, response surfaces, and decision roles. Second, a regression error has a direct implication for whether a candidate crosses the penetration threshold. Third, the configurations proposed by an optimizer can be concentrated in boundary regions that are more relevant to a decision than an average randomly held-out case. A suitable method must therefore separate data used for fitting, calibration, and final testing, carry a target-specific uncertainty measure into the constrained search, and verify selected optimized configurations independently.
+	
+	The study is intentionally framed as design support under a specified numerical scenario. It does not claim to resolve all RDD response decisions, to replace regulatory dose assessment, or to certify a deployable protective product. Its narrower claim is that a rigorous AI workflow can search the stated mixed-material design space much more efficiently than direct nested simulation, while retaining an auditable chain back to MCNP6.3 and LS-DYNA. This bounded framing is important for both reproducibility and scientific interpretation: the ML system is judged by its ability to accelerate and structure evidence, not by an unsupported claim of universal physical authority.
+	
+	This paper develops a closed-loop engineering AI framework for hybrid ballistic--radiological multilayer shields. The framework has five linked elements: (i) a high-fidelity design-of-experiments campaign, (ii) physics-informed representation of the layered design, (iii) target-specific surrogate selection, (iv) split conformal prediction for uncertainty quantification, and (v) mixed discrete--continuous NSGA-II constrained by a conservative ballistic upper bound. The loop is closed by independent MCNP6.3 and LS-DYNA re-evaluation of a deliberately diverse set of Pareto solutions.
+	
+	The contribution is not the isolated application of a machine-learning regressor to simulation data. It is the integration of physically structured features, distribution-free uncertainty intervals, and a safety-oriented constraint within multi-objective search. Specifically, the study contributes a target-specific learning protocol with separated training, calibration, and untouched test partitions. It provides an explicit RAW-versus-PHYSICS representation comparison and a split-conformal penetration allowance that enters feasibility before Pareto selection. It reports a ten-seed mixed discrete--continuous NSGA-II study as a union rather than a favorable single run and independently regenerates 30 preselected Pareto designs in both solvers. This organization keeps simulation as the ground-truth authority while using AI to make the design search tractable.
+
+	The remainder of the article is organized as follows. Section~2 defines the layered design space, high-fidelity evidence, feature representation, uncertainty treatment, and optimization protocol. Section~3 reports representation effects, model rankings, Pareto-search behavior, and independent high-fidelity confirmation. Section~4 interprets the findings for multiphysics protective-system design, simulation quality, uncertainty-aware decision making, and reproducibility. Section~5 states the bounded conclusions and the next evidence required for broader engineering use.
+	
+	\section{Engineering problem and computational framework}
+
+	Figure~\ref{fig:rdd_context} first fixes the physical and decision boundary of the study. It separates the declared external gamma and controlled FSP threats from the broader operational, atmospheric, and medical consequences of an RDD event.
+	
+	\begin{figure*}[htbp]
+		\centering
+		\includegraphics[width=0.96\textwidth]{figures/fig0_rdd_response_context.pdf}
+		\caption{Physical and decision boundary of the studied RDD-response shielding problem. The source-side gamma field and fragment-simulating projectile interact with the same seven-layer shield, while the protected side is evaluated through effective dose and maximum penetration. Mass and cost remain deterministic decision objectives.}
+		\label{fig:rdd_context}
+	\end{figure*}
+	\productionnote{\textbf{Figura~\ref{fig:rdd_context} --- briefing para Carlos.} Esta figura abre a metodologia e delimita o problema, n\~ao representa um ataque ou procedimento operacional. Use \texttt{figures/fig0\_rdd\_response\_context.pdf} apenas como mapa de conte\'udo. Da esquerda para a direita, mostrar uma fonte gama selada abstrata em zona de perigo, ondas gama em amarelo-\^ambar, uma trajet\'oria controlada de FSP em vermelho-escuro, a blindagem port\'atil curva de sete camadas em corte explodido e a silhueta do respondedor protegida. As quatro chamadas devem ser: \textit{external gamma field}, \textit{controlled FSP impact surrogate}, \textit{five-minute effective dose}, e \textit{maximum penetration}. Inserir no rodap\'e: \textit{Scope: pre-deployment and pre-explosion comparative design scenario}. Usar fundo branco, azul-marinho, azul ard\'osia, \^ambar discreto e vermelho escuro, sem ins\'ignias, feridos, explos\~ao, instru\c{c}\~oes t\'aticas ou escala operacional. Como refer\^encia visual, podem ser consultados \texttt{Arquivos para figuras da Tese/Cen\'ario 3D (Fonte radioativa para integra\c{c}\~ao em cen\'ario 2D).py}, \texttt{Cen\'ario 3D (Granada para integra\c{c}\~ao em cen\'ario 2D).py} e \texttt{Corte da blindagem.py}.}
+
+	The figure deliberately does not depict blast propagation, plume transport, tactics, or a completed protective ensemble. It identifies the limited coupled engineering question addressed here: how one constrained multilayer architecture changes two distinct simulation-derived responses while mass and cost remain decision objectives.
+
+	\subsection{Shield design space and objectives}
+	
+	Each candidate consists of seven material layers. The material decision is a permutation: each of the seven available materials is used exactly once. The continuous decision vector contains the corresponding layer thicknesses. Individual thicknesses are bounded from \SI{0.2}{cm} to \SI{2.0}{cm}, while their sum is fixed at \SI{6.0}{cm}. Layer 1 faces the operator and layer 7 faces the source/impact side. This mixed permutation--continuous encoding retains the engineering relevance of layer ordering while preventing chemically or geometrically invalid duplicate arrangements.
+	
+	The three objectives are to minimize effective dose in five minutes, total mass, and a project-defined cost index. Dose and penetration are simulation-derived. Mass and cost are deterministic functions of the material identity and geometry. The ballistic requirement is a maximum penetration no larger than \SI{60}{mm}. No physical model was altered by the machine-learning or optimization stages.
+
+	\subsection{Gamma interaction and fragment-impact mechanisms}
+
+	The problem contains coupled design consequences rather than a fully coupled particle--structure solver. Photon transport is evaluated through MCNP6.3 under the fixed source and detector definition, whereas fragment resistance is evaluated through LS-DYNA under the frozen impact model. The same material order and thickness allocation influence both responses, but through different mechanisms. Table~\ref{tab:mechanisms} makes this distinction explicit and identifies the descriptors that can be computed before simulation.
+
+	\begin{table*}[htbp]
+		\centering
+		\caption{Gamma-transport and fragment-impact mechanisms relevant to the hybrid shield design space. The table is a physical interpretation of the fixed numerical scenario, not a claim that any one descriptor replaces the high-fidelity solvers.}
+		\label{tab:mechanisms}
+		\footnotesize
+		\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.18\textwidth}>{\raggedright\arraybackslash}p{0.39\textwidth}>{\raggedright\arraybackslash}p{0.35\textwidth}@{}}
+			\toprule
+			Response domain & Dominant mechanisms in the adopted scenario & Design levers and pre-simulation descriptors relevant to AI \\
+			\midrule
+			Gamma transport & Energy-dependent photon interaction, attenuation, scatter, geometric path length, and source-facing versus operator-facing placement & High-$Z$ content, density, layer thickness, radial position, total areal density, attenuation-coefficient proxy, effective atomic-number proxy, attenuation product, and face descriptors \\
+			Fragment impact & Transient wave propagation, local deformation, damage, erosion, rebound, interface mismatch, and fragment deceleration & Layer order, ceramic and metallic placement, polymeric support, impedance contrast, areal-density distribution, layer density, thickness contrast, radial moments, and interface descriptors \\
+			System-level decision & Competition among dose reduction, penetration resistance, mass, and cost under a hard penetration screen & Seven-material permutation, bounded thickness allocation, deterministic mass and cost, and target-specific conformal uncertainty \\
+			\bottomrule
+		\end{tabular}
+	\end{table*}
+	\productionnote{\textbf{Tabela~\ref{tab:mechanisms} --- briefing para Carlos.} Transformar esta tabela em uma matriz de tr\^es faixas horizontais, uma para transporte gama, uma para impacto por fragmento e uma para decis\~ao de sistema. Manter as tr\^es colunas conceituais e usar uma cor discreta por faixa. A tabela deve ser refeita em vetor e servir como ponte entre a Figura~\ref{fig:rdd_context} e a metodologia computacional. N\~ao inserir propriedades num\'ericas novas.}
+
+	Table~\ref{tab:mechanisms} shows why a single response surrogate would be physically inappropriate. Gamma attenuation is primarily governed by transport quantities that can be represented by deterministic descriptors, whereas penetration retains strong dependence on transient damage and interface processes. The system-level row therefore preserves separate targets and assigns uncertainty a decision role only where it can affect feasibility.
+
+	Figure~\ref{fig:mechanism_paths} complements Table~\ref{tab:mechanisms} by making the distinct computational pathways explicit. It is qualitative by design: the graphic identifies possible gamma-interaction and impact-response pathways without assigning uncomputed interaction probabilities or claiming that a declared FSP represents the distribution of real explosive fragments.
+
+	\begin{figure*}[htbp]
+		\centering
+		\includegraphics[width=0.92\textwidth]{figures/fig_gamma_fsp_mechanisms.pdf}
+		\caption{Qualitative gamma-transport and FSP-impact pathways under the declared scenario. Gamma interactions are sampled stochastically in MCNP6.3, with occurrence governed by photon energy, composition, and geometry. The fragment branch is the deterministic LS-DYNA response for the declared FSP case. The figure does not assign relative probabilities or represent a blast-fragment distribution.}
+		\label{fig:mechanism_paths}
+	\end{figure*}
+	\productionnote{\textbf{Figura~\ref{fig:mechanism_paths} --- briefing para produ\c{c}\~ao gr\'afica.} Manter a estrutura de duas trilhas paralelas e uma camada de decis\~ao comum. A trilha gama deve usar tons \^ambar e dizer claramente \textit{stochastic particle histories}; a trilha FSP deve usar vermelho escuro e dizer \textit{declared deterministic impact case}. N\~ao usar percentuais, barras, espessuras proporcionais, explos\~oes ou silhuetas de granadas. No rodap\'e, preservar a ressalva de que a figura \`e qualitativa e n\~ao representa probabilidades relativas nem uma distribui\c{c}\~ao de fragmentos reais. Refazer em vetor, com tipografia e cores consistentes com as Figuras~\ref{fig:rdd_context} e \ref{fig:framework}.}
+
+	The two pathways meet only through their shared design variables and decision layer. This is the reason the study learns separate dose and penetration surrogates rather than treating the problem as a single response. It also explains why uncertainty is propagated into the penetration constraint, while the high-fidelity solvers retain authority over both physical endpoints.
+	
+	\subsection{Materials, layer order, and physical rationale}
+	
+	The material library comprises Al, B4C-HDPE, Bi$_2$O$_3$-HDPE, Fe, SiC, UHMWPE, and W-epoxy. Each is used once in every candidate. This construction has two benefits. First, it prevents the optimizer from exploiting a single material by repeating it without an explicit manufacturing or functional rationale. Second, it exposes the order-dependent interaction of low-density polymeric layers, high-density or high-$Z$ constituents, metallic layers, and ceramic phases. The library is not claimed to represent all feasible protective materials. It defines the bounded engineering space evaluated by the simulations.
+	
+	Layer order is retained explicitly because radial position matters for both targets. In the radiological setting, the source-facing and operator-facing materials can affect attenuation and scatter differently. In the ballistic setting, the impact-facing layer, the sequence of impedance changes, and the distribution of areal density can influence the response. These considerations are consistent with general shielding and impact-mechanics literature \cite{CarlucciJacobson2014,Chilton1984,Hazell2015,Zukas1990,Crouch2016}. They motivate a representation that preserves individual layers instead of collapsing every candidate to a total mass or a material histogram.
+	
+	The fixed total thickness makes the optimization a distribution and ordering problem rather than a trivial solution obtained by adding material. Bounds of \SI{0.2}{cm}--\SI{2.0}{cm} avoid zero-thickness pseudo-layers and excessively dominant single layers. The mass and cost functions are intentionally outside the learned targets: they are evaluated deterministically from the same configuration, eliminating needless surrogate error from two quantities whose governing calculations are known exactly within the adopted accounting model.
+	
+	\subsection{High-fidelity data generation and quality gates}
+	
+	Radiological transport was calculated using the MCNP6.3 campaign and the ballistic response using LS-DYNA. MCNP is a general-purpose Monte Carlo particle transport code \cite{Kulesza2022MCNP63,X5MCNP2003v1,X5MCNP2003v2}. The transport setup followed the source, geometry, material, tally, and convergence logic standard to photon-transport calculations \cite{ShultisFaw2011,Turner2007,NISTXCOM}. The effective-dose endpoint was defined for the five-minute response interval, with the adopted source and detector definition held fixed across the campaign. This endpoint is appropriate to comparative design under the specified scenario. It is not asserted to be a universal operational dose assessment. International radiation-protection recommendations provide the broader context for interpreting dose-related quantities and protective decisions \cite{ICRP2007Pub103,ICRP2009Pub109,NCRP2001Report138,IAEA2015GSR7}.
+	
+	The final MCNP6.3 campaign contained 2,000 valid configurations, each completed with $10^8$ particle histories. All final cases reached the requested histories, produced the F4:P cell-flux tally in detector cell 20, and passed the campaign's computational quality gate. The tally response used the energy-binned \texttt{DE4/DF4} ICRP-116 anterior--posterior effective-dose conversion and the fixed multiplier \texttt{FM4 7400} for the five-minute endpoint. The tally relative errors and input hashes were recorded case by case. The common history count and fixed transport setup make differences among configurations attributable to the design variables within the adopted model, while the case-level run records provide traceability.
+	
+	LS-DYNA is an explicit finite-element platform appropriate for highly nonlinear transient impact problems \cite{Hallquist2006}. The ballistic model was kept frozen during post-processing, learning, optimization, and validation: no material card, mesh, contact definition, timestep, or physical response was changed to improve the AI results. Maximum penetration was extracted by the documented projectile/fragment-node method, with energy-balance and completion records used as quality controls. Constitutive and high-rate impact-modeling principles underlying the campaign are well established in the explicit-dynamics literature \cite{JohnsonCook1983,JohnsonHolmquist1994,Meyers1994}.
+	
+	The LS-DYNA master dataset contains 2,000 design records, of which 1,996 passed the pre-specified simulation-completion and quality rules and were retained for penetration modeling. The four excluded records were not assigned invented outputs. This target-specific inclusion is intentional: all MCNP configurations were valid for dose modeling, whereas ballistic output quality was independently assessed. The final datasets are summarized in Table~\ref{tab:data}.
+	
+	This separate target eligibility is a methodological safeguard. Removing a ballistic record does not make its radiological calculation invalid, and removing an MCNP record would not retrospectively change an LS-DYNA result. The dose model therefore uses every valid MCNP configuration. The penetration model uses every LS-DYNA configuration that satisfied its own completion and quality criteria. The approach avoids two undesirable alternatives: discarding valid dose data merely to force paired rows, or imputing an unavailable ballistic output and presenting it as a simulated value.
+	
+	\begin{table}[htbp]
+		\centering
+		\caption{Final simulation data used by the AI workflow.}
+		\label{tab:data}
+		\begin{tabular}{@{}lll@{}}
+			\toprule
+			Data source & Target & Usable configurations \\
+			\midrule
+			MCNP6.3 & Effective dose in \SI{5}{min} (mSv) & 2,000 / 2,000 \\
+			LS-DYNA & Maximum penetration (mm) & 1,996 / 2,000 \\
+			Deterministic calculation & Total mass and cost index & 2,000 / 2,000 \\
+			\bottomrule
+		\end{tabular}
+		\par\vspace{0.3em}\footnotesize\raggedright
+		The four LS-DYNA records failing the ballistic quality gate were excluded only from the penetration-learning target. They were not imputed or used as fictitious physical observations.
+	\end{table}
+
+	Table~\ref{tab:data} makes the target-specific evidence boundary explicit. Retaining all valid MCNP cases while excluding only the four LS-DYNA records that failed the pre-specified ballistic gate maximizes usable evidence without converting unavailable mechanical responses into artificial labels.
+	
+	\subsection{Physics-informed surrogate models}
+	
+	Two representations were compared under the same data splits. The raw representation comprises categorical material identities and seven layer thicknesses. The physics-informed representation augments this information with deterministic descriptors derived only from the material library and thicknesses, allowing the learner to access aggregate shielding characteristics while retaining layer order. The representation contains no response variable and therefore cannot leak high-fidelity outcomes.
+	
+	The deterministic descriptors include per-layer density, attenuation coefficient, effective atomic-number proxy, areal density, and layerwise attenuation product. Global descriptors include total attenuation product, Beer--Lambert transmission proxy, thickness-weighted effective atomic-number proxy, high-$Z$ and low-$Z$ thickness measures, radial moments and centroids, source- and operator-face descriptors, total areal density, thickness-distribution statistics, and adjacent-layer thickness and density contrasts. The features are not substitutes for transport or impact simulation. Instead, they encode simple physical quantities that an unconstrained learner would otherwise have to infer from sparse permutations and thickness allocations. The attenuation-related variables are consistent with standard interaction-coefficient and exponential-transmission concepts \cite{Attix1986,Knoll2010,NISTXCOM}. The areal-density and interface descriptors retain mechanics-relevant structure without claiming a closed-form ballistic model.
+
+	Table~\ref{tab:features} makes the representation explicit. RAW and PHYSICS share the same design variables. PHYSICS adds deterministic transformations only, all computable before either solver is run. This separation is important because it makes the feature comparison a test of representation rather than a disguised use of simulation output.
+
+	\begin{table*}[htbp]
+		\centering
+		\caption{Input representation used for target-specific surrogate learning. All PHYSICS descriptors are deterministic functions of material identity, layer position, and thickness.}
+		\label{tab:features}
+		\small
+		\begin{tabular}{@{}p{0.22\textwidth}p{0.35\textwidth}p{0.34\textwidth}@{}}
+			\toprule
+			Feature group & RAW representation & PHYSICS augmentation and engineering rationale \\
+			\midrule
+			Layer identity and geometry & Seven ordered material labels and seven layer thicknesses & Retained unchanged to preserve material order and the bounded thickness allocation. \\
+			Layerwise physical descriptors & None beyond the raw labels and thicknesses & Density $\rho_i$, attenuation coefficient $\mu_i$, effective atomic-number proxy $Z_{\mathrm{eff},i}$, areal density $\rho_i t_i$, and layer attenuation product $\mu_i t_i$. \\
+			Aggregate radiological descriptors & None & Total attenuation product, Beer--Lambert transmission proxy, thickness-weighted $Z_{\mathrm{eff}}$, and high-$Z$ and low-$Z$ thickness measures. \\
+			Spatial distribution descriptors & Ordered positions are implicit only & Radial moments and centroids, source-face and operator-face descriptors, total areal density, and thickness-distribution statistics. \\
+			Interface descriptors & None & Adjacent-layer thickness and density contrasts, retaining information relevant to heterogeneous interfaces without claiming an analytical impact model. \\
+			Response variables & Excluded & Excluded. Neither representation contains dose, penetration, solver QA metrics, or any post-processed simulation quantity. \\
+			\bottomrule
+		\end{tabular}
+	\end{table*}
+	\productionnote{\textbf{Tabela~\ref{tab:features} --- briefing para Carlos.} Refazer como matriz de tr\^es faixas. Colocar os inputs RAW em cinza neutro, os acr\'escimos PHYSICS em azul e a linha ``no response variables'' em cor de seguran\c{c}a contrastante. A fonte obrigat\'oria \`e \texttt{Fase 3/analise\_desempenho\_modelos (Fase 3) - MCNP63/final\_model\_summary.json} e o c\'odigo de \textit{feature engineering} arquivado na Fase 3. N\~ao deduzir defini\c{c}\~oes de features a partir de sa\'idas dos modelos.}
+
+	The feature inventory in Table~\ref{tab:features} confirms that the PHYSICS representations encode pre-simulation knowledge rather than solver outcomes. This is the central leakage control: every added descriptor is obtainable from the candidate material order, thicknesses, and fixed material library before MCNP6.3 or LS-DYNA is executed. Figure~\ref{fig:descriptor_map} then shows how these representations enter a target-specific development protocol.
+
+	\begin{figure*}[htbp]
+		\centering
+		\includegraphics[width=0.96\textwidth]{figures/fig2_gamma_fsp_descriptor_map.pdf}
+		\caption{Target-specific representation-selection protocol. Shared material identities and layer thicknesses are evaluated through pre-specified RAW and physics-informed feature sets inside the training partition. Cross-validation selects a candidate separately for dose and penetration before split-conformal calibration and untouched-test evaluation.}
+		\label{fig:descriptor_map}
+	\end{figure*}
+	\productionnote{\textbf{Figura~\ref{fig:descriptor_map} --- briefing para Carlos.} Refazer esta figura para que ela complemente, e n\~ao repita, o fluxograma metodol\'ogico. O arquivo preliminar \texttt{figures/fig2\_gamma\_fsp\_descriptor\_map.pdf} serve somente como rascunho. A arte final deve mostrar: (1) as 14 entradas brutas comuns, (2) os grupos RAW e PHYSICS para dose, (3) os grupos RAW, PHYSICS e PHYSICS-STRENGTH23 para penetra\c{c}\~ao, (4) \textit{RandomizedSearchCV} de cinco folds exclusivamente no treino, (5) a sele\c{c}\~ao independente por alvo, (6) a calibra\c{c}\~ao conformal e o teste intocado. Usar azul para dose, vermelho-escuro para penetra\c{c}\~ao e cinza para controles contra \textit{data leakage}. N\~ao mostrar a fronteira de Pareto nesta figura.}
+	
+	Figure~\ref{fig:descriptor_map} emphasizes that representation selection, hyperparameter tuning, conformal calibration, and final testing use distinct data roles. The resulting protocol prevents an individual configuration from serving simultaneously as a tuning signal, calibration residual, and reported test observation.
+
+	Accordingly, the data were partitioned separately by target into 70\% training, 15\% calibration, and 15\% final test sets. Splitting was performed at the unique simulation-configuration identifier: no identical material-order/thickness configuration appears in more than one partition. Model-family comparison used five-fold cross-validation exclusively inside the training partition. The calibration subset was held back until the final selected pipeline had been fitted, and the test subset was untouched until final reporting. This sequence separates model selection, uncertainty calibration, and performance assessment, reducing optimistic reuse of the same observations. It is a configuration-level validation protocol, not a scenario-disjoint external validation. Closely related, but non-identical, designs can still occur across partitions and the limitation is considered explicitly below.
+	
+	Candidate learners included Ridge regression, Random Forest, Extra Trees \cite{Geurts2006ExtraTrees}, Gradient Boosting \cite{Friedman2001GBM}, Histogram Gradient Boosting (HistGB), multilayer perceptron, and XGBoost \cite{ChenGuestrin2016XGBoost}. Each pre-specified candidate pipeline was tuned by \texttt{RandomizedSearchCV} within five-fold cross-validation on the training partition only. The held-out test partition was not used for model selection or hyperparameter tuning. The final selected models were calibrated on a separate calibration partition, after fitting, to obtain split-conformal residual quantiles \cite{Vovk2005Conformal,Lei2018Conformal}.
+	
+	The candidate set deliberately spans linear, bagged-tree, randomized-tree, boosting, and neural-network inductive biases. No model family was designated as the expected winner. This avoids a common methodological weakness in engineering ML, namely selecting an algorithm based on reputation rather than applying the same validation protocol to all candidates. Thirty-five tuned candidates were evaluated: 14 for dose across RAW and PHYSICS representations, and 21 for penetration across RAW, PHYSICS, and PHYSICS\_STRENGTH23 representations. The chosen pipeline for each target was then refitted on its prescribed training data before calibration and final test evaluation. Table~\ref{tab:model_benchmark} reports the five leading target-specific candidates. Table~\ref{tab:raw_physics} reports the representation comparison for the selected learners.
+	
+	\begin{table*}[htbp]
+		\centering
+		\caption{Top five tuned candidate models for each target under five-fold cross-validation. The dose ranking uses PHYSICS and the penetration ranking uses PHYSICS\_STRENGTH23. Bold identifies the selected learner.}
+		\label{tab:model_benchmark}
+		\small
+		\resizebox{\textwidth}{!}{%
+		\begin{tabular}{@{}clcccclcc@{}}
+			\toprule
+			\multicolumn{4}{c}{Effective dose in 5 min} & \multicolumn{4}{c}{Maximum penetration} \\
+			\cmidrule(lr){1-4}\cmidrule(lr){5-8}
+			Rank & Model & $R^2_{CV}$ & RMSE$_{CV}$ (mSv) & Rank & Model & $R^2_{CV}$ & RMSE$_{CV}$ (mm) \\
+			\midrule
+			1 & \textbf{Ridge} & \textbf{0.9932} & \textbf{0.0588 $\pm$ 0.0017} & 1 & \textbf{XGBoost} & \textbf{0.8944} & \textbf{2.3153 $\pm$ 0.2164} \\
+			2 & Gradient Boosting & 0.9908 & 0.0681 $\pm$ 0.0018 & 2 & HistGB & 0.8927 & 2.3328 $\pm$ 0.2308 \\
+			3 & XGBoost & 0.9899 & 0.0714 $\pm$ 0.0021 & 3 & Gradient Boosting & 0.8791 & 2.4774 $\pm$ 0.2895 \\
+			4 & HistGB & 0.9894 & 0.0734 $\pm$ 0.0032 & 4 & Extra Trees & 0.8788 & 2.4820 $\pm$ 0.3479 \\
+			5 & Extra Trees & 0.9797 & 0.1015 $\pm$ 0.0043 & 5 & Random Forest & 0.8697 & 2.5688 $\pm$ 0.3443 \\
+			\bottomrule
+		\end{tabular}
+		}
+	\end{table*}
+	\productionnote{\textbf{Tabela~\ref{tab:model_benchmark} --- briefing para Carlos.} Usar \texttt{Fase 3/analise\_desempenho\_modelos (Fase 3) - MCNP63\_DEDF\_AP/benchmark\_cv\_summary.csv}. Apresentar os dois blocos ranqueados com tipografia id\^entica e manter o desvio-padr\~ao entre folds. A nota da tabela deve informar que todos os 35 candidatos foram otimizados por \texttt{RandomizedSearchCV} somente no conjunto de treinamento. Se for criada uma figura complementar, preferir pontos com barras de varia\c{c}\~ao a gradientes decorativos.}
+
+	The leading rows in Table~\ref{tab:model_benchmark} establish that model selection was empirical and target-specific. Ridge is sufficient once transport-informed dose descriptors are available, while the more nonlinear penetration response favors XGBoost, with HistGB as a close comparator. The complete ranking and optimized hyperparameters of all 35 pipelines are reported in Supplementary Tables~S1 and S2. Table~\ref{tab:raw_physics} isolates the separate contribution of representation choice for the two selected learners.
+
+	\begin{table*}[htbp]
+		\centering
+		\caption{Representation effect for the selected learner of each target under five-fold cross-validation. PHYSICS\_STRENGTH23 is an ablation-selected subset of frozen mechanically interpretable descriptors.}
+		\label{tab:raw_physics}
+		\small
+		\begin{tabular}{@{}llrrr@{}}
+			\toprule
+			Target & Selected learner & Representation & RMSE$_{CV}$ & Change from RAW \\
+			\midrule
+			Dose & Ridge & RAW & 0.7091 mSv & -- \\
+			Dose & Ridge & PHYSICS & 0.0588 mSv & $-91.7\%$ \\
+			Penetration & XGBoost & RAW & 3.1705 mm & -- \\
+			Penetration & XGBoost & PHYSICS & 2.9603 mm & $-6.6\%$ \\
+			Penetration & XGBoost & PHYSICS\_STRENGTH23 & 2.3153 mm & $-27.0\%$ \\
+			\bottomrule
+		\end{tabular}
+	\end{table*}
+	\productionnote{\textbf{Tabela~\ref{tab:raw_physics} e Figura~\ref{fig:physics} --- briefing para Carlos.} Usar \texttt{Fase 3/analise\_desempenho\_modelos (Fase 3) - MCNP63\_DEDF\_AP/raw\_vs\_physics\_paired\_comparison.csv}, \texttt{benchmark\_cv\_summary.csv} e \texttt{benchmark\_cv\_folds.csv}. Construir a figura como gr\'afico de inclina\c{c}\~ao em dois pain\'eis, com os sete aprendizes por alvo e uma faixa adicional para a abla\c{c}\~ao PHYSICS\_STRENGTH23 na penetra\c{c}\~ao. Rotular apenas os modelos selecionados e n\~ao sugerir que todas as transforma\c{c}\~oes melhoram todos os algoritmos.}
+
+	Table~\ref{tab:raw_physics} demonstrates a response-specific representation effect. Dose benefits sharply from physically structured attenuation descriptors, whereas penetration benefits most from the compact mechanical-strength subset. The contrast supports retaining different feature sets rather than imposing one representation merely for uniformity.
+	
+	Let $\hat{y}(\mathbf{x})$ denote a point prediction and let $q_{0.95}$ be the empirical 95\% split-conformal absolute-residual quantile from the calibration set. The two-sided prediction interval is
+	\begin{equation}
+		\left[\hat{y}(\mathbf{x})-q_{0.95},\,\hat{y}(\mathbf{x})+q_{0.95}\right].
+	\end{equation}
+	For the safety constraint, only the upper side of the penetration interval is used:
+	\begin{equation}
+		\hat{p}(\mathbf{x})+q^{(p)}_{0.95} \leq \SI{60}{mm},
+		\label{eq:ballistic_constraint}
+	\end{equation}
+	where $\hat{p}$ is predicted maximum penetration. This is a conservative model-based screen, not a replacement for final high-fidelity verification.
+	
+	The conformal quantity has a precise role in this study. It is a residual-derived half-width in the original target unit, not a probability that a particular design is safe and not a numerical correction of the LS-DYNA result. Its use in Eq.~\eqref{eq:ballistic_constraint} makes the search less willing to accept a design that is only point-estimate feasible. The dose interval is reported for transparency and validation. The ballistic upper interval is the safety-relevant optimization screen. This distinction preserves the different decision roles of the two targets.
+	
+	\subsection{Multi-objective optimization and final re-evaluation}
+	
+	The constrained problem was solved with NSGA-II \cite{Deb2002NSGAII}, using constraint handling consistent with feasibility-first evolutionary search \cite{Deb2000Constraints}. Its variation operators respect the hybrid decision space: material assignments remain permutations and thicknesses obey their bounds and total-thickness constraint. Ten independent runs used different random seeds, a population of 300, and 200 generations. Performance was tracked using normalized hypervolume relative to anchors derived from the design-of-experiments data \cite{EmmerichDeutz2018}.
+	
+	NSGA-II was selected because its non-dominated sorting and diversity preservation are suitable for three competing objectives and because it admits explicit handling of the material permutation and thickness allocation. The final report preserves all terminal runs rather than presenting one favorable seed. Hypervolume is used as a set-level indicator because it captures convergence and spread with respect to a common reference point \cite{ZitzlerThiele1999,EmmerichDeutz2018}. The normalized value supports comparison with the surrogate-evaluated design-of-experiments baseline, while the raw Pareto set remains available for engineering selection.
+	
+	After optimization and before any Phase~5 solver execution, a deterministic coverage-oriented rule selected 30 candidates for validation. The set includes the minimum predicted dose, minimum cost, minimum mass, one balanced TOPSIS-IQR solution \cite{HwangYoon1981TOPSIS}, and 26 additional solutions chosen sequentially to maximize coverage of the retained Pareto set. These 30 candidates were regenerated and evaluated by MCNP6.3 and LS-DYNA independently of the surrogate calculations. Figure~\ref{fig:framework} summarizes the complete workflow.
+	
+	The validation sample was intentionally diverse rather than selected only for a single favorable objective. It includes the three objective extremes, a central compromise, and a coverage-oriented set distributed across the Pareto union. For every candidate, the simulation input, execution manifest, and output identity were recorded. High-fidelity validation therefore tests the entire chain---candidate reconstruction, input generation, solver execution, post-processing, and surrogate comparison---rather than only the final regression equation. Figure~\ref{fig:framework} summarizes this closed-loop evidence chain.
+	
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=\textwidth]{figures/fig1_framework.pdf}
+		\caption{Thesis methodological framework. Phase 1 generates the constrained design of experiments. Phase 2 establishes MCNP6.3 and LS-DYNA ground truth. Phase 3 trains and calibrates target-specific surrogates. Phase 4 performs uncertainty-aware multi-objective optimization. Phase 5 independently regenerates and verifies selected Pareto solutions.}
+		\label{fig:framework}
+	\end{figure}
+	\productionnote{\textbf{Figura~\ref{fig:framework} --- briefing para Carlos.} O arquivo-fonte edit\'avel est\'a em \texttt{figures/fig1\_framework\_tikz.tex}. Compilar esse arquivo de modo independente e exportar o PDF para \texttt{figures/fig1\_framework.pdf}. O desenho tem cinco blocos conectados: DOE restrito, campanhas de alta fidelidade com QA por solver, sele\c{c}\~ao de surrogates por alvo, NSGA-II conservador e reavalia\c{c}\~ao independente. A arte deve preservar as tr\^es cores funcionais do c\'odigo: azul para dose, vermelho-escuro para impacto por FSP e violeta para decis\~ao. Antes da vers\~ao final, substituir no arquivo TikZ qualquer tamanho de valida\c{c}\~ao provis\'orio pelo tamanho efetivamente conclu\'ido na Fase 5.}
+
+	The framework makes the authority boundary explicit. AI is used to rank and explore candidate designs inside the numerical domain, whereas MCNP6.3 and LS-DYNA provide the ground-truth labels and the terminal high-fidelity confirmation. This separation is what makes the workflow an engineering decision architecture rather than a stand-alone prediction exercise.
+	
+	\section{Results}
+	
+	\subsection{Effect of physics-informed representation}
+	
+	The physics-informed representation produced a substantial improvement for the dose-learning task. For the selected Ridge model, mean cross-validation RMSE decreased from \SI{0.7091}{mSv} to \SI{0.0588}{mSv}, a 91.7\% reduction. This result indicates that the deterministic layerwise and aggregate transport descriptors make the dose-response structure markedly easier to learn within the defined campaign.
+	
+	The effect on penetration was more nuanced. For the selected XGBoost learner, PHYSICS reduced mean cross-validation RMSE from \SI{3.1705}{mm} to \SI{2.9603}{mm}. The compact PHYSICS\_STRENGTH23 representation reduced it further to \SI{2.3153}{mm}, a 27.0\% reduction relative to RAW. This distinction is scientifically important: the retained representation was selected empirically for the target and is not presented as a universal improvement for every learner. Figure~\ref{fig:physics} reports this target-specific comparison.
+	
+	The representation comparison is descriptive model-selection evidence, not a claim of a universal statistical law across algorithm families. The dose and penetration pipelines were selected by the pre-specified mean training-CV RMSE criterion after equivalent tuning, while the calibration and untouched test partitions remained unavailable during that selection. This preserves the distinction between representation development and final model assessment. Figure~\ref{fig:physics} visualizes the magnitude and asymmetry of these selected representation gains.
+	
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=.72\textwidth]{figures/fig2_physics_representation.pdf}
+		\caption{Target-specific representation selection for the two final surrogate learners. The compact PHYSICS\_STRENGTH23 set is used only for the penetration surrogate.}
+		\label{fig:physics}
+	\end{figure}
+	\productionnote{\textbf{Figura~\ref{fig:physics} --- briefing para Carlos.} A fonte \`e \texttt{Fase 3/analise\_desempenho\_modelos (Fase 3) - MCNP63\_DEDF\_AP/raw\_vs\_physics\_paired\_comparison.csv} junto com \texttt{benchmark\_cv\_summary.csv}. A figura deve comparar somente os aprendizes finais, Ridge para dose e XGBoost para penetra\c{c}\~ao. Usar dois pain\'eis com unidades independentes e deixar claro que PHYSICS\_STRENGTH23 \`e uma sele\c{c}\~ao compacta de descritores mec\^anicos congelados.}
+
+	The graphical comparison confirms that the large dose improvement is not mirrored automatically in penetration. This difference is physically plausible because the dose descriptors encode quantities closely related to photon transport, whereas the compact strength representation still cannot fully resolve erosion, contact, and damage dynamics. It justifies the later conservative treatment of the ballistic surrogate.
+	
+	\subsection{Final surrogate accuracy and uncertainty}
+	
+	Table~\ref{tab:surrogates} reports the untouched-test performance. The dose target selected PHYSICS plus Ridge. The penetration target selected PHYSICS\_STRENGTH23 plus XGBoost. Test-set empirical coverage was 0.943 for dose and 0.933 for penetration, close to the 0.95 nominal level given finite-sample evaluation. The intervals should be interpreted as calibrated uncertainty summaries under the exchangeability assumption of split conformal prediction, rather than guarantees for arbitrary extrapolative designs.
+	
+	\begin{table}[htbp]
+		\centering
+		\caption{Final target-specific surrogate results on untouched test sets ($n=300$ per target).}
+		\label{tab:surrogates}
+		\resizebox{\columnwidth}{!}{%
+		\begin{tabular}{@{}lrrrrr@{}}
+			\toprule
+			Target and model & $R^2$ & MAE & RMSE & $q_{0.95}$ & Coverage \\
+			\midrule
+			Dose: PHYSICS + Ridge & 0.9939 & 0.0462 mSv & 0.0573 mSv & 0.1091 mSv & 0.943 \\
+			Penetration: PHYSICS\_STRENGTH23 + XGBoost & 0.8861 & 1.1865 mm & 2.3065 mm & 3.9334 mm & 0.933 \\
+			\bottomrule
+		\end{tabular}
+		}
+	\end{table}
+	\productionnote{\textbf{Tabela~\ref{tab:surrogates} --- briefing para Carlos.} Usar \texttt{Fase 3/analise\_desempenho\_modelos (Fase 3) - MCNP63\_DEDF\_AP/final\_model\_summary.json} e os dois arquivos \texttt{test\_predictions\_*.csv}. Manter unidades em todas as colunas de erro. Acrescentar um subt\'itulo curto que separe desempenho no teste intocado do ranqueamento por valida\c{c}\~ao cruzada.}
+	
+	These complementary models reflect the target-specific character of the problem. The radiological response is predicted with very high fidelity across the sampled space, whereas the ballistic response is more difficult, as expected for a nonlinear impact process. The contrast is useful rather than inconvenient. It tells the design workflow where an inexpensive surrogate can serve as a precise objective evaluator and where it should serve as a conservative screen followed by direct solver confirmation. The conformal bound carries this distinction into the optimization rather than concealing it behind a common point-estimate-only objective.
+	
+	The difference in target difficulty also clarifies the function of each numerical result. The dose RMSE is of the same order as, but distinct from, the MCNP tally uncertainty. The model is learning variation across designs rather than replacing the uncertainty analysis internal to an individual transport calculation. For penetration, the larger point-prediction error motivates the upper prediction interval in the constraint. The framework therefore treats dose prediction as a high-accuracy objective estimate and penetration prediction as a conservative screening estimate followed by direct solver confirmation for selected designs.
+	
+	\subsection{Constrained Pareto search}
+	
+	All 10 NSGA-II runs completed. The surrogate-evaluated design-of-experiments baseline had normalized hypervolume 0.6858. The non-dominated union achieved 0.7446, while the mean normalized hypervolume across the 10 terminal populations was $0.7247\pm0.0025$. The union contains 1,530 unique non-dominated solutions. These values document improvement beyond the originally sampled alternatives and stability across seeds. They do not claim a proof of global optimality.
+	
+	The improvement in hypervolume is meaningful because the reference and ideal anchors were derived consistently from the design-of-experiments evaluation. Nevertheless, hypervolume is not interpreted in isolation. The point cloud in Figure~\ref{fig:pareto} is retained because the engineering decision is intrinsically multi-objective: a solution that is attractive under one weighting of dose, mass, and cost can be inappropriate under another deployment constraint. The 1,530-point union is therefore a decision set, not a recommendation to manufacture every member of it.
+	
+	Every retained solution satisfied Eq.~\eqref{eq:ballistic_constraint}. The condition is intentionally stricter than the point-prediction condition $\hat{p}\leq\SI{60}{mm}$ because it reserves the conformal half-width. Figure~\ref{fig:pareto} displays the global set in dose--mass space, color-coded by cost, and identifies the 30 high-fidelity selections.
+	
+	The selected points visibly span the front rather than clustering in a single low-dose region. The selection includes the minimum-dose, minimum-cost, and minimum-mass solutions, one balanced TOPSIS-IQR compromise, and 26 additional maximin-coverage designs. This fixed policy makes the later validation more informative than evaluating only a single nominal ``best'' solution, while avoiding post hoc selection based on solver agreement.
+
+	Table~\ref{tab:pareto_metrics} reports the set-level evidence behind the Pareto figure. The absolute gain of 0.0589 in normalized hypervolume corresponds to an 8.6\% improvement relative to the surrogate-evaluated design-of-experiments baseline. The run-level IGD and generalized-spread values are reported transparently against the empirical global union used as a reference, not against an unknowable true Pareto front. Hypervolume remains a comparative indicator under the stated anchors, not a claim that the union is globally optimal in the physical world.
+
+	\begin{table}[htbp]
+		\centering
+		\caption{Multi-run NSGA-II summary and Pareto-set metrics.}
+		\label{tab:pareto_metrics}
+		\small
+		\begin{tabular}{@{}lr@{}}
+			\toprule
+			Metric & Value \\
+			\midrule
+			Independent runs & 10 \\
+			Population per run and generations & 300 and 200 \\
+			Final feasible fraction in each run & 1.000 \\
+			Global non-dominated union & 1,530 solutions \\
+			DOE baseline normalized hypervolume & 0.6858 \\
+			Global-union normalized hypervolume & 0.7446 \\
+			Absolute hypervolume gain & 0.0589 \\
+			Relative hypervolume gain & 8.6\% \\
+			Terminal-run hypervolume, mean $\pm$ SD & 0.7247 $\pm$ 0.0025 \\
+			Terminal-run hypervolume median and IQR & 0.7252 and 0.0025 \\
+			IGD to empirical union, mean $\pm$ SD & 0.0271 $\pm$ 0.0015 \\
+			Generalized spread, mean $\pm$ SD & 0.5670 $\pm$ 0.0307 \\
+			Generalized spread of global union & 0.5092 \\
+			Conservative ballistic condition & $\hat{p}+q_{0.95}^{(p)}\leq\SI{60}{mm}$ \\
+			\bottomrule
+		\end{tabular}
+	\end{table}
+	\productionnote{\textbf{Tabela~\ref{tab:pareto_metrics} e Figura~\ref{fig:pareto} --- briefing para Carlos.} Usar \texttt{Fase 4/resultados\_otimizacao (Fase 4) - MCNP63\_DEDF\_AP/fase4\_20261003\_043316/resumo\_final\_fase4.json}, \texttt{resumo\_runs.csv}, \texttt{pareto\_union\_multirun.csv}, \texttt{pareto\_quality\_multirun.csv} e \texttt{convergencia\_todos\_runs.csv}. Refazer a figura como composi\c{c}\~ao coordenada em dois pain\'eis: vista 3D ou triangular de dose, massa e custo com os 30 candidatos destacados discretamente, mais painel de converg\^encia do hipervolume com as dez sementes em linhas claras e a mediana em linha forte. Explicar em legenda que IGD e spread usam a uni\~ao global emp\'irica como refer\^encia, n\~ao a frente verdadeira desconhecida.}
+
+	Table~\ref{tab:pareto_metrics} supports two distinct conclusions. First, all terminal populations remained feasible under the conservative ballistic screen. Second, the global union improves the baseline under fixed anchors while retaining diversity across independent seeds. Figure~\ref{fig:pareto} provides the corresponding objective-space view and locates the validation set within that union.
+	
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=.84\textwidth]{figures/fig3_pareto_front.pdf}
+		\caption{Global non-dominated union from 10 constrained NSGA-II runs. Markers identify the 30 solutions selected before solver execution for independent high-fidelity re-evaluation. Color represents predicted cost.}
+		\label{fig:pareto}
+	\end{figure}
+
+	The Pareto visualization confirms that the 30 validation cases sample distinct engineering compromises rather than a narrow cluster of favorable low-dose designs. It should not be interpreted as a physical true front. Its role is to show the empirical non-dominated alternatives obtained under the stated surrogate models, uncertainty screen, and objective definitions.
+	
+	\subsection{Independent high-fidelity validation of Pareto solutions}
+	
+	All 30 preselected candidates were assessed by both solvers. Every MCNP6.3 simulation reached $10^8$ histories and passed the tally-quality gate, with relative errors from 1.14\% to 1.62\%. Every LS-DYNA execution terminated normally at approximately \SI{0.30}{ms}. The largest absolute energy-ratio deviation from unity was 0.0213, below the pre-specified 5\% quality tolerance. Table~\ref{tab:validation} summarizes the independent comparison and solver-specific quality evidence.
+	
+	\begin{table*}[htbp]
+		\centering
+		\caption{Independent high-fidelity re-evaluation of 30 preselected Pareto solutions. Absolute errors are calculated as $|\mathrm{HF}-\mathrm{prediction}|$.}
+		\label{tab:validation}
+		\begin{tabular}{@{}lrr@{}}
+			\toprule
+			Metric & Dose & Penetration \\
+			\midrule
+			Validation cases & 30 & 30 \\
+			High-fidelity MAE & \SI{0.0883}{mSv} & \SI{0.8094}{mm} \\
+			High-fidelity RMSE & \SI{0.1030}{mSv} & \SI{1.2998}{mm} \\
+			Within conformal interval & 21/30 & 29/30 \\
+			Maximum high-fidelity response & -- & \SI{18.485}{mm} \\
+			MCNP histories per case & $10^8$ & -- \\
+			MCNP tally relative error & 1.14--1.62\% & -- \\
+			LS-DYNA normal termination & -- & 30/30 \\
+			LS-DYNA final time & -- & 0.299808--0.299999 ms \\
+			Largest energy-ratio deviation & -- & 0.0213 \\
+			\bottomrule
+		\end{tabular}
+	\end{table*}
+	\productionnote{\textbf{Tabela~\ref{tab:validation} --- briefing para Carlos.} Usar \texttt{Fase 5/VALIDACAO\_ALTA\_FIDELIDADE/fase4\_20261003\_043316\_MCNP63\_DEDF\_AP\_30/study\_30/validacao\_alta\_fidelidade\_consolidada.csv}, \texttt{mcnp\_run\_manifest.csv} e \texttt{lsdyna/study\_validation\_summary.csv}. Produzir uma tabela-resumo no corpo principal e disponibilizar os 30 registros individuais como material suplementar. Distinguir visualmente erro de predi\c{c}\~ao, evid\^encia de QA dos solvers e cobertura conformal.}
+
+	Table~\ref{tab:validation} establishes both predictive and computational validity. The low dose error is evaluated against a final MCNP campaign with consistent histories and a passed quality gate, while the penetration comparison is evaluated only on normally terminated LS-DYNA runs that meet the energy-balance criterion. The 30 individual prediction-to-solver comparisons are supplied in Supplementary Table~S3.
+
+	To distinguish prediction error from the meaning of targeted validation, Table~\ref{tab:validation_qa} records the selection and sensitivity interpretation before the parity plots are considered.
+
+	\begin{table*}[htbp]
+		\centering
+		\caption{Interpretation of the targeted high-fidelity validation.}
+		\label{tab:validation_qa}
+		\small
+		\begin{tabular}{@{}lp{0.73\textwidth}@{}}
+			\toprule
+			Item & Interpretation \\
+			\midrule
+			Selection integrity & The 30 cases were fixed by Pareto-role and maximin-coverage rules before either high-fidelity solver was executed. \\
+			Conformal interpretation & The 30 cases are targeted design points, not an exchangeable random sample. Their observed 21/30 dose and 29/30 penetration interval counts must not be interpreted as a second estimate of nominal conformal coverage. \\
+			Ballistic sensitivity & All 30 observed penetrations were below \SI{60}{mm}. Two cases that remained algorithmically indeterminate at \SI{0.30}{ms} were continued to \SI{0.60}{ms} as a separate sensitivity analysis. Neither showed additional penetration. \\
+			\bottomrule
+		\end{tabular}
+	\end{table*}
+	\productionnote{\textbf{Tabela~\ref{tab:validation_qa} e Figura~\ref{fig:validation} --- briefing para Carlos.} Usar os mesmos tr\^es arquivos da Tabela~\ref{tab:validation}, no diret\'orio \texttt{Fase 5/VALIDACAO\_ALTA\_FIDELIDADE/fase4\_20261003\_043316\_MCNP63\_DEDF\_AP\_30/study\_30}. A figura deve ter dois pain\'eis de paridade, um para dose e outro para penetra\c{c}\~ao. Usar reta identidade, faixa de incerteza conformal, marcadores discretos para os 30 casos e uma linha de limite de \SI{60}{mm} no painel bal\'istico. Acrescentar uma nota visual de que 0,60 ms \`e uma sensibilidade separada para os casos 9016 e 9026, n\~ao uma altera\c{c}\~ao do conjunto oficial de 0,30 ms.}
+	
+	Twenty-nine of the 30 penetration results lay within their corresponding conformal intervals, while 21 of the 30 dose results did so. These counts are reported transparently but are not a second estimate of nominal 95\% coverage because the 30 points were purposefully selected from the Pareto set rather than drawn exchangeably from the calibration-test distribution. Their value lies in challenging frozen surrogate predictions at decision-relevant designs that were not part of the surrogate-training campaign. Figure~\ref{fig:validation} visualizes the comparisons and conformal half-widths.
+	
+	The observed validation errors should be read together with the intended candidate roles and the safety threshold. Across the 30 candidates, the dose MAE was \SI{0.0883}{mSv} and the penetration MAE was \SI{0.8094}{mm}. The single penetration interval miss was approximately \SI{0.12}{mm} beyond its predicted upper bound, yet its high-fidelity penetration remained far below \SI{60}{mm}. These results support the use of the surrogates for ranking and conservative screening under the defined scenario, while demonstrating why direct high-fidelity results remain the final authority for selected designs.
+	
+	No attempt was made to retrofit either surrogate after observing the 30 validation outcomes. Such a refit would conflate independent validation with model development and would make the reported error optimistic. The validation records are therefore preserved as a terminal assessment of the fixed Phase~3 and Phase~4 workflow. The two \SI{0.60}{ms} LS-DYNA continuations are archived only as time-horizon sensitivity evidence and were not used to change the official \SI{0.30}{ms} labels. Figure~\ref{fig:validation} displays each frozen prediction against its regenerated solver response.
+	
+	\begin{figure}[htbp]
+		\centering
+		\includegraphics[width=\textwidth]{figures/fig4_high_fidelity_validation.pdf}
+		\caption{Surrogate predictions versus independently regenerated high-fidelity results for 30 preselected Pareto solutions. The graphical production version should report conformal half-widths and the \SI{60}{mm} ballistic limit without treating targeted validation points as a random coverage sample.}
+		\label{fig:validation}
+	\end{figure}
+
+	The parity plots show a small dose-error band across the selected Pareto roles and a wider, but safety-screened, penetration scatter. The isolated penetration interval miss does not approach the \SI{60}{mm} limit. Together with the model freeze, this result supports conservative screening and ranking within the declared domain, not unqualified replacement of either high-fidelity solver.
+	
+	\section{Discussion}
+	
+	\subsection{Why this is an engineering AI contribution}
+	
+	The workflow contributes to engineering applications of artificial intelligence in four connected ways. First, it embeds material and geometric knowledge in the representation instead of relying solely on identifiers and raw thicknesses. Second, it recognizes that radiological dose and ballistic penetration are different learning tasks and selects a model separately for each target. Third, it transforms calibration residuals into an operational design constraint using conformal prediction. Fourth, it closes the loop with high-fidelity simulations of solutions selected by the optimizer rather than reporting only internal cross-validation metrics.
+	
+	These components are complementary. A physics-informed representation without an independent test set can still overstate predictive performance. A well-performing surrogate without an uncertainty mechanism can still admit an unsafe candidate during optimization. A prediction interval that is reported only in a table does not influence the search. Finally, an apparently improved Pareto front without return to the high-fidelity solvers remains a hypothesis. The present workflow links these components so that each one performs a specific engineering function: representation reduces learning burden, target-specific validation measures predictive capability, conformal prediction quantifies residual uncertainty, constrained NSGA-II explores feasible trade-offs, and high-fidelity re-evaluation interrogates the final decision set.
+
+	
+	The framework is deliberately more conservative for the ballistic target than for the dose target. This is not an assertion that radiological exposure is unimportant. Both objectives are minimized. It follows from the fact that maximum penetration is a hard acceptance condition in the formulated problem and that its learned approximation is less accurate than the dose surrogate. The upper conformal interval provides a transparent and auditable buffer. Unlike an arbitrary safety factor chosen after the optimization, $q_{0.95}^{(p)}$ is derived from the calibration residuals of the fixed model. The buffer may need recalibration if the design distribution, material library, geometry, source, or impact scenario changes.
+	
+	This last point is central for safety-relevant engineering optimization. A surrogate can locate attractive regions efficiently, but a point estimate alone cannot justify a hard feasibility claim. Equation~\eqref{eq:ballistic_constraint} shifts the penetration threshold by the calibrated uncertainty amount before selection. The 30 LS-DYNA re-evaluations support the intended conservative behavior: every observed penetration was below \SI{60}{mm}, and 29 of 30 were within their candidate-specific conformal upper bounds.
+	
+	Conformal prediction is especially useful here because it is attached to a model-selection workflow rather than treated as a separate black-box confidence score. The calibration set was not used to select the winner, and the resulting half-width remains expressed in mSv or mm. This makes it understandable to an engineer who must compare it directly with an operational threshold. It also avoids equating a model's internal ensemble spread with a calibrated prediction interval. The coverage guarantee is conditional on the stated exchangeability premise, so it should be presented as an uncertainty-management tool rather than a proof that a real system will always remain safe \cite{Vovk2005Conformal,Lei2018Conformal}.
+	
+	The results also illustrate why a single universal model should not be imposed on heterogeneous physical responses. Dose prediction benefits markedly from the physics-informed representation and achieves high test accuracy. Penetration remains more challenging, with $R^2=0.886$, but its uncertainty is explicitly represented and propagated. This target-specific treatment is preferable to reporting an averaged accuracy that could obscure the weaker safety-relevant target.
+	
+	This distinction also informs model interpretation. The superior dose model should not be used as evidence that the ballistic model is equivalently mature, and the more modest penetration accuracy should not be hidden by reporting only a pooled score. A journal-level engineering AI contribution requires the response-specific evidence to remain visible. The present data support a strong surrogate for dose estimation and a useful, conservative penetration-screening surrogate. They do not support a claim that the ballistic finite-element calculation has been replaced for all future configurations.
+	
+	\subsection{Implications for simulation allocation and verification}
+	
+	The framework also has consequences for how finite computational resources are allocated. Running MCNP6.3 and LS-DYNA for every offspring of every evolutionary generation would require millions of solver evaluations. Such a procedure is neither necessary nor informative once a documented, validated surrogate is available within the sampled design domain. The AI layer reduces this burden by evaluating a large candidate population cheaply, while the high-fidelity layer is reserved for data generation, quality assurance, and targeted confirmation. This division of labor is the practical reason surrogate-assisted optimization is useful in simulation-intensive engineering.
+	
+	However, computational efficiency cannot justify indiscriminate replacement of solvers. The appropriate verification budget depends on the decision sensitivity, model accuracy, and uncertainty structure. In this study, 30 validation points were fixed to span Pareto roles and coverage, not sampled to establish universal external validity. Their purpose is to challenge the final pipeline at diverse engineering alternatives. A future study that seeks product qualification, extensive robustness claims, or a new design envelope must allocate additional high-fidelity and experimental evidence accordingly.
+	
+	The separation between a campaign dataset and a confirmation dataset is especially valuable. If optimized candidates were silently added to training before error reporting, the apparent performance would be biased by adaptive reuse of the evidence. By freezing the Phase 3 models and Phase 4 selection before Phase 5 execution, the reported validation remains interpretable. This practice mirrors the broader principle of keeping data-generation, model-development, and final-evaluation decisions distinguishable in engineering ML.
+	
+	The same logic supports targeted future sampling. Regions with a favorable Pareto trade-off but wide penetration intervals are the most natural candidates for additional LS-DYNA runs. Conversely, regions with confidently poor dose, mass, or cost need not consume expensive validation capacity. This is a concrete route from the present static surrogate workflow to an active-learning loop: uncertainty and multi-objective relevance jointly determine where a new simulation provides the greatest engineering value. Importantly, such a loop would add new ground-truth cases rather than adjust labels or relax the quality gate.
+
+	\subsection{Monte Carlo statistical quality and learning labels}
+
+	A large Monte Carlo campaign raises a question that is often overlooked when transport outputs are repurposed as machine-learning labels: must every individual tally fluctuation-chart diagnostic pass before a result can enter training? The answer should not be dictated by the convenience of obtaining a larger dataset. Nor should it be reduced to a universal binary rule detached from the tally, source, and decision context. MCNP statistical checks are diagnostic evidence about the behavior of an estimator. Their interpretation should be combined with the requested history count, relative error, convergence behavior, tally definition, and the predeclared purpose of the calculation \cite{Kulesza2022MCNP63,ShultisFaw2011,Turner2007}.
+
+	For the final campaign, every retained case reached $10^8$ histories, produced the prescribed detector tally, and satisfied the recorded campaign quality gate. The relative-error range of 1.04--1.47\% provides a transparent case-level indication of statistical precision. That evidence is stronger than simply noting that an output file exists. It does not imply that any one solver diagnostic is irrelevant. Instead, it shows why the acceptance rule must be stated before model fitting and applied consistently to all 2,000 cases. A post hoc rule that removes observations only because they make a fitted model less favorable would create a more serious methodological problem than a carefully documented diagnostic trade-off.
+
+	The issue is especially important in shielding design because strong attenuation can reduce the number of particles reaching the detector. More protective configurations may consequently be associated with less favorable counting statistics than weak shields. Requiring an identical diagnostic outcome in every case without considering the response range can preferentially remove one region of the physically relevant design space. That selection would narrow the apparent problem and can degrade the surrogate precisely where the optimizer needs information. The appropriate approach is to maintain a solver-specific quality protocol, archive its per-case evidence, quantify the resulting uncertainty, and investigate any region in which numerical precision becomes material to a design conclusion. In the present study, the reported dose surrogate and Pareto candidates are therefore conditioned on the final campaign's documented gate rather than on an undocumented retrospective filter.
+
+	\subsection{What multifunctional shielding means in this study}
+
+	The term \emph{multifunctional} can be used too loosely in protective-material research. It sometimes denotes a single material with more than one desirable property. Here it has a stricter system-level meaning. The same seven-layer configuration must simultaneously determine photon attenuation, transient impact response, mass, and cost. Those outcomes are coupled through the design variables, but they are not forced into one surrogate, one scalar score, or one physical mechanism. This distinction preserves the fact that a favorable radiological layer placement can be unfavorable for impact response, and that an attractive mechanical arrangement can carry an unacceptable radiation or mobility penalty.
+
+	The seven-material permutation and fixed total thickness make this coupling visible. The optimizer cannot improve a design merely by adding more material or by repeating one constituent indefinitely. It must allocate a fixed geometric budget across polymeric, metallic, ceramic, and heavy-filled layers while respecting order. The resulting Pareto set is therefore more informative than a ranked material list. It exposes how changes in the physical distribution of the same material library alter competing responses. The framework does not claim to discover a universal synergy among the constituents. It identifies numerically promising arrangements within a declared material library and scenario.
+
+	This multiphysics framing also explains the asymmetric value of the PHYSICS representation. Attenuation descriptors such as $\mu t$, areal density, and effective atomic-number proxies map directly to mechanisms that govern a substantial portion of the dose response. Their large improvement for dose is physically intelligible. Penetration depends on additional nonlinear processes involving damage, contact, rate effects, erosion, and interfaces. A modest penetration improvement is therefore not a failure of feature engineering. It is evidence that simple deterministic descriptors cannot replace an explicit dynamics calculation. The conservative conformal screen and the later LS-DYNA re-evaluation are the appropriate methodological response to that remaining complexity.
+	
+	\subsection{Interpretation for hybrid shield design}
+	
+	The Pareto set makes the engineering trade-off visible: reductions in predicted effective dose require choices that can increase mass or cost, and no single configuration optimizes all three quantities. The selected candidates deliberately include dose-oriented, cost-oriented, mass-oriented, coverage-oriented, and balanced alternatives. Consequently, the final decision can be aligned with deployment constraints rather than with an arbitrary scalarization chosen before the trade-off is known.
+	
+	This is a practical advantage of population-based multi-objective optimization. In a response-equipment context, a low-mass configuration may be preferred for mobility, a low-cost configuration may support fleet-scale deployment, and a low-dose configuration may be appropriate when exposure conditions dominate. Reporting the Pareto union preserves these alternatives. TOPSIS is used only to identify one balanced candidate for validation. It does not replace the Pareto set or assert that one weighting applies to every operational context. This separation of exploration from final decision is important when the stakeholder preferences are not fixed before the technical analysis.
+	
+	The normalized hypervolume result provides evidence that the optimizer improved the sampled baseline under the same surrogate and reference anchors. It should not be read as a direct physical performance percentage. Hypervolume is sensitive to the objective scaling and reference definition, which is why the anchors and the design-of-experiments baseline are archived with the Phase 4 outputs \cite{EmmerichDeutz2018,ZitzlerThiele1999}. The more decision-relevant evidence is the combination of an expanded feasible trade-off set and the independent high-fidelity re-evaluation of representatives from that set.
+	
+	The results should not be interpreted as an authorization of a final protective product. The computations characterize the prescribed numerical scenario, material library, geometric envelope, projectile/fragment definition, source model, and objective definitions. Experimental qualification, manufacturing constraints, human-factors analysis, and regulatory requirements remain outside the scope of the present optimization.
+	
+	The high-fidelity validation does, however, distinguish this work from a purely synthetic optimization demonstration. Candidate designs were not only evaluated by the same code used to create the training labels. Their Phase 5 inputs were regenerated from the optimizer's selected material order and thicknesses, executed through the final validation workflow, and compared with frozen surrogate predictions. This procedure tests the integrity of the design-to-input mapping in addition to numerical prediction. The MCNP6.3 runs and LS-DYNA runs also retained their solver-specific quality checks, rather than accepting a result merely because an output file existed.
+	
+	\section{Conclusions}
+	
+	This study shows that hybrid ballistic--radiological shield design is better treated as a coupled decision problem than as a sequence of independent material-screening exercises. The numerical evidence supports five conclusions.
+	\begin{enumerate}
+		\item Separate, target-specific learning is essential when the responses play different engineering roles. Dose can be treated as a high-accuracy optimization objective within the sampled domain, whereas penetration requires a more conservative screening role because the relevant error consequences are different.
+		\item Physics-informed representation is valuable when it makes a real physical mechanism easier for a learner to recognize. Its large benefit for dose and smaller benefit for penetration demonstrate that feature engineering must be evaluated per response rather than treated as a universal performance guarantee.
+		\item Predictive uncertainty is most useful when it changes a decision before the optimizer reports a result. Incorporating the calibrated penetration half-width into feasibility is more defensible than attaching an error bar after a point-estimate search has already selected candidates.
+		\item Multi-objective optimization should preserve competing alternatives rather than hide them inside a preselected scalar weight. The resulting Pareto set allows dose, mass, cost, and ballistic conservatism to be negotiated transparently for the intended deployment context.
+		\item Independent high-fidelity re-evaluation is a necessary final step in a surrogate-assisted workflow. It tests not only the regression model but also the reconstruction of a candidate design, the generation of solver inputs, execution, quality control, and post-processing.
+	\end{enumerate}
+
+	The reported metrics substantiate these conclusions within the defined numerical scenario. The dose and penetration models achieved untouched-test $R^2$ values of 0.994 and 0.886, respectively. The constrained search increased normalized hypervolume from 0.6858 to 0.7446, and the 30 independent re-evaluations produced dose and penetration MAE values of \SI{0.0883}{mSv} and \SI{0.8094}{mm}. These numbers are evidence for the workflow, not conclusions by themselves. Their meaning lies in the fact that all observed penetrations remained below the \SI{60}{mm} acceptance threshold after the models and selection policy had been frozen.
+
+	The appropriate claim is deliberately bounded. The framework identifies promising numerical designs within a specified source, impact, material library, geometry, and objective definition. It does not establish a universal optimal shield, certify field-ready protective equipment, or replace experimental qualification. Its contribution is a defensible computational decision architecture in which simulations establish the evidence base, machine learning accelerates repeated evaluation, conformal prediction protects the hard ballistic decision, and high-fidelity solvers remain the final authority for selected candidates.
+
+	The next research step is to enlarge the evidence domain rather than relax the uncertainty screen after a favorable result. Additional source spectra, impact conditions, manufacturing constraints, robustness objectives, and targeted simulations near uncertain Pareto regions would test how the workflow behaves under controlled distribution change. Any such extension should retain explicit train--calibration--test separation and reserve high-fidelity cases that are not reused for fitting. With those safeguards, the framework can support iterative development of multifunctional shields while preserving conservative engineering judgment and scientific traceability.
+	
+	\section*{Limitations}
+
+	The conclusions are limited to the frozen mechanical model and the specified MCNP6.3 source, geometry, detector, material data, response interval, and seven-layer design envelope. Changes in source spectrum, irradiation geometry, fragment properties, environmental conditions, manufacturing tolerances, or rate-dependent material parameters can alter the outcomes. The results therefore identify computationally promising candidates within the declared domain. They do not certify field-ready protective equipment, establish regulatory compliance, or replace experimental qualification.
+
+	The framework is a design-side component of RDD preparedness, not an operational model of the response itself. It does not simulate atmospheric dispersion, contamination surveys, blast overpressure, responder training, PPE integration, physiological burden, communications, or command decisions. These factors belong to the broader response system described in emergency guidance and would require separate evidence before any optimized configuration could be presented as deployable protective equipment.
+
+	Split conformal coverage relies on the stated exchangeability premise and is not guaranteed under severe distribution shift. The configuration-level partition prevents an identical design from appearing in more than one development partition, but it is not a group-disjoint assessment across independently varied source, geometry, and impact scenarios. The lower accuracy of the penetration surrogate motivated its conservative optimization role and the final LS-DYNA checks. The 30 Pareto re-evaluations were purposively selected to span decision roles and coverage, not randomly sampled to establish broad external validity. In addition, four LS-DYNA cases that failed the predeclared ballistic quality gate were excluded rather than imputed, because doing so would have introduced unsupported physical observations into the penetration target.
+
+	Further work should enlarge the evidence domain through targeted high-fidelity sampling in Pareto-relevant regions with wide penetration intervals, sensitivity analysis of physical assumptions, and experimental or benchmark comparison. Such extensions should preserve the central discipline of this study: AI can prioritize where new evidence is most valuable, but it cannot manufacture physical truth where simulation or experiment is absent.
+
+	\section*{Data and code availability}
+
+	The complete numerical evidence is archived in the reproducibility package. It includes the final MCNP6.3 and LS-DYNA campaign manifests, target-specific datasets, feature-engineering code, split identifiers, all 35 tuned surrogate summaries, Phase~4 multi-run optimization records, and the 30 regenerated Phase~5 validation cases. Supplementary Information reports the complete tuned-model benchmark, all 10 NSGA-II terminal summaries, and every prediction-to-high-fidelity comparison used in the validation analysis. A persistent public repository identifier will be added at submission after authorship and institutional release procedures are complete.
+
+	\section*{CRediT authorship contribution statement}
+	
+	\textbf{Jo\~ao Vitor Mendes da Silva}: Conceptualization, Methodology,
+	Software, Formal analysis, Investigation, Data curation, Visualization,
+	Writing -- original draft.
+	
+	\textbf{Wallace Vallory Nunes}: Methodology, Validation, Visualization,
+	Writing -- review \& editing.
+	
+	\textbf{Marcos Paulo Cavaliere de Medeiros}: Supervision, Validation,
+	Writing -- review \& editing.
+	
+	\textbf{Inay\'a Corr\^ea Barbosa Lima}: Supervision, Validation,
+	Writing -- review \& editing.
+		
+	\section*{Declaration of competing interest}
+	The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+
+	\section*{Funding}
+	This study was supported by the National Council for Scientific and Technological Development (CNPq), Brazil, through a doctoral scholarship (Process No. 140402/2023-3).
+	
+	\section*{Data Availability}
+	The final datasets, scripts, manifests, model metadata, optimization outputs, and high-fidelity validation records will be archived in a permanent public repository before submission. The archival DOI and access statement will be inserted after deposition.
+
+	\section*{Declaration of generative AI and AI-assisted technologies in the writing process}
+	During the preparation of this work, the authors used OpenAI's ChatGPT to improve English-language expression. After using this tool, the authors reviewed and edited the content as needed and take full responsibility for the content of the publication.
+	
+	\bibliographystyle{elsarticle-num}
+	\bibliography{references}
+	
+\end{document}

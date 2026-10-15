@@ -1,0 +1,12 @@
+scope,run_id,reference_front,n_solutions,igd_normalized,generalized_spread_normalized
+run,1,global_pareto_union_empirical,300,0.028877897459868934,0.5853888940309891
+run,2,global_pareto_union_empirical,300,0.025968681190573724,0.5798143623329626
+run,3,global_pareto_union_empirical,300,0.025918178347563478,0.5457467880285769
+run,4,global_pareto_union_empirical,300,0.03018711598977599,0.5939953274177431
+run,5,global_pareto_union_empirical,300,0.02743404943765051,0.502231100640951
+run,6,global_pareto_union_empirical,300,0.025780076625212506,0.576170461322182
+run,7,global_pareto_union_empirical,300,0.027530995819025766,0.5593257689217639
+run,8,global_pareto_union_empirical,300,0.027453920816125833,0.5990833956979639
+run,9,global_pareto_union_empirical,300,0.02570957587741079,0.590897682630387
+run,10,global_pareto_union_empirical,300,0.026437932513749783,0.5375650151764146
+global_union,,global_pareto_union_empirical,1530,0.0,0.5091526060494038

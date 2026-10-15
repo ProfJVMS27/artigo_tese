@@ -1,0 +1,37 @@
+{
+  "script_version": "FASE4-THESIS-CONSTRAINED-MIXED-NSGA2-v1.5-MCNP63-DEDF-AP-PARETO-METRICS",
+  "completed_utc": "2026-10-03T10:18:34+00:00",
+  "n_runs_completed": 10,
+  "n_global_pareto": 1530,
+  "hv_doe_surrogate_baseline_normalized": 0.6857691907426854,
+  "hv_union_raw": 8041813.5064845905,
+  "hv_union_normalized": 0.7446303960370063,
+  "run_hv_normalized_mean": 0.724699161770106,
+  "run_hv_normalized_std": 0.0024893147989795863,
+  "run_hv_normalized_median": 0.725154714598675,
+  "run_hv_normalized_iqr": 0.00251763797517357,
+  "pareto_quality_reference": "global_pareto_union_empirical_normalized_by_fixed_doe_anchor",
+  "run_igd_normalized_mean": 0.027129842407695733,
+  "run_igd_normalized_std": 0.0014868049324767692,
+  "run_generalized_spread_normalized_mean": 0.5670218796199935,
+  "run_generalized_spread_normalized_std": 0.030709507383915827,
+  "global_union_igd_normalized": 0.0,
+  "global_union_generalized_spread_normalized": 0.5091526060494038,
+  "ideal_anchor": [
+    4.877619727758491,
+    107.61696123945562,
+    1806.1589488382488
+  ],
+  "reference_anchor": [
+    9.360957751044769,
+    251.1726699439361,
+    17812.871711255542
+  ],
+  "ballistic_constraint": "max_penetration_pred_mm + conformal_q_abs <= 60 mm",
+  "topsis_weights": [
+    0.3333333333333333,
+    0.3333333333333333,
+    0.3333333333333333
+  ],
+  "high_fidelity_candidates": 5
+}

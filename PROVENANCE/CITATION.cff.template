@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this package, please cite the accompanying article."
+title: "Uncertainty-aware surrogate-assisted multi-objective design of hybrid ballistic-radiological shields for RDD response"
+type: software
+# Before public release, replace every placeholder below with author-approved metadata.
+authors:
+  - family-names: "REPLACE_WITH_APPROVED_FAMILY_NAME"
+    given-names: "REPLACE_WITH_APPROVED_GIVEN_NAME"
+# version: "REPLACE_WITH_RELEASE_VERSION"
+# date-released: "YYYY-MM-DD"
+# doi: "10.5281/zenodo.REPLACE_AFTER_ARCHIVING"

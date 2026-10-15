@@ -1,0 +1,140 @@
+\section*{S8. Equal-budget optimizer benchmark}
+The additional study comprises 100 runs and 6,030,000 candidate evaluations, using frozen dose and penetration pipelines. It is distinct from the original NSGA-II campaign used to select the thirty solver-re-evaluated configurations. Each condition uses ten paired seeds, 300 retained designs, and 60,300 evaluations per run. The lower limits are decision-threshold sensitivities only.
+
+The main text reports aggregate results. Table~\ref{tab:s_optimizer_runs} preserves all per-run outcomes. HV uses the fixed DoE anchors without clipping coordinates better than the DoE ideal. IGD and generalized spread use the pooled empirical nondominated reference for each limit/margin combination. At 60 mm, the margin reference pools three methods, whereas the point-only reference contains NSGA-II only. Consequently, identical NSGA-II fronts can have different IGD values in those two columns of the protocol. Such differences are reference-set effects, not different solutions.
+
+\begin{longtable}{llrrrrrr}
+\caption{All optimizer runs. Q uses the frozen margin, P uses the point prediction. Times are elapsed seconds recorded by each run.}\label{tab:s_optimizer_runs}\\
+\toprule
+Method & Rule & Seed & HV & IGD & Spread & Time (s) & Limit (mm) \\
+\midrule
+\endfirsthead
+\toprule
+Method & Rule & Seed & HV & IGD & Spread & Time (s) & Limit (mm) \\
+\midrule
+\endhead
+NSGA-II & Q & 42 & 0.754124 & 0.036447 & 0.559936 & 1294.8 & 60 \\
+NSGA-II & Q & 137 & 0.753940 & 0.035751 & 0.566454 & 1616.4 & 60 \\
+NSGA-II & Q & 233 & 0.750328 & 0.033974 & 0.535882 & 1399.7 & 60 \\
+NSGA-II & Q & 349 & 0.746614 & 0.037263 & 0.562335 & 1245.0 & 60 \\
+NSGA-II & Q & 457 & 0.753255 & 0.035032 & 0.490775 & 1287.8 & 60 \\
+NSGA-II & Q & 563 & 0.752529 & 0.034412 & 0.553291 & 1401.1 & 60 \\
+NSGA-II & Q & 677 & 0.751071 & 0.034936 & 0.533257 & 1277.4 & 60 \\
+NSGA-II & Q & 809 & 0.755110 & 0.035604 & 0.563552 & 892.9 & 60 \\
+NSGA-II & Q & 929 & 0.753022 & 0.034289 & 0.574463 & 851.9 & 60 \\
+NSGA-II & Q & 1049 & 0.755526 & 0.033577 & 0.521372 & 919.7 & 60 \\
+NSGA-II & P & 42 & 0.754124 & 0.029998 & 0.559936 & 873.5 & 60 \\
+NSGA-II & P & 137 & 0.753940 & 0.027246 & 0.566454 & 855.7 & 60 \\
+NSGA-II & P & 233 & 0.750328 & 0.027037 & 0.535882 & 854.8 & 60 \\
+NSGA-II & P & 349 & 0.746614 & 0.031445 & 0.562335 & 891.4 & 60 \\
+NSGA-II & P & 457 & 0.753255 & 0.028654 & 0.490775 & 868.9 & 60 \\
+NSGA-II & P & 563 & 0.752529 & 0.027146 & 0.553291 & 866.9 & 60 \\
+NSGA-II & P & 677 & 0.751071 & 0.028734 & 0.533257 & 848.7 & 60 \\
+NSGA-II & P & 809 & 0.755110 & 0.028503 & 0.563552 & 866.7 & 60 \\
+NSGA-II & P & 929 & 0.753022 & 0.026997 & 0.574463 & 852.3 & 60 \\
+NSGA-II & P & 1049 & 0.755526 & 0.027532 & 0.521372 & 7295.9 & 60 \\
+NSGA-II & Q & 42 & 0.754487 & 0.026965 & 0.572185 & 861.6 & 15 \\
+NSGA-II & Q & 137 & 0.753764 & 0.027827 & 0.516387 & 857.5 & 15 \\
+NSGA-II & Q & 233 & 0.753038 & 0.030732 & 0.583810 & 855.2 & 15 \\
+NSGA-II & Q & 349 & 0.754655 & 0.027015 & 0.553992 & 860.7 & 15 \\
+NSGA-II & Q & 457 & 0.749742 & 0.028807 & 0.517877 & 870.1 & 15 \\
+NSGA-II & Q & 563 & 0.754816 & 0.027930 & 0.552607 & 849.9 & 15 \\
+NSGA-II & Q & 677 & 0.747401 & 0.028522 & 0.541477 & 848.7 & 15 \\
+NSGA-II & Q & 809 & 0.756195 & 0.026396 & 0.563927 & 870.9 & 15 \\
+NSGA-II & Q & 929 & 0.744968 & 0.030078 & 0.567020 & 860.5 & 15 \\
+NSGA-II & Q & 1049 & 0.757689 & 0.026348 & 0.567346 & 855.0 & 15 \\
+NSGA-II & P & 42 & 0.755297 & 0.029237 & 0.575146 & 861.2 & 15 \\
+NSGA-II & P & 137 & 0.755748 & 0.027614 & 0.539429 & 874.5 & 15 \\
+NSGA-II & P & 233 & 0.753730 & 0.028798 & 0.539091 & 856.8 & 15 \\
+NSGA-II & P & 349 & 0.753522 & 0.027970 & 0.511500 & 854.6 & 15 \\
+NSGA-II & P & 457 & 0.754674 & 0.027294 & 0.514396 & 856.6 & 15 \\
+NSGA-II & P & 563 & 0.753708 & 0.027302 & 0.547777 & 869.9 & 15 \\
+NSGA-II & P & 677 & 0.746563 & 0.029409 & 0.495057 & 858.9 & 15 \\
+NSGA-II & P & 809 & 0.754487 & 0.027932 & 0.560630 & 860.7 & 15 \\
+NSGA-II & P & 929 & 0.756881 & 0.028811 & 0.538881 & 859.3 & 15 \\
+NSGA-II & P & 1049 & 0.743477 & 0.033467 & 0.551739 & 853.4 & 15 \\
+NSGA-II & Q & 42 & 0.755460 & 0.029041 & 0.534081 & 862.4 & 20 \\
+NSGA-II & Q & 137 & 0.751729 & 0.027947 & 0.484080 & 858.9 & 20 \\
+NSGA-II & Q & 233 & 0.752217 & 0.028316 & 0.556126 & 855.2 & 20 \\
+NSGA-II & Q & 349 & 0.755777 & 0.027190 & 0.493141 & 863.4 & 20 \\
+NSGA-II & Q & 457 & 0.748049 & 0.029853 & 0.549583 & 858.8 & 20 \\
+NSGA-II & Q & 563 & 0.749688 & 0.029589 & 0.572385 & 859.8 & 20 \\
+NSGA-II & Q & 677 & 0.754219 & 0.027738 & 0.497498 & 855.1 & 20 \\
+NSGA-II & Q & 809 & 0.746760 & 0.029539 & 0.541339 & 857.8 & 20 \\
+NSGA-II & Q & 929 & 0.752422 & 0.028722 & 0.592711 & 865.7 & 20 \\
+NSGA-II & Q & 1049 & 0.753014 & 0.030168 & 0.506040 & 1295.7 & 20 \\
+NSGA-II & P & 42 & 0.751835 & 0.028540 & 0.545631 & 1033.8 & 20 \\
+NSGA-II & P & 137 & 0.751691 & 0.028436 & 0.561064 & 924.1 & 20 \\
+NSGA-II & P & 233 & 0.749067 & 0.029013 & 0.520167 & 871.5 & 20 \\
+NSGA-II & P & 349 & 0.750255 & 0.028198 & 0.550876 & 876.6 & 20 \\
+NSGA-II & P & 457 & 0.749316 & 0.027917 & 0.504636 & 881.9 & 20 \\
+NSGA-II & P & 563 & 0.750883 & 0.028619 & 0.551583 & 980.9 & 20 \\
+NSGA-II & P & 677 & 0.747130 & 0.031253 & 0.530193 & 1184.3 & 20 \\
+NSGA-II & P & 809 & 0.758494 & 0.027310 & 0.520033 & 1215.6 & 20 \\
+NSGA-II & P & 929 & 0.746392 & 0.028683 & 0.505894 & 1132.7 & 20 \\
+NSGA-II & P & 1049 & 0.759523 & 0.027836 & 0.589500 & 1318.8 & 20 \\
+NSGA-II & Q & 42 & 0.755754 & 0.028521 & 0.579656 & 1153.2 & 30 \\
+NSGA-II & Q & 137 & 0.752010 & 0.027276 & 0.551448 & 1045.4 & 30 \\
+NSGA-II & Q & 233 & 0.752657 & 0.026599 & 0.533920 & 1056.6 & 30 \\
+NSGA-II & Q & 349 & 0.746886 & 0.030721 & 0.534174 & 1080.5 & 30 \\
+NSGA-II & Q & 457 & 0.745212 & 0.029861 & 0.549814 & 961.9 & 30 \\
+NSGA-II & Q & 563 & 0.752431 & 0.027938 & 0.463872 & 906.6 & 30 \\
+NSGA-II & Q & 677 & 0.744596 & 0.030529 & 0.554947 & 906.0 & 30 \\
+NSGA-II & Q & 809 & 0.744507 & 0.029753 & 0.543521 & 966.0 & 30 \\
+NSGA-II & Q & 929 & 0.752280 & 0.027956 & 0.559346 & 886.5 & 30 \\
+NSGA-II & Q & 1049 & 0.756932 & 0.027536 & 0.517209 & 895.0 & 30 \\
+NSGA-II & P & 42 & 0.756656 & 0.027828 & 0.577484 & 881.4 & 30 \\
+NSGA-II & P & 137 & 0.753547 & 0.026795 & 0.528283 & 893.5 & 30 \\
+NSGA-II & P & 233 & 0.750328 & 0.028743 & 0.536244 & 887.4 & 30 \\
+NSGA-II & P & 349 & 0.746614 & 0.030874 & 0.562112 & 893.4 & 30 \\
+NSGA-II & P & 457 & 0.751527 & 0.027569 & 0.558931 & 886.8 & 30 \\
+NSGA-II & P & 563 & 0.754788 & 0.028887 & 0.612648 & 887.2 & 30 \\
+NSGA-II & P & 677 & 0.752680 & 0.027077 & 0.516221 & 888.5 & 30 \\
+NSGA-II & P & 809 & 0.752512 & 0.028267 & 0.538344 & 897.8 & 30 \\
+NSGA-II & P & 929 & 0.755528 & 0.028284 & 0.563204 & 886.3 & 30 \\
+NSGA-II & P & 1049 & 0.755539 & 0.028790 & 0.573290 & 884.5 & 30 \\
+Random & Q & 42 & 0.724130 & 0.041341 & 0.359173 & 510.5 & 60 \\
+Random & Q & 137 & 0.722187 & 0.043888 & 0.393361 & 640.9 & 60 \\
+Random & Q & 233 & 0.720216 & 0.043745 & 0.389232 & 600.6 & 60 \\
+Random & Q & 349 & 0.722942 & 0.043948 & 0.402402 & 595.2 & 60 \\
+Random & Q & 457 & 0.719920 & 0.045475 & 0.406610 & 594.6 & 60 \\
+Random & Q & 563 & 0.722475 & 0.043412 & 0.413804 & 598.8 & 60 \\
+Random & Q & 677 & 0.714935 & 0.047324 & 0.424122 & 517.4 & 60 \\
+Random & Q & 809 & 0.719858 & 0.044130 & 0.386803 & 516.0 & 60 \\
+Random & Q & 929 & 0.719796 & 0.043371 & 0.383962 & 527.6 & 60 \\
+Random & Q & 1049 & 0.722042 & 0.042518 & 0.363235 & 518.7 & 60 \\
+NSGA-III & Q & 42 & 0.760356 & 0.034044 & 0.490777 & 903.3 & 60 \\
+NSGA-III & Q & 137 & 0.762360 & 0.033232 & 0.554325 & 911.7 & 60 \\
+NSGA-III & Q & 233 & 0.766346 & 0.026225 & 0.484069 & 908.1 & 60 \\
+NSGA-III & Q & 349 & 0.760388 & 0.033099 & 0.565579 & 919.4 & 60 \\
+NSGA-III & Q & 457 & 0.759704 & 0.033400 & 0.560859 & 908.0 & 60 \\
+NSGA-III & Q & 563 & 0.760782 & 0.036758 & 0.528910 & 896.6 & 60 \\
+NSGA-III & Q & 677 & 0.766720 & 0.027139 & 0.451587 & 905.1 & 60 \\
+NSGA-III & Q & 809 & 0.763811 & 0.032201 & 0.526008 & 915.7 & 60 \\
+NSGA-III & Q & 929 & 0.755598 & 0.030910 & 0.527086 & 896.1 & 60 \\
+NSGA-III & Q & 1049 & 0.763113 & 0.030454 & 0.507230 & 896.5 & 60 \\
+\bottomrule
+\end{longtable}
+The spread of timings includes execution-condition variability and interruptions. The recorded sum is approximately 27.04 h, excluding time between stopped processes and work lost after the last checkpoint. It is not a controlled processor-time comparison, so these records do not establish that one optimizer is intrinsically faster.
+
+Table~\ref{tab:s_optimizer_pairs} reports every prespecified primary contrast. Confidence intervals are paired-bootstrap intervals over ten seeds, not simultaneous intervals. The Holm-adjusted tests cover the family of six contrasts.
+\begin{table}[htbp]
+\centering\small
+\caption{Paired HV contrasts, A minus B. All rows use ten paired seeds.}\label{tab:s_optimizer_pairs}
+\begin{tabular}{lrrrr}
+\toprule
+Contrast & Mean difference & 95\% interval & Raw $p$ & Holm $p$ \\
+\midrule
+II minus random, 60 Q & 0.031702 & [0.029448, 0.033562] & 0.001953 & 0.011719 \\
+II minus III, 60 Q & -0.009366 & [-0.011987, -0.006894] & 0.001953 & 0.011719 \\
+Q minus P, 60 mm & 0.000000 & [0.000000, 0.000000] & 1.000000 & 1.000000 \\
+Q minus P, 15 mm & -0.000133 & [-0.003834, 0.003871] & 1.000000 & 1.000000 \\
+Q minus P, 20 mm & 0.000475 & [-0.003186, 0.003702] & 0.695313 & 1.000000 \\
+Q minus P, 30 mm & -0.002645 & [-0.004878, -0.000509] & 0.064453 & 0.257813 \\
+\bottomrule
+\end{tabular}
+\end{table}
+Both method contrasts remain significant after correction. No margin contrast does. In particular, the raw bootstrap interval excluding zero at 30 mm must not be described as multiplicity-adjusted evidence. Lack of significance does not prove equivalence.
+
+The reproducibility entry point is \path{comparacoes_otimizacao_20261012.py}, launched through \path{EXECUTAR_COMPARACOES_20261012.ps1}. Its frozen plan records input/source hashes, seeds, library versions, and the exact evaluation budget. Each run retains its initial and final populations, final front, generation history, completion record, and checkpoint. The consolidated files include \path{comparison_per_run.csv}, \path{paired_HV_comparisons.csv}, and \path{margin_ablation_per_seed.csv}. The output named \path{near_boundary_candidates_NOT_HF_VALIDATED.csv} contains candidates for possible further analysis, not additional solver-confirmed cases.
+

@@ -1,0 +1,21 @@
+{
+  "all_fsp_nodes": {
+    "ballistic_status": "CONTIDO_REBOTE",
+    "max_penetration_mm": 9.220000000000027,
+    "final_fsp_vx_m_s": 245.99344814814813,
+    "final_time_ms": 0.29991472,
+    "n_records": 601
+  },
+  "original_eight_corners": {
+    "ballistic_status": "CONTIDO_REBOTE",
+    "max_penetration_mm": 0.6379999999999768,
+    "final_fsp_vx_m_s": 155.0186375,
+    "final_time_ms": 0.29991472,
+    "n_records": 601
+  },
+  "energy_ratio_final": 1.00087,
+  "max_energy_deviation_abs": 0.001060000000000061,
+  "note": "Nodal mean velocity is not a mass-weighted COM velocity. Report both node definitions. Numerical convergence not certified by normal termination.",
+  "parser_sha256": "fe49d5c77f9633a83aa8059f9bb5afae43ede4a948a7a44a23340fb8838d7215",
+  "nodout_sha256": "7d8bb99c2dad19d56baaad3d103f0ccb06ef54709a0808df4c20ae9ef64a440f"
+}

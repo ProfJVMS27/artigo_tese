@@ -1,0 +1,432 @@
+% Canonical clean manuscript for continued author editing and submission.
+% Set before the source so internal production notes remain suppressed.
+\def\submissionbuild{1}
+\documentclass[12pt]{elsarticle}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{cmap}
+\usepackage{array}
+\usepackage{longtable}
+\emergencystretch=2em
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage[table]{xcolor}
+\hypersetup{colorlinks=true,allcolors=blue}
+\newcommand{\SI}[2]{#1~#2}
+% Keep these notes visible during graphical production. Set the switch to false
+% before generating the submission PDF.
+\newif\ifproductionnotes
+\ifdefined\submissionbuild
+\productionnotesfalse
+\else
+\productionnotestrue
+\fi
+\newcommand{\productionnote}[1]{%
+\ifproductionnotes
+\par\medskip\noindent\fcolorbox{black}{gray!12}{\begin{minipage}{0.94\linewidth}\footnotesize\textbf{Production note for the figure/table designer.} #1\end{minipage}}\par\medskip
+\fi}
+
+\journal{Engineering Applications of Artificial Intelligence}
+
+\begin{document}
+	
+	\begin{frontmatter}
+		
+		\title{Uncertainty-aware surrogate-assisted multi-objective design of hybrid ballistic-radiological shields for RDD response}
+		
+		\author[pen]{Jo\~ao Vitor Mendes da Silva\corref{cor1}}
+		\ead{jvsilva@nuclear.ufrj.br}
+		\author[ime]{Wallace Vallory Nunes}
+		\author[ime]{Marcos Paulo Cavaliere de Medeiros}
+		\author[pen]{Inay\'a Corr\^ea Barbosa Lima}
+			
+		\affiliation[ime]{organization={Military Institute of Engineering (IME)}, addressline={Pra\c{c}a General Tib\'urcio, 80, Urca}, city={Rio de Janeiro}, postcode={22290-270}, country={Brazil}}
+		\affiliation[pen]{organization={Nuclear Engineering Program (PEN/COPPE), Federal University of Rio de Janeiro (UFRJ)}, addressline={Av. Hor\'acio Macedo, 2030, Cidade Universit\'aria}, city={Rio de Janeiro}, postcode={21941-972}, country={Brazil}}
+		
+		\cortext[cor1]{Corresponding author}
+		
+		\begin{abstract}
+Designing multifunctional shields for radiological dispersal device (RDD) response requires understanding how material selection and layer arrangement influence radiation attenuation, ballistic resistance, and system mass. We evaluate an uncertainty-aware workflow linking MCNP6.3 photon transport, LS-DYNA fragment impact, physics-guided features, response-specific surrogates, and constrained NSGA-II. A seven-layer design space supplies 2,000 dose calculations and 1,996 accepted penetration labels. Relative to the best tuned RAW learners, physics-guided representations reduce development-CV RMSE by 81.9\% for dose and 21.4\% for penetration. Frozen Ridge and XGBoost models achieve test $R^2$ values of 0.994 and 0.886, respectively. An equal-budget benchmark yields mean normalized hypervolumes of 0.7526 for NSGA-II, 0.7619 for NSGA-III, and 0.7209 for random search with a bounded archive. Thirty pre-specified designs are regenerated in both solvers. Their dose and penetration MAEs are 0.0883 mSv and 0.8094 mm, and they collectively dominate 73 of 295 original solver-evaluated Pareto designs. However, dose is underpredicted in 28 cases and its interval coverage falls to 70\%. The constant conformal penetration margin is nonbinding at the operational 60 mm limit, so a safety benefit from the margin is not demonstrated. The results support numerical multifunctional design screening and expose the limits of transferring random-test accuracy to optimized candidates. The 95--256 kg mass range restricts interpretation to substantial barrier concepts rather than wearable protection.
+\end{abstract}
+		
+		\begin{keyword}
+			Radiological dispersal device \sep hybrid shielding \sep surrogate modeling \sep conformal prediction \sep NSGA-II \sep LS-DYNA \sep MCNP6.3
+		\end{keyword}
+		
+	\end{frontmatter}
+	
+	\section{Introduction}
+\subsection{Engineering problem and scope}
+Designing protection for radiological dispersal device (RDD) response requires distinguishing hazards that share an operational setting but act through different physical mechanisms. External gamma exposure depends on photon transport, whereas fragment resistance depends on transient deformation and failure. Their common design variables are material selection, layer order, and thickness. A configuration that improves one response can increase mass or material expenditure without improving the other. Research on polymer composites, high-density fillers, ceramics, and layered shields motivates this design space, but attenuation performance alone does not establish the merit of a multifunctional protective system \cite{MoreEtAl2021,PrabhuEtAl2023,GilysEtAl2022,MarxRabiei2017CMF,Derradji2020Hybrid,Mehelli2021BallisticRadiation}.
+
+The response setting gives these trade-offs a practical context without making the present model an operational emergency protocol. RDD guidance distinguishes external irradiation, radioactive contamination, conventional explosive hazards, and the associated protective actions \cite{IAEA2006FirstResponders,DHS2017RDD,DHS2025RDD}. Appropriate respiratory and dermal protection can reduce contamination, but does not replace shielding against penetrating gamma radiation \cite{REMM2026PPE,OSHA2026Radiation}. Time, distance, monitoring, and shielding remain complementary measures. The source-security record also requires care: incidents involving radioactive material are not equivalent to confirmed RDD detonations \cite{IAEA2024ITDB}.
+
+Within this context, recent consequence studies address a different level of the response system. Al-Shami et al. linked HotSpot and Geant4 to investigate probabilistic urban exposure and building shielding \cite{AlShami2026}. Other work examines hypothetical urban consequences, monitoring, or digital response coordination \cite{ObooEtAl2024,AlrammahAlShareef2023,BrambillaEtAl2023}. These approaches help characterize an incident and its environment. The present work instead concerns pre-deployment design of a prescribed barrier under a fixed gamma source and a controlled fragment threat. It neither predicts atmospheric dispersal nor substitutes for radiation surveys or explosive-device assessment.
+
+The distinction is particularly important for the ballistic model. A fragment-simulating projectile (FSP) provides a controlled impact condition, allowing comparisons that are difficult to obtain from irregular fragments with variable mass and orientation \cite{CantEtAl2015FSP,Hazell2015,Crouch2016}. Here, a specified steel cube is used as the numerical FSP. It is not asserted to reproduce a standardized projectile shape or every effect of a real grenade. Blast loading, fragment clouds, and the distribution of impact angles remain outside the model. Likewise, the shield masses obtained in this study are incompatible with wearable protection. The relevant interpretation is a substantial barrier requiring support or assisted handling, not personal body armor or a certified hand-portable device.
+
+\subsection{Related methodological work}
+These physical distinctions motivate separate surrogate models for the two responses. Recent shielding-specific work includes learning gamma attenuation coefficients for scintillator materials \cite{Nahool2024GammaML} and linking dose prediction to multi-objective reactor-shield optimization \cite{Larsen2024Shielding}. Such studies establish that learned shielding models are useful without implying that they resolve fragment resistance. General surrogate-modeling methods can reduce repeated computational evaluations \cite{Forrester2008Surrogate}, but their use in an optimizer creates an additional question: whether errors remain acceptable in the designs selected by the model itself. Ensemble regression and boosting provide useful inductive biases for tabular engineering data \cite{Breiman2001RF,Geurts2006ExtraTrees,Friedman2001GBM,ChenGuestrin2016XGBoost}. Their algorithmic maturity does not remove the need to examine representation, extrapolation, and the decision consequences of residual error.
+
+Surrogate-assisted evolutionary optimization addresses this broader problem through model management. ParEGO uses sequential scalarization and Gaussian-process approximation for expensive multi-objective evaluations \cite{Knowles2006ParEGO}. K-RVEA combines reference-vector search with surrogate uncertainty and diversity management \cite{Chugh2018KRVEA}. These are stronger methodological comparators than an unqualified assertion that any surrogate search is novel. The present implementation uses offline-trained models and NSGA-II \cite{Deb2002NSGAII,Deb2000Constraints}. It does not introduce a new evolutionary algorithm or claim superiority over sequential Bayesian optimization. Table~\ref{tab:related} positions its components against representative methodological and application studies.
+
+\begin{table}[H]
+\centering\small
+\caption{Representative related approaches and their relationship to this study. This is a targeted comparison, not a systematic priority claim.}\label{tab:related}
+\begin{tabular}{@{}p{.25\linewidth}p{.32\linewidth}p{.35\linewidth}@{}}
+\toprule Work & Main contribution & Distinction relevant here \\\midrule
+Al-Shami et al. \cite{AlShami2026} & Probabilistic RDD consequence and urban shielding analysis & Environmental exposure rather than gamma--fragment layer optimization \\
+Nahool et al. \cite{Nahool2024GammaML} & ML prediction of gamma attenuation coefficients & Material-property emulation rather than a coupled protective-system decision \\
+Larsen et al. \cite{Larsen2024Shielding} & Surrogate-assisted reactor shielding optimization & Dose, mass, and cost without the present fragment-response model \\
+Knowles \cite{Knowles2006ParEGO} & Sequential surrogate-assisted multi-objective search & Adaptive expensive evaluations rather than a frozen offline surrogate \\
+Chugh et al. \cite{Chugh2018KRVEA} & Uncertainty-aware Kriging model management & Many-objective algorithm development, not this shielding case study \\
+Lei et al. \cite{Lei2018Conformal} & Distribution-free predictive inference & Marginal calibration rather than a physical safety certificate \\
+Romano et al. \cite{Romano2019CQR} & Conformalized quantile regression & Locally adaptive intervals, unlike the constant margin used here \\
+Tibshirani et al. \cite{Tibshirani2019Shift} & Weighted conformal under covariate shift & Additional density-ratio information and assumptions are required \\
+Present study & Shared gamma--FSP design variables, response-specific learning, solver re-evaluation & Integration and case-study evidence, not a new regressor or proof of universal safety \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The comparison identifies a practical role for uncertainty while delimiting its claims. Split conformal prediction calibrates a residual-based interval under exchangeability \cite{Vovk2005Conformal,Lei2018Conformal}. A constant interval width can be carried into feasibility as a data-derived additive margin. It is not design-dependent uncertainty. Conformalized quantile regression and weighted conformal inference address different aspects of heterogeneity and distribution shift \cite{Romano2019CQR,Tibshirani2019Shift}. In design problems, the learned predictor can itself determine the evaluation distribution, creating the feedback dependence studied by Fannjiang et al. \cite{Fannjiang2022Design}. Those methods require their own assumptions and evaluation protocol rather than merely a change in terminology.
+
+\subsection{Study objectives and contribution}
+Against this background, the study evaluates three propositions. First, physics-guided feature engineering should improve prediction relative to competitive RAW models, not only relative to an unsuitable linear baseline. Second, the decision value of a calibrated penetration margin must be assessed from the candidates it actually excludes. Third, optimized designs should be compared with the original design set using regenerated solver evaluations, rather than surrogate predictions alone. These objectives are evaluated through representation benchmarks, threshold diagnostics, and high-fidelity re-evaluation, respectively.
+
+The contribution is therefore a traceable engineering integration: a shared seven-layer design space, separate transport and impact labels, response-specific surrogate calibration, multi-objective search, and numerical re-evaluation of pre-specified candidates. The study also reports where that integration falls short. The 60 mm penetration constraint is nonbinding in the observed search, the dose interval loses coverage on optimized designs, and solver agreement is assessed within the specified numerical models. These findings define the useful scope of an uncertainty-aware workflow more precisely than a claim that uncertainty necessarily improved every design decision.
+
+\section{Materials and methods}
+\subsection{Workflow and design variables}
+The analysis proceeds through five phases: constrained design generation, solver campaigns, surrogate development, optimization, and independent solver re-evaluation. Figure~\ref{fig:framework} introduces this sequence before the phase-specific details. The final models and selected designs were frozen before the re-evaluation, and the analyses added during manuscript revision are identified separately.
+\begin{figure}[H]\centering
+\includegraphics[width=\linewidth]{revision_20261012/framework.pdf}
+\caption{Five-phase computational workflow. Training-CV ranking, residual calibration, and test evaluation have distinct data roles. The final 30 designs are re-evaluated without updating the operational models. Post-review diagnostics analyze the archived evidence rather than changing the physical scenario.}\label{fig:framework}
+\end{figure}
+The workflow separates prediction from numerical verification. MCNP6.3 and LS-DYNA supply reference calculations, while the surrogates permit repeated design evaluations. Their shared input is $x=(\pi,\boldsymbol t)$, where $\pi\in S_7$ is a permutation of seven materials and $t_i$ is the radial thickness of layer $i$, counted from the inner to the outer surface. The declared optimization is
+\begin{align}
+\min_{\pi,\boldsymbol t}\quad &\bigl[\widehat D(x),M(x),C(x)\bigr],\label{eq:optimization}\\
+\text{subject to}\quad &\widehat p(x)+q_p\leq P_{\max}=60\ \mathrm{mm},\label{eq:ballistic_constraint}\\
+&\sum_{i=1}^{7}t_i=6\ \mathrm{cm},\quad 0.2\leq t_i\leq2.0\ \mathrm{cm},\quad\pi\in S_7.\nonumber
+\end{align}
+Mass is an objective, not a mass constraint. The dose objective is its point prediction, whereas penetration has an explicit uncertainty allowance. This asymmetry is a declared design choice, not a claim that the dose is uncertainty-free.
+
+The geometry is a semicylindrical shell with inner and outer radii of 35 and 41 cm and a height of 70 cm. Its inner and outer curved areas are approximately 0.770 and 0.902 m$^2$. Figure~\ref{fig:geometry} shows the numerical coordinate convention. The source and FSP are on the outer side, and the detector is inside the protected region.
+\begin{figure}[H]\centering
+\includegraphics[width=.95\linewidth]{revision_20261012/geometry.pdf}
+\caption{Technical schematic derived from the input geometry. The plan view preserves relative radial dimensions and the 241 cm source-center coordinate. The FSP inset is enlarged for readability. The source is not a blast model, and the detector is not an anatomical phantom.}\label{fig:geometry}
+\end{figure}
+The schematic clarifies two modeling boundaries. Transport and impact are coupled through design variables, not through simultaneous radiation--mechanics field coupling. In addition, the barrier envelope is fixed. The study optimizes its layer arrangement and thickness allocation rather than its overall size or deployment mechanism.
+
+\subsection{Material library, sampling, mass, and cost}
+The fixed library contains SiC, UHMWPE, Al, Fe, B4C-HDPE, W-epoxy, and Bi$_2$O$_3$-HDPE, each used once. The library represents a prescribed multifunctional architecture, not an unrestricted material-selection optimum. In particular, a gamma-only calculation cannot demonstrate a neutron-protection benefit for B4C. Polymeric and ceramic constituents remain in the library because the architecture is also evaluated mechanically. Their inclusion is a constraint to be examined in future material-library studies, not a demonstrated necessity for gamma shielding.
+
+The archived Phase 1 generator samples distinct material permutations and uses $\boldsymbol t=0.2+4.6\boldsymbol w$ cm with $\boldsymbol w\sim\mathrm{Dirichlet}(1,\ldots,1)$ when the upper bounds are met. An iterative bounded-allocation fallback is present when a Dirichlet proposal is rejected. The exported thicknesses are rounded and sum-corrected. Thus, despite a legacy filename referring to LHS, the implemented design generation is not Latin hypercube or Sobol sampling. The fallback and export correction also mean that uniformity over the final bounded simplex should not be presumed. The archived design identifiers and realized thicknesses, rather than the legacy filename, define the actual dataset.
+
+For this realized geometry, each layer mass is calculated as
+\begin{equation}
+m_i=10^{-3}\rho_{\pi_i}\frac{\pi h}{2}(r_i^2-r_{i-1}^2),\qquad
+M=\sum_i m_i,\qquad C=\sum_i c_{\pi_i}m_i,\label{eq:mass}
+\end{equation}
+where radii and height are in centimeters, density is in g cm$^{-3}$, and mass is in kilograms. Table~\ref{tab:materials} specifies the accounting coefficients. Costs are a fixed comparative index per kilogram, not current market quotations, installed-system costs, or an affordability assessment.
+\begin{table}[H]\centering\small
+\caption{Frozen material coefficients used in optimization accounting and mechanical feature engineering. $S$ denotes a constitutive strength proxy, not a common failure stress.}\label{tab:materials}
+\begin{tabular}{@{}lrrrr@{}}\toprule
+Material & $\rho$ (g cm$^{-3}$) & $c$ (index kg$^{-1}$) & $S$ (GPa) & $G$ (GPa)\\\midrule
+SiC &3.210&0.900&11.700&193.000\\
+UHMWPE &0.960&1.330&0.320&8.398\\
+Al &2.700&3.380&0.324&26.316\\
+Fe &7.870&0.460&0.792&79.457\\
+B4C-HDPE &1.428&6.1335&0.0239&0.4257\\
+W-epoxy &4.6433&196.588&0.0942&3.8462\\
+Bi$_2$O$_3$-HDPE &2.5566&15.590&0.0200&0.5435\\\bottomrule
+\end{tabular}\end{table}
+The coefficients explain why cost is not interchangeable with mass. W-epoxy has a much larger assigned cost coefficient than Fe, so two similar-mass configurations need not have similar costs. Small precision differences also exist between mixture-derived accounting densities and rounded solver densities. The comparisons below consistently recompute mass and cost with the same Phase 4 accounting model for both the DoE and optimized designs.
+
+\subsection{Reference simulations and acceptance records}
+The reference calculations hold the source and impact conditions fixed while changing the layer design. Table~\ref{tab:physical} specifies the main parameters extracted from the actual input and pre-run audit. Full keyword and transport inputs remain necessary to reproduce constitutive coefficients, material compositions, and numerical controls.
+\begin{table}[H]\centering\small
+\caption{Numerical scenario and solver specification. Values describe the evaluated numerical models.}\label{tab:physical}
+\begin{tabular}{@{}p{.27\linewidth}p{.66\linewidth}@{}}\toprule
+Component & Specification\\\midrule
+MCNP source & $^{60}$Co, $3.7\times10^{12}$ Bq, two equally probable photon lines at 1.1732 and 1.3325 MeV. Isotropic cylindrical volumetric source of radius 1 cm and height 2 cm centered at $(241,0,125)$ cm.\\
+Transport and detector & MCNP6.3, MODE P. F4:P in cell 20, an air cylinder of radius 5 cm and height 10 cm centered at $(0,0,125)$ cm. Source center to outer surface: 200 cm along the central axis. Cell importances 1 inside and 0 outside the enclosing sphere. No additional variance-reduction scheme is specified.\\
+Dose response & DE4/DF4 photon fluence-to-effective-dose coefficients for ICRP-116 AP irradiation, in pSv cm$^2$. FM4=$3.7\times10^{12}\times2\times10^{-9}=7400$. The resulting mSv s$^{-1}$ is multiplied by 300 s. $10^8$ histories per case.\\
+FSP & Steel cube, edge 5.19407 mm, mass 1.1 g, speed 650 m s$^{-1}$ along $-x$, kinetic energy 232.375 J, initial surface gap 10 mm. Central normal incidence onto outer layer 7.\\
+LS-DYNA mesh & 17,472 shield solids plus one FSP solid, 19,853 nodes. Two radial elements per layer. Local angular step $0.5^{\circ}$ and vertical step 5 mm near impact. Fully integrated solid formulation ELFORM=$-2$.\\
+Constitutive models & Johnson--Cook for FSP, Al, and Fe with Gr\"uneisen EOS. Johnson--Holmquist ceramics for SiC. Plastic kinematic law for the four polymer/composite materials.\\
+Erosion and contact & Maximum-principal-strain erosion thresholds 0.30, 0.235, 0.020, and 0.250 for UHMWPE, B4C-HDPE, W-epoxy, and Bi$_2$O$_3$-HDPE. Seven eroding surface-to-surface FSP/layer contacts, SOFT=2 in Phase 5, zero friction coefficients.\\
+Time controls & Nominal terminal time 0.30 ms, timestep factor 0.80, no mass scaling. ASCII output interval 0.0005 ms. Two targeted 0.60 ms continuations are reported separately.\\\bottomrule
+\end{tabular}\end{table}
+The specification makes the response interpretation explicit. The detector tally folded with AP coefficients is the declared effective-dose estimate, not a direct organ-dose calculation in a human phantom. Likewise, the one-element cubical FSP is a controlled numerical threat representation. Mesh convergence has not been demonstrated by the present dataset. LS-DYNA therefore serves as a numerical reference model, not a final physical authority \cite{Kulesza2022MCNP63,Hallquist2006,JohnsonCook1983,JohnsonHolmquist1994}.
+
+The final radiological dataset contains 2,000 completed DE/DF calculations. Earlier transport files and response definitions were superseded during campaign development, including input-format normalization and replacement of the previous constant response multiplier with the stated energy-dependent AP response. Only the final DE/DF campaign supplies labels here. Completion, requested history count, presence of the prescribed tally, numerical relative error, and input hashes were audited. Passing this computational gate is distinct from passing all ten tally fluctuation-chart diagnostics, which are enumerated in the results.
+
+The ballistic dataset contains 1,996 accepted labels and four documented exclusions. The master retains original and recovered sources rather than constituting 2,000 uniformly rerun cases. Recovery-stage contact or terminal-time changes must therefore remain identifiable through provenance. No new LS-DYNA calculation or label change was made for the present manuscript revision. The maximum penetration is the largest inward advance of the recorded FSP front relative to the 410 mm outer surface over the recorded time horizon. It is not clipped to 60 mm, and an unresolved time history must not be interpreted as demonstrated arrest.
+
+The excluded identifiers are 733, 832, 1277, and 1567. Their recorded maximum absolute energy-ratio deviations are 30.65\%, 13.39\%, 13.26\%, and 6.98\%, respectively, exceeding the recorded 5\% gate. All four have an outer Al layer only 2.61--2.89 mm thick. This common design characteristic makes missingness potentially informative. Their mechanical outputs are excluded, but their valid MCNP outputs remain usable. Artificially assigning 60 mm would be a hypothetical stress test, not a recovered observation. The supplement retains the four designs and quality flags to make this limitation inspectable.
+
+\subsection{Representations, tuning, and uncertainty calibration}
+Three representations are distinguished. RAW contains seven categorical material identities and seven thicknesses. PHYSICS adds deterministic radiation, density, spatial, and interface descriptors. PHYSICS-S23 augments PHYSICS with 23 constitutive-property descriptors for penetration only. The term physics-guided refers to input feature engineering, not to a physics-informed neural network, a governing-equation residual loss, or use of solver outputs as features. Table~\ref{tab:features} defines the groups.
+\begin{table}[H]\centering\small
+\caption{Representation inventory. Layer indices increase from the operator side to the impact side. All descriptors are available before simulation.}\label{tab:features}
+\begin{tabular}{@{}p{.24\linewidth}p{.47\linewidth}p{.21\linewidth}@{}}\toprule
+Group & Definition & Role\\\midrule
+RAW & $(\pi_i,t_i)$, $i=1,\ldots,7$ & Identity and geometry\\
+PHYSICS layerwise & $\rho_i,\mu_i,Z_{\mathrm{eff},i},\rho_it_i,\mu_it_i$ & Fixed material proxies\\
+PHYSICS aggregate & $\sum_i\mu_it_i$, $\exp(-\sum_i\mu_it_i)$, areal density, high-/low-$Z$ thickness, weighted atomic-number proxies & Transport-informed structure\\
+PHYSICS spatial & Radial moments and centroids, face properties, thickness statistics, adjacent density and thickness contrasts & Position and interfaces\\
+S23 strength values (7) & $S_i$, using HEL for SiC, Johnson--Cook $A$ for Al/Fe, and yield stress for MAT\_003 materials & Not equivalent failure laws\\
+S23 strength--thickness (7) & $S_it_i$ & Layer allocation\\
+S23 total (1) & $\sum_i S_it_i$ & Aggregate proxy\\
+S23 centroid (1) & $\sum_i S_it_i\xi_i/\sum_i S_it_i$, $\xi_i=(\sum_{j\leq i}t_j-t_i/2)/6$ & Normalized depth\\
+S23 jumps (6) & $|S_{i+1}-S_i|$ & Constitutive contrasts\\
+S23 compliance (1) & $\sum_i t_i/G_i$ & Series shear proxy\\\bottomrule
+\end{tabular}\end{table}
+The table distinguishes descriptor count from total model dimensionality. S23 contributes 23 extra mechanical variables to PHYSICS, rather than replacing all inputs with 23 variables. Its constituent strengths come from different constitutive families and should not be interpreted as mutually interchangeable failure stresses. Their value is empirical predictive structure under the frozen model. Earlier feature ablations and sequence-model screening used the training partition, and therefore belong to model development rather than independent validation.
+
+The two response datasets were split by configuration identifier into approximately 70\% training, 15\% calibration, and 15\% test data. Dose uses 1,400/300/300 cases and penetration 1,396/300/300. Nearby but nonidentical designs may occur across partitions. Seven algorithms were evaluated: Ridge, Random Forest, Extra Trees, Gradient Boosting, Histogram Gradient Boosting (HistGB), MLP, and XGBoost. Two dose representations and three penetration representations yield 35 candidate pipelines. Preprocessing is fitted inside each pipeline. RandomizedSearchCV ranks candidates by negative RMSE using five shuffled training folds with seed 42, 20 parameter combinations where available, and eight for Ridge. The supplement reports the optimized settings and all candidate results.
+
+Importantly, the reported training-CV scores reuse the model-development folds for tuning and ranking. They are not nested-CV estimates and can be optimistic after hyperparameter and representation selection. Calibration and test labels did not select the operational model. XGBoost is retained as the lowest-CV-RMSE penetration candidate, not as a statistically established superior algorithm. The final test assesses the frozen choice, conditional on this single split. Bootstrap intervals below resample test observations with the model fixed and do not estimate variability from repeating the whole development procedure.
+
+For calibration, the score is $s_j=|y_j-\widehat y_j|$. The usual finite-sample split-conformal rank is
+\begin{equation}
+k=\lceil(n_{\mathrm{cal}}+1)(1-\alpha)\rceil,\qquad q=s_{(k)},\qquad\alpha=0.05.\label{eq:conformal}
+\end{equation}
+The archived implementation uses NumPy's higher-quantile interpolation at level $k/n_{\mathrm{cal}}$. At $n_{\mathrm{cal}}=300$, this selects rank 287 rather than 286, producing a slightly more conservative width. The frozen values, 0.109138 mSv and 3.933441 mm, are retained to reproduce the optimization. The corresponding rank-286 values would be 0.108037 mSv and 3.909907 mm. This implementation detail is recorded rather than silently changing the calibration after validation.
+
+The nonnegative prediction interval is $[\max(0,\widehat y-q),\widehat y+q]$. Because the modeled responses are nonnegative, clipping the lower endpoint does not remove a physically admissible covered value. The penetration screen uses the upper endpoint of an absolute-residual, two-sided interval. It is conservative relative to calibrating only positive residuals, but remains a constant back-off: Eq.~\eqref{eq:ballistic_constraint} is exactly $\widehat p\leq56.066559$ mm. Marginal coverage under exchangeability does not imply conditional coverage at every penetration level or coverage for optimizer-selected configurations.
+
+\subsection{Optimization, selection, and post-review analyses}
+The in-project mixed-variable NSGA-II implementation uses a population of 300 for 200 generations in each of ten runs. Seeds are 42, 137, 233, 349, 457, 563, 677, 809, 929, and 1049. Permutations use order crossover and swap mutation, while thicknesses use bounded simulated-binary crossover and polynomial mutation followed by box--simplex projection and 0.001 cm resolution repair. Crossover probability is 0.9, swap probability 0.20, thickness mutation probability $1/7$, and crossover/mutation distribution indices 15 and 20. Feasibility tolerance is $10^{-9}$ mm. Metrics are recorded every five generations and checkpoints every 50. These budgets are declared computational choices, not proven sufficient for global convergence.
+
+Hypervolume uses fixed DoE-derived anchors in dose, mass, and cost units:
+\begin{align*}
+\boldsymbol z_{\mathrm{ideal}}&=(4.877620,107.616961,1806.158949),\\
+\boldsymbol z_{\mathrm{ref}}&=(9.360958,251.172670,17812.871711).
+\end{align*}
+The mean terminal-run result is the principal comparison. The union of ten runs is a secondary accumulated-search result. IGD and generalized spread use an empirical reference set, not the unknown true front. The 2,000-point DoE is a starting-design baseline and does not have the same evaluation budget as NSGA-II. The original campaign normalized and clipped objective coordinates to $[0,1]$. The additional equal-budget benchmark retains the same anchors but does not clip coordinates better than the DoE ideal. This prevents improvements beyond the initial design range from being artificially saturated. Its HV values must therefore be compared within the new benchmark, not directly with the archived clipped values.
+
+From the 1,530-point union, thirty candidates were selected by minimum dose, minimum mass, minimum cost, TOPSIS-IQR, and deterministic maximin coverage in normalized objective space. The local selection manifest is timestamped 2026-10-03 10:30:06 UTC and records the source-front SHA256. This is a pre-specified local selection, not external preregistration. All thirty regenerated MCNP and LS-DYNA cases are reported, without retaining only favorable agreements. Their 0.30 ms penetration labels remain the primary comparison. Two later 0.60 ms cases assess time sensitivity without replacing those labels.
+
+The manuscript revision adds read-only analyses of the archived results: best-RAW comparisons, conditional test bootstrap intervals, signed validation errors, objective correlations, finite-pool threshold sensitivity, solver-based dominance, and an audit of all ten MCNP diagnostics. Lightweight dose baselines and a diagnostic-filter sensitivity refit are explicitly post-review analyses. Their outcomes do not select a new operational surrogate or change the 60 mm design criterion. A finite-pool threshold filter is not a new optimization at that threshold.
+
+\subsection{Equal-budget optimizer benchmark and margin ablations}
+To test search strategy separately from surrogate accuracy, an additional protocol was fixed before its runs and executed after the original candidate validation. NSGA-II, NSGA-III, and independent random search with a bounded elitist archive were compared at the operational 60 mm limit with the frozen margin. NSGA-II was also run without the margin at 60 mm and with and without it at 15, 20, and 30 mm. The same ten seeds give 100 runs across ten conditions. Each run evaluates 300 initial designs and 200 batches of 300 new designs, totaling 60,300 evaluations. Initial populations are identical for matching seeds. The tighter limits are decision-threshold sensitivities, not new physical threats or certified acceptance criteria.
+
+The mixed-variable operators and repair remain unchanged. NSGA-III uses reference-direction survival from pymoo 0.6.1.5 \cite{Blank2020Pymoo}, with 300 Das--Dennis directions for three objectives and 23 partitions. Its mating tournaments compare constraint violation and break ties randomly. Random search draws new designs independently using the same permutation and constrained-Dirichlet sampler. Its archive retains at most 300 designs through nondominated sorting and crowding, without influencing subsequent draws. Thus, all methods share the evaluation budget and retention capacity. The random archive is not the complete nondominated set of all sampled designs.
+
+Final-population HV is the primary endpoint. IGD and generalized spread use a pooled empirical reference front formed separately for each threshold and margin rule. Their values should not be compared across different reference sets. Six paired HV contrasts were specified: NSGA-II against each alternative at 60 mm, and margin against point-only NSGA-II at each threshold. Two-sided Wilcoxon tests use Holm correction across these six contrasts. Paired bootstrap intervals use 10,000 resamples of the ten seeds. All models, source hashes, and run settings are frozen. No additional solver calculations or surrogate fitting are included in this benchmark.
+
+\section{Results}
+\subsection{Representation gains against competitive baselines}
+The comparison of representations changes when the best RAW learner replaces Ridge-RAW as the reference. Table~\ref{tab:bestmodels} reports the best model within each representation. The full 35-model benchmark and timing measurements are retained in Supplementary Information.
+\begin{table}[H]\centering\small
+\caption{Best training-CV result within each representation after tuning. These are development scores, not nested-CV estimates.}\label{tab:bestmodels}
+\begin{tabular}{@{}llrr@{}}\toprule
+Response/representation & Model & CV $R^2$ & CV RMSE\\\midrule
+Dose RAW & XGBoost &0.7909&0.3254 mSv\\
+Dose PHYSICS & Ridge &0.9932&0.0588 mSv\\
+Penetration RAW & HistGB &0.8296&2.9474 mm\\
+Penetration PHYSICS & Extra Trees &0.8303&2.9425 mm\\
+Penetration PHYSICS-S23 & XGBoost &0.8944&2.3153 mm\\\bottomrule
+\end{tabular}\end{table}
+Relative to the best RAW model, the RMSE reductions are 81.9\% for dose and 21.4\% for penetration. The earlier 91.7\% dose reduction applies only to the same-learner Ridge comparison and is not the principal baseline claim. Shared PHYSICS descriptors alone barely improve the best penetration result, whereas the constitutive additions produce a clearer gain. Figure~\ref{fig:representations} displays these comparisons on separate response scales.
+\begin{figure}[H]\centering
+\includegraphics[width=\linewidth]{revision_20261012/best_raw_vs_physics.pdf}
+\caption{Best tuned learner within each input representation. Separate units prevent misleading direct comparison of dose and penetration error.}\label{fig:representations}
+\end{figure}
+The pattern supports feature engineering as a response-specific intervention, rather than a universal benefit of adding inputs. For dose, a post-review log-linear Beer--Lambert proxy, $\log D=a+b\sum_i\mu_it_i$, achieves training-CV RMSE 0.1714 mSv. An affine fit to $\exp(-\sum_i\mu_it_i)$ achieves 0.1706 mSv. RAW Ridge with a log-dose target remains near 0.7101 mSv at its best inspected penalty. These simple baselines do not include a full buildup or angular transport model. They show that the final representation contains useful structure beyond a single optical-thickness scalar, but do not prove superiority to every analytical shielding approximation.
+
+For penetration, XGBoost and HistGB with PHYSICS-S23 have mean CV RMSEs of 2.3153 and 2.3328 mm. Their paired fold differences, XGBoost minus HistGB, are $0.0083$, $0.0114$, $-0.0374$, $-0.0818$, and $0.0124$ mm. The small mean advantage of 0.0174 mm does not establish a statistically robust algorithm ranking, particularly because these folds also served tuning. The frozen XGBoost remains an operational choice, not evidence that HistGB is inferior in the population.
+
+\subsection{Test uncertainty, Monte Carlo diagnostics, and ballistic missingness}
+Independent of development ranking, Table~\ref{tab:test} reports the frozen models on their original 300-case test sets. The 95\% intervals for performance metrics are percentile bootstrap intervals from 5,000 resamples, conditional on the fitted model and selected split.
+\begin{table}[H]\centering\small
+\caption{Test performance and conditional bootstrap intervals. Dose errors are in mSv and penetration errors in mm.}\label{tab:test}
+\begin{tabular}{@{}lcc@{}}\toprule
+Metric & Dose & Penetration\\\midrule
+$R^2$ &0.9939 [0.9925, 0.9950]&0.8861 [0.8353, 0.9288]\\
+MAE &0.0462 [0.0423, 0.0501]&1.1865 [0.9724, 1.4213]\\
+RMSE &0.0573 [0.0528, 0.0619]&2.3065 [1.7590, 2.8466]\\
+Conformal half-width &0.109138&3.933441\\
+Empirical interval coverage &283/300 (94.3\%)&280/300 (93.3\%)\\\bottomrule
+\end{tabular}\end{table}
+The wider penetration metric intervals reflect a heavier error tail. In the highest observed penetration quartile, 14.304--36.522 mm, test RMSE rises to 4.1047 mm and interval coverage falls to 59/75 (78.7\%). Lower-quartile coverages are 98.7\%, 97.3\%, and 98.7\%. Thus, reasonable marginal coverage does not establish reliability in the upper tail. The supplement reports all response-bin results instead of treating the average as a uniform guarantee.
+
+For dose, the test-set RMS of the reported MCNP standard-error estimates, $\sigma_j=D_jR_j$, is 0.08595 mSv, compared with surrogate RMSE 0.05730 mSv. This comparison cannot be interpreted as independent noise-floor removal. The campaign reuses the recorded random-number seed, and transport errors across designs need not be independent. The MCNP error estimates also describe tally sampling, not uncertainty in source activity, geometry, or material composition. The surrogate metric measures agreement with these numerical labels.
+
+The audit of all 2,000 actual MCNP outputs found 43 distinct cases with at least one failed tally diagnostic. Eleven failed the mean-behavior check and 36 failed the figure-of-merit behavior check, with four overlapping cases. No failures were found in the remaining eight checks, and all ten outcomes were parsed in every output. Final DoE relative errors range from 1.12\% to 1.53\%. This replaces the inconsistent earlier range and distinguishes computational completion from 10/10 statistical acceptance.
+
+A post-review sensitivity fit removes the 32 affected cases within the training partition, retains the frozen Ridge hyperparameters, and evaluates the unchanged test set. RMSE changes from 0.05730 to 0.05753 mSv and MAE from 0.04616 to 0.04637 mSv. This limited sensitivity does not support a material prediction benefit from deleting those cases, but neither makes MCNP diagnostics dispensable nor validates the noise assumptions. It is not a newly selected final model. For the four excluded LS-DYNA cases, the concentration in thin outer-Al configurations remains an unresolved missingness concern, even though their surrogate predictions are only 3.93--16.44 mm. Predictions cannot validate missing labels.
+
+\subsection{Optimization outcome and the role of the margin}
+The ten NSGA-II runs achieved mean terminal normalized hypervolume $0.724699\pm0.002489$, compared with the surrogate-evaluated DoE value 0.685769. The relative mean-run gain is 5.68\%. Median and IQR are 0.725155 and 0.002518, respectively. Their similarity to the SD after rounding is coincidental, not a duplicated statistic. The accumulated union reaches 0.7446, an 8.6\% gain, and contains 1,530 nondominated designs. This is a union across ten 300-member populations, not a single terminal population larger than its prescribed size.
+
+The archived trajectories show 100\% feasibility throughout recorded generations. Maximum predicted penetration is 38.315 mm in the DoE and 21.568 mm in the retained union, both below 56.067 mm. Therefore, no DoE or union design is removed by adding the frozen margin at 60 mm. Table~\ref{tab:threshold} examines the same fixed candidate pools at hypothetical tighter thresholds. The physical scenario and operational criterion are unchanged.
+\begin{table}[H]\centering\small
+\caption{Post-review fixed-pool threshold sensitivity. Entries give point-feasible / margin-feasible counts. These are filtering diagnostics, not re-optimized Pareto fronts.}\label{tab:threshold}
+\begin{tabular}{@{}rrr@{}}\toprule
+Hypothetical limit (mm)&DoE ($n=2000$)&Retained union ($n=1530$)\\\midrule
+15&1576 / 1281&1478 / 1466\\
+20&1830 / 1635&1525 / 1478\\
+30&1980 / 1947&1530 / 1530\\
+60 (operational)&2000 / 2000&1530 / 1530\\\bottomrule
+\end{tabular}\end{table}
+The counts demonstrate when the same back-off could affect eligibility. At 20 mm, it removes 195 otherwise point-feasible DoE designs and 47 retained-union designs. They do not demonstrate that the original 60 mm optimization avoided unsafe solutions or that re-optimization at 20 mm would yield the filtered set. The paired re-optimization ablations reported below address the latter distinction. Newly generated near-boundary candidates have not been re-evaluated in the solvers. Mean IGD and generalized spread relative to the empirical union are 0.0271 and 0.5670, respectively, with SDs 0.0015 and 0.0307. These describe the archived fronts rather than establishing superiority over an equal-budget alternative.
+
+\subsection{Equal-budget search performance and margin ablations}
+Against this controlled budget, the relative ranking differs from a comparison with the initial DoE alone. Table~\ref{tab:optimizer_benchmark} reports mean and sample SD over ten runs at 60 mm with the frozen margin. Higher HV and lower IGD indicate better objective-space approximation, while generalized spread measures distribution and extreme-point coverage relative to the empirical reference.
+\begin{table}[H]
+\centering\small
+\caption{Equal-budget results at 60 mm. Each run uses 60,300 evaluations and a 300-design population or bounded archive. All metrics are computed on frozen surrogate predictions.}\label{tab:optimizer_benchmark}
+\setlength{\tabcolsep}{5pt}
+\begin{tabular}{lccc}
+\toprule
+Method & HV $\uparrow$ & IGD $\downarrow$ & Generalized spread $\downarrow$ \\
+\midrule
+NSGA-II & $0.75255\pm0.00264$ & $0.03513\pm0.00115$ & $0.54613\pm0.02576$ \\
+NSGA-III & $0.76192\pm0.00331$ & $0.03175\pm0.00319$ & $0.51964\pm0.03663$ \\
+Random archive & $0.72085\pm0.00257$ & $0.04392\pm0.00161$ & $0.39227\pm0.02064$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+The NSGA-II mean HV exceeds the random archive by 4.40\%, whereas NSGA-III exceeds NSGA-II by 1.24\%. Both paired comparisons yield Holm-adjusted $p=0.01172$. The mean NSGA-II-minus-random difference is 0.03170, with a paired-bootstrap 95\% interval of [0.02945, 0.03356]. The NSGA-II-minus-NSGA-III difference is $-0.00937$, with interval [$-0.01199$, $-0.00689$]. NSGA-III also has lower mean IGD than NSGA-II, although IGD was a secondary descriptive endpoint. The random archive has the lowest generalized spread but the worst HV and IGD. Its more even spacing therefore does not imply closer approximation to the empirical front.
+
+These terminal metrics are complemented by the trajectories in Fig.~\ref{fig:equal_budget}. The curves use the same evaluation count and HV normalization across methods, so their separation cannot be attributed to additional evaluations in one arm.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.94\linewidth]{revision_20261014/equal_budget_convergence.pdf}
+\caption{Equal-budget convergence at the 60 mm limit with the frozen margin. Lines show mean HV over ten seeds, and shading shows the observed minimum--maximum range, not a confidence interval. RANDOM\_ARCHIVE denotes independent sampling with a bounded elitist archive.}\label{fig:equal_budget}
+\end{figure}
+The trajectories show performance within the declared budget rather than proving convergence to a global front. The initial populations are paired across methods, and terminal comparisons summarize all ten runs rather than the most favorable trajectory. Neither these curves nor the improved NSGA-III HV add solver-based evidence for its newly generated designs.
+
+The effect of the constant margin is a separate question from algorithm ranking. Table~\ref{tab:margin_ablation} reports the paired NSGA-II results. Rejection counts apply the margin retrospectively to point-only terminal fronts and aggregate run-level memberships, not necessarily unique designs across seeds.
+\begin{table}[H]
+\centering\small
+\caption{NSGA-II threshold ablations over ten paired seeds. $\Delta$HV is margin minus point-only mean HV. Rejected members satisfy the point rule but fail the margin rule.}\label{tab:margin_ablation}
+\begin{tabular}{rrrrr}
+\toprule
+Limit (mm) & Point HV & Margin HV & $\Delta$HV & Rejected / 3,000 \\
+\midrule
+15 & 0.752809 & 0.752676 & $-0.000133$ & 62 \\
+20 & 0.751459 & 0.751933 & $+0.000475$ & 87 \\
+30 & 0.752972 & 0.750326 & $-0.002645$ & 2 \\
+60 & 0.752552 & 0.752552 & 0 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+At 60 mm, the paired terminal design sets are identical in all ten seeds. At 15, 20, and 30 mm, the corresponding design-set Jaccard indices are zero, but objective-space performance remains similar. Small changes in feasibility can redirect a stochastic search without producing a meaningful performance advantage. The Holm-adjusted HV $p$ values are 1.000, 1.000, 0.2578, and 1.000 for 15, 20, 30, and 60 mm, respectively. The unadjusted bootstrap interval at 30 mm excludes zero, but the prespecified multiplicity-adjusted test does not. These results neither establish equivalence nor demonstrate a safety improvement. The supplement provides all contrasts, per-run metrics, and timing records.
+
+\subsection{Solver re-evaluation and objective-space improvement}
+The solver-based comparison replaces predicted dose with the MCNP dose for both the accepted DoE and the thirty candidates, while retaining the same deterministic mass/cost functions. Figure~\ref{fig:hf} shows this comparison alongside the ten convergence histories. All 1,996 eligible DoE designs and thirty candidate labels remain in the analysis.
+\begin{figure}[H]\centering
+\includegraphics[width=\linewidth]{revision_20261012/hf_dominance_and_convergence.pdf}
+\caption{Left: MCNP dose versus deterministic mass for the DoE and thirty re-evaluated designs. Nondominance is calculated in dose--mass--cost space, not solely in this two-dimensional projection. Right: normalized hypervolume trajectories for ten NSGA-II runs under frozen surrogate models and fixed anchors.}\label{fig:hf}
+\end{figure}
+The three-objective DoE front contains 295 designs. None of the thirty re-evaluated candidates is dominated by the DoE, and 29 remain nondominated in the combined set. Collectively, the thirty candidates dominate 73 of the 295 original front members. This is evidence of numerical objective-space improvement beyond the initial design set. Dominance uses point tally estimates, so small separations remain subject to Monte Carlo uncertainty. It is not proof of global optimality.
+
+The same re-evaluation exposes a directional dose error. Table~\ref{tab:validation} summarizes all thirty comparisons using signed error $e=y_{\mathrm{solver}}-\widehat y$. Relative MCNP errors in this set range from 1.14\% to 1.62\%, distinct from the DoE range.
+\begin{table}[H]\centering\small
+\caption{All thirty pre-specified solver re-evaluations. Coverage is descriptive for this purposively selected set.}\label{tab:validation}
+\begin{tabular}{@{}lrr@{}}\toprule
+Metric&Dose (mSv)&Penetration (mm)\\\midrule
+Signed mean error&+0.08023&$-0.02915$\\
+MAE&0.08832&0.80935\\
+RMSE&0.10297&1.29976\\
+Positive signed errors&28/30&13/30\\
+Within frozen interval&21/30&29/30\\
+Largest solver response&8.94621&18.485\\\bottomrule
+\end{tabular}\end{table}
+The dose MAE is 1.91 times its held-out-test value and the underprediction is systematic across this selection. The mean reported MCNP standard error is 0.08314 mSv. Normalizing each signed dose error by its MCNP standard error gives mean 1.02, with five absolute normalized errors above 1.96. These are MC-error-scaled diagnostics, not standard-normal tests of the full surrogate error, because they exclude predictive uncertainty and cross-design error dependence. They do not establish a unique cause for the bias.
+
+The optimized designs also differ from the DoE in observable ways. Defining a boundary design as one with any layer at or below 0.25 cm or at or above 1.95 cm, boundary fractions are 35.35\% for the DoE, 88.43\% for the retained union, and 83.33\% for the validation set. Only eight validation permutations were seen in the DoE. These descriptive shifts are consistent with a more challenging optimizer-selected distribution, but do not causally separate distribution shift, optimizer selection bias, omitted physics, and tally error. Figure~\ref{fig:validation} displays the original intervals and all solver values.
+\begin{figure}[H]\centering
+\includegraphics[width=\linewidth]{revision_20261012/validation_intervals.pdf}
+\caption{Frozen surrogate intervals and solver re-evaluations for all thirty designs. Lower endpoints are clipped at zero. The 60 mm penetration criterion lies above the plotted range, whose largest observed penetration is 18.485 mm.}\label{fig:validation}
+\end{figure}
+The figure makes the asymmetry visible: dose underprediction is frequent, whereas penetration errors have little net signed bias in this set. One penetration exceeds its predicted upper bound, even though all remain below the operational limit. Neither favorable physical feasibility nor the low average error removes that interval miss.
+
+Finally, the 0.60 ms sensitivity calculations for cases 9016 and 9026 yield maximum penetrations 3.961 and 4.042 mm. Case 9016 is still classified as advancing, with final mean velocity $-2.239$ m s$^{-1}$, while 9026 is classified as stopped. These two extensions do not establish time convergence for the other cases or ultimate arrest in every configuration. The reported primary response remains the maximum over the declared 0.30 ms observation window.
+
+\section{Discussion}
+\subsection{What the engineering integration establishes}
+The principal benefit of the workflow is not a new learning algorithm. It is the ability to compare two response models on the same geometry while preserving their different limitations. The strongest integration result is the solver-based improvement of the selected objective set: 73 DoE front members are dominated by at least one re-evaluated design. This result survives replacement of surrogate dose by MCNP dose. It therefore provides more direct support for the design workflow than the surrogate-space hypervolume gain alone.
+
+That improvement is nevertheless conditional on the material library, numerical scenario, and accounting coefficients. In the union, Spearman correlations are $-0.9953$ for dose versus mass, $-0.6763$ for dose versus cost, and $+0.6229$ for mass versus cost. The front is strongly organized by the dose--mass trade-off rather than equally independent variation in three objectives. Cost still distinguishes configurations, but the geometry of the objective set should not be described as evidence of three equally strong conflicts.
+
+Material-position frequencies offer a complementary engineering interpretation. W-epoxy occupies the inner layer in 78.2\% of union designs and never the outer layer. Bi$_2$O$_3$-HDPE occupies layer 2 in 68.1\%, while Fe and SiC occupy the outer layer in 37.9\% and 36.1\%, respectively. These are patterns of the frozen-model search, not causal design rules. In particular, their coexistence does not demonstrate that the nonbinding ballistic constraint caused those placements. The complete thirty material sequences and thickness allocations are provided in the supplement so that individual configurations can be inspected rather than inferred from an aggregate plot.
+
+The resulting masses, 95.15--256.21 kg, substantially narrow the application claim. They rule out wearable protection and make manual portability an unsupported characterization. Supported, wheeled, or vehicle-associated implementations are possible contexts for later engineering development, but were not designed or qualified here. A deployable system would require structural support, manufacturing, handling, ergonomics, and operational evidence beyond the optimization variables.
+
+\subsection{Uncertainty awareness without an unsupported safety claim}
+The fixed conformal allowance has an auditable statistical origin, but its mathematical role is a constant tightening of the limit. At 60 mm it did not change eligibility in the inspected DoE and retained fronts. The study thus demonstrates implementation and calibration of an uncertainty-aware screen, not a measured safety benefit from that screen. The tighter-threshold diagnostic shows that the margin can matter in other decision regimes, while leaving the current engineering requirement untouched.
+
+The dose results reveal why this distinction matters. A model with excellent random-test accuracy still underpredicts many optimizer-selected values, and 70\% interval coverage is materially below the nominal 95\%. Exchangeability-based calibration does not automatically transfer to adaptively selected designs. The boundary enrichment and unseen permutations identify a plausible distribution-change mechanism, but further data would be needed to isolate it. Locally adaptive conformal scores or weighted methods are reasonable future comparisons \cite{Romano2019CQR,Tibshirani2019Shift}. Retrospectively enlarging intervals to cover these thirty outcomes and then reporting them as independent validation would not be a valid solution.
+
+Penetration requires particular caution in its upper tail. The highest test quartile has substantially worse error and coverage than the aggregate score suggests, and four failed simulations share thin outer-Al layers. Together, these findings weaken any attempt to interpret an average $R^2$ or nominal interval as a near-perforation reliability certificate. The current evidence supports screening within the numerical domain and direct re-evaluation of candidates. It does not establish uncertainty in the constitutive laws, contact treatment, or real fragment spectrum.
+
+\subsection{Computational evidence and fair comparison}
+The archived inference benchmark records approximately 0.409 ms per case for PHYSICS/Ridge and 0.776 ms per case for PHYSICS-S23/XGBoost, measured as batch prediction time divided by 300 cases. The ten optimization runs total 9,814 s, or 2.73 h, on the recorded execution environment. These timings demonstrate a practical computational workflow. They are not single-query latencies or a controlled end-to-end speedup against direct solver optimization. Hardware, batch size, preprocessing, solver tasks, and caching would need to be matched for such a claim.
+
+The matched-budget benchmark separates improvement over the initial DoE from improvement attributable to search strategy. NSGA-II exceeds the random-search archive in HV, but NSGA-III improves HV further under the tested settings. This supports the modularity of the workflow rather than a claim that NSGA-II is its uniquely preferred optimizer. The result remains conditional on frozen surrogates and the declared operators, population, and budget. Importantly, the thirty solver-re-evaluated candidates came from the original NSGA-II campaign. Their agreement with the solvers cannot be transferred to the newly generated NSGA-III front. The benchmark did not retrospectively replace those candidates or select a favorable validation subset.
+
+For learning, the best-RAW and simple attenuation baselines establish that the dose gain is not merely a consequence of choosing Ridge as a weak comparator. The same evidence does not support a universal advantage of every PHYSICS feature or learner. The penetration improvement emerges mainly after adding constitutive proxies, and XGBoost's narrow CV advantage over HistGB should not be overinterpreted. Nested validation and repeated splits would estimate development variability more fully, but the existing single-split test must not be relabeled as such an experiment.
+
+\subsection{Numerical labels and physical validity}
+The MCNP diagnostic audit replaces a general defense of imperfect statistics with case-level evidence. Forty-three runs fail at least one fluctuation diagnostic, yet removing affected training labels barely changes the fixed-model sensitivity result. This supports transparency and targeted inspection rather than an automatic claim that all failed diagnostics invalidate learning. It also does not excuse unresolved transport definitions. The AP conversion, source activity, material composition conventions, and detector geometry remain assumptions of the numerical reference.
+
+On the impact side, normal termination and a satisfactory energy ratio are computational acceptance checks rather than a complete assessment of model adequacy. Finite observation time, a one-element projectile, constitutive assumptions, and recovery provenance limit the physical interpretation. The two longer runs add useful time-history evidence without establishing mesh or temporal convergence for the campaign. A targeted refinement check for case 9012 was also diagnostically inconclusive: refining the shield alone exceeded the pre-specified 5\% energy-deviation gate, whereas refining the FSP alone triggered early negative-volume erosion and a 47.6\% energy deviation. These post-campaign diagnostics neither replace the frozen campaign labels nor establish a mesh-independent response (Supplementary Table~S4). Consequently, optimized configurations should be treated as candidates for further numerical assessment, with conclusions confined to the modeled conditions.
+
+\section{Conclusions}
+The study supports a computational design workflow for a constrained gamma--fragment shielding problem, with five substantive conclusions.
+\begin{enumerate}
+\item Physics-guided inputs make the modeled dose response easier to learn even against the best tuned RAW model and simple attenuation baselines. The smaller ballistic gain and its high-error tail show that representation quality must be judged separately for each physical response.
+\item Optimizer-selected designs can expose errors that are not apparent in a random test. The positive dose bias and reduced coverage in the thirty re-evaluations make direct solver checks essential before relying on predicted improvements.
+\item The calibrated penetration allowance is a transparent constant back-off, but did not affect the inspected feasible set at the operational 60 mm limit. Its benefit cannot be inferred from successful implementation alone. Re-optimization at tighter thresholds changes selected designs and rejects some point-feasible front members, but does not establish a Holm-adjusted HV difference. Changes in design identity alone are not evidence of a safety gain.
+\item Equal-budget comparisons show that evolutionary search improves HV relative to the bounded random archive, while NSGA-III improves it further than NSGA-II under the tested settings. The framework therefore supports substitution of its optimizer, rather than depending on a unique algorithmic winner. This conclusion concerns surrogate-space search, not solver confirmation of the new front.
+\item Numerical re-evaluation supports improvement beyond the initial design set, while the observed mass range restricts the application to substantial supported barriers. The result is a set of computationally promising alternatives, not evidence of a wearable shield or a globally optimal design.
+\end{enumerate}
+These conclusions locate the contribution in the integration and audit of multifunctional design decisions. Extending the framework to other radiation fields, fragment conditions, material libraries, or deployment envelopes requires scenario-specific simulation, model development, and validation rather than direct transfer of the present uncertainty bounds.
+
+\section*{Limitations}
+The study has one development split, nonnested model-selection CV, and an offline constant-width conformal construction. The additional optimizer benchmark covers three specified search methods at one population and evaluation budget rather than an exhaustive or independently tuned algorithm comparison. Conditional bootstrap intervals and post-review sensitivity fits do not remove those limitations. The thirty candidates are purposively selected, and their interval coverage is descriptive rather than a population-level guarantee. Four missing ballistic labels, concentrated in thin outer-Al designs, may introduce design-dependent selection bias.
+
+The physical evidence is simulation-based. It does not include a mesh-convergence study or a broad terminal-time convergence study for the actual material stack and cubical FSP. The targeted case-9012 refinement diagnostic exposed sensitivity to the coupled shield--projectile discretization, contact, and erosion treatment, rather than a usable convergence sequence. Resolving that issue would require reformulating and independently revalidating the impact model before a new campaign, which is outside the scope of this frozen-model study. The retained labels combine documented campaign and recovery sources. Gamma-only transport with AP conversion, a fixed source activity, and a nonanatomical detector does not constitute full responder dosimetry. Blast, multiple fragments, manufacturing variability, neutron exposure, and operational deployment remain outside the scope. The cost coefficients are fixed comparative inputs rather than verified contemporary market prices.
+
+\section*{Data and code availability}
+The local reproducibility materials contain response-specific datasets and split identifiers, all 35 tuned-model summaries, feature definitions, optimization manifests, thirty solver comparisons, the 100-run equal-budget benchmark, and the scripts and CSV files for the present revision. Supplementary Information is supplied with this manuscript. Public deposition and any applicable institutional clearance remain author actions to complete before submission. No public DOI, external preregistration, or release approval is claimed here. This work forms part of the first author's doctoral research.
+
+\section*{CRediT authorship contribution statement}
+	
+	\textbf{Jo\~ao Vitor Mendes da Silva}: Conceptualization, Methodology,
+	Software, Formal analysis, Investigation, Data curation, Visualization,
+	Writing -- original draft.
+	
+	\textbf{Wallace Vallory Nunes}: Methodology, Validation, Visualization,
+	Writing -- review \& editing.
+	
+	\textbf{Marcos Paulo Cavaliere de Medeiros}: Supervision, Validation,
+	Writing -- review \& editing.
+	
+	\textbf{Inay\'a Corr\^ea Barbosa Lima}: Supervision, Validation,
+	Writing -- review \& editing.
+		
+	\section*{Declaration of competing interest}
+	The authors declare that they have no known competing financial interests or personal relationships that could have appeared to influence the work reported in this paper.
+
+	\section*{Funding}
+	This study was supported by the National Council for Scientific and Technological Development (CNPq), Brazil, through a doctoral scholarship (Process No. 140402/2023-3).
+	
+	\section*{Declaration of generative AI and AI-assisted technologies in the writing process}
+	During the preparation of this work, the authors used OpenAI's ChatGPT to improve English-language expression. After using this tool, the authors reviewed and edited the content as needed and take full responsibility for the content of the publication.
+	
+	\bibliographystyle{elsarticle-num}
+	\bibliography{references}
+	
+\end{document}

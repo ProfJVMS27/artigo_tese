@@ -1,0 +1,16 @@
+{
+  "abstract_words_whitespace": 214,
+  "manuscript3_EAAI": {
+    "pages": 34,
+    "sha256": "0429d2dd59f833bbcb4c2677a40c3366f78ef108d483c4bd5de834073f00be86",
+    "no_overfull_or_undefined": true
+  },
+  "supplementary_information": {
+    "pages": 15,
+    "sha256": "66c25712d6377f8baa777dfc04dec2032076b4241dc64f03177bd387d90017df",
+    "no_overfull_or_undefined": true
+  },
+  "checked_input_hashes": 12,
+  "CRediT_unchanged": true,
+  "MCNP_distinct_failed_cases": 43
+}

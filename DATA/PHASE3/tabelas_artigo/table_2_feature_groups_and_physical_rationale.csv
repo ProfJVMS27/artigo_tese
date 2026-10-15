@@ -1,0 +1,14 @@
+feature_group,feature,formula,physical_rationale
+Raw design variables,Layer material,"m_i, i=1,...,7",Discrete material sequence of the seven-layer shield.
+Raw design variables,Layer thickness,"t_i, i=1,...,7; sum(t_i)=6 cm",Allocated radial thickness at each ordered layer.
+Radiological physics,Layer attenuation descriptor,(mu/rho)_i rho_i t_i,Approximate layerwise photon attenuation at the Co-60 energy scale.
+Radiological physics,Total attenuation descriptor,sum_i mu_i t_i,Aggregate attenuation along the radial transport path.
+Radiological physics,Transmission proxy,exp[-sum_i(mu_i t_i)],"Beer-Lambert reference descriptor, not a replacement for MCNP transport."
+Radiological physics,Effective atomic-number descriptors,"sum_i Z_eff,i t_i / sum_i t_i",Captures material-composition variation relevant to photon interaction.
+Geometry and mass,Areal-density descriptors,rho_i t_i; sum_i(rho_i t_i),"Layerwise and total mass per unit area, retaining radial order."
+Geometry and mass,Face and radial-moment descriptors,"f(m_1,t_1,m_7,t_7); sum_i[w_i rho_i t_i]",Distinguishes operator-facing and impact/source-facing material placement.
+Geometry and mass,Thickness-distribution descriptors,"std(t), min(t), max(t), H(t)",Quantifies concentration and uniformity of the thickness allocation.
+Frozen ballistic mechanics,Layer areal strength,S_i t_i,Strength-thickness capacity using the frozen LS-DYNA strength reference.
+Frozen ballistic mechanics,Total and radial-centroid areal strength,sum_i(S_i t_i); sum_i[w_i S_i t_i]/sum_i(S_i t_i),Summarizes resistance magnitude and its location along the impact path.
+Frozen ballistic mechanics,Strength discontinuity at interfaces,abs(S_(i+1)-S_i),Represents ordered material mismatch at each of the six interfaces.
+Frozen ballistic mechanics,Serial shear compliance,sum_i(t_i/G_i),Proxy for through-thickness shear deformability from the frozen constitutive cards.

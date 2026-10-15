@@ -1,0 +1,58 @@
+{
+  "case": "BLINDAGEM_M1_FSP_ORIGINAL",
+  "peaks": {
+    "all_nodes": {
+      "node": 56170,
+      "time_ms": 0.029466663,
+      "x_mm": 406.343,
+      "penetration_mm": 3.6569999999999823,
+      "node_deletion_time": null,
+      "adjacent_elements": [
+        51409
+      ],
+      "adjacent_failure_times": {
+        "51409": null
+      }
+    },
+    "active_by_log": {
+      "node": 56170,
+      "time_ms": 0.029466663,
+      "x_mm": 406.343,
+      "penetration_mm": 3.6569999999999823,
+      "node_deletion_time": null,
+      "adjacent_elements": [
+        51409
+      ],
+      "adjacent_failure_times": {
+        "51409": null
+      }
+    }
+  },
+  "fsp_elements": 1,
+  "fsp_failed": {},
+  "fsp_negative_volume": {},
+  "fsp_deleted_nodes": {},
+  "energy_ratio_final": 1.07232,
+  "max_energy_deviation": 0.07374999999999998,
+  "sliding_energy_final_J": 2.72952,
+  "sliding_energy_min_J": -0.485789,
+  "final_fsp_matsum_excerpt": "             inten=   5.2574E+01     kinen=   1.5064E+01     eroded_ie=   0.0000E+00     eroded_ke=   0.0000E+00\n x-mom=   1.8158E-01     y-mom=   9.9315E-05     z-mom=   2.4287E-04\n x-rbv=   1.6508E+02     y-rbv=   9.0287E-02     z-rbv=   2.2079E-01\n                         hgeng=   0.0000E+00                             eroded_he=   0.0000E+00\n\n\n",
+  "files": {
+    "messag": {
+      "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\CONVERGENCIA_9012_ISOLADO\\BLINDAGEM_M1_FSP_ORIGINAL\\messag",
+      "sha256": "641dac6a772842eaf527cca05727347ebe53274c7855fa57cc9a10e56a826594"
+    },
+    "nodout": {
+      "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\CONVERGENCIA_9012_ISOLADO\\BLINDAGEM_M1_FSP_ORIGINAL\\nodout",
+      "sha256": "5d2a8ef80086e99323a29acfb4aeb22f029cb4e14ee33a02bbd7d03eb4d53c7e"
+    },
+    "glstat": {
+      "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\CONVERGENCIA_9012_ISOLADO\\BLINDAGEM_M1_FSP_ORIGINAL\\glstat",
+      "sha256": "648086c593c231afca956fae7852fa99f9923714e601471ca800f1b08799aa17"
+    },
+    "matsum": {
+      "path": "C:\\Users\\Admin\\Desktop\\Scripts Tese 1\\Fase 5\\CONVERGENCIA_9012_ISOLADO\\BLINDAGEM_M1_FSP_ORIGINAL\\matsum",
+      "sha256": "369bbe9254ea44542c94a6da29edb04cb9ff7e7b89498c339f822084188e303d"
+    }
+  }
+}
