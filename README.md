@@ -91,7 +91,7 @@ Para ver uma cópia desta licença, visite: [https://creativecommons.org/license
 
 ## 📧 Contato
 
-- **Autor:** [SEU NOME COMPLETO]
+- **Autor:** JOÃO VITOR MENDES DA SILVA
 - **Instituição:** COPPE/UFRJ — Programa de Engenharia Nuclear
-- **E-mail:** [SEU EMAIL]
-- **ORCID:** [SEU ORCID, se tiver]
+- **E-mail:** joaovitorsantiago27@gmail.com
+- **ORCID:** 0000-0001-7184-1120
