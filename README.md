@@ -1,5 +1,7 @@
 # Reproducibility package
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23387361.svg)](https://doi.org/10.5281/zenodo.23387361)
+
 This package accompanies the manuscript *Uncertainty-aware surrogate-assisted multi-objective design of hybrid ballistic-radiological shields for RDD response*.
 
 ## Scope
