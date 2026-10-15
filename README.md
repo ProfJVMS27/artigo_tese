@@ -45,3 +45,10 @@ Complete every item in `PROVENANCE/RELEASE_CHECKLIST.md`, particularly authorshi
 Se você utilizar este material, por favor cite:
 
 > **MENDES DA SILVA, João Vitor**. *Uncertainty-aware surrogate-assisted multi-objective design of hybrid ballistic-radiological shields for RDD response*. Pacote de reprodutibilidade. Tese de Doutorado em Engenharia Nuclear, COPPE/UFRJ, Rio de Janeiro, 2026. DOI: [10.5281/zenodo.23387361](https://doi.org/10.5281/zenodo.23387361)
+
+
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23387361.svg)](https://doi.org/10.5281/zenodo.23387361)
+
+**DOI (versão específica):** [10.5281/zenodo.23387361](https://doi.org/10.5281/zenodo.23387361)  
+**DOI (todas as versões):** [10.5281/zenodo.23387360](https://doi.org/10.5281/zenodo.23387360)
